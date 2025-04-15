@@ -11,7 +11,7 @@
     "chatgpt",
     "openai"
   ],
-  "author": "rizbud",
+  "author": "Aaron Woods",
   "license": "MIT",
   "devDependencies": {
     "@types/filesystem": "^0.0.36",

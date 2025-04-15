@@ -1,5 +1,5 @@
 import readline from "readline";
-import { launchBrowser } from "./core/puppeteer";
+import { launchBrowser } from "./src/core/puppeteer";
 
 const readlineInterface = readline.createInterface({
   input: process.stdin,
@@ -50,70 +50,80 @@ const openChatGPT = async (isChat?: boolean) => {
   });
 
   page.setViewport({ width, height });
-  page.setUserAgent('Mozilla/5.0 (Windows NT 5.1; rv:5.0) Gecko/20100101 Firefox/5.0'); // Added to by pass the bot detection by cloudflare
+  page.setUserAgent('Mozilla/5.0 (Windows NT 5.1; rv:5.0) Gecko/20100101 Firefox/5.0');
 
-  await page.goto("https://chat.openai.com/", { waitUntil: "load" });
-
-  const textArea = "textarea#prompt-textarea";
   try {
-    await page.waitForSelector(textArea);
+    console.log("Navigating to ChatGPT...");
+    await page.goto("https://chat.openai.com/", { waitUntil: "load" });
+
+    const textArea = "textarea#prompt-textarea";
+    console.log("Waiting for chat input to be ready...");
+    try {
+      await page.waitForSelector(textArea, { timeout: 30000 });
+    } catch (error) {
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      const screenshotPath = `screenshots/error-${timestamp}.png`;
+      console.error(`Error: Could not find chat input. Saving screenshot to ${screenshotPath}`);
+      await page.screenshot({ path: screenshotPath, fullPage: true });
+      await browser.close();
+      return Promise.reject(new Error(`Failed to load ChatGPT interface. Screenshot saved to ${screenshotPath}`));
+    }
+
+    console.log("ChatGPT is ready!");
+    let answer: string;
+
+    do {
+      let question: string;
+      try {
+        question = await input("Question: ", 60 * 1000); // If no input in 60 seconds, it will timeout and return an error
+      } catch (error) {
+        await browser.close();
+        return Promise.reject(error);
+      }
+      console.log("Processing...");
+
+      await page.type(textArea, question, {
+        delay: Math.random() * 50, // random delay between 0 and 50 ms
+      });
+
+      // check is the button is enabled by checking the attribute disabled
+      const btnSend = "button[data-testid='send-button']";
+      await page.waitForSelector(btnSend);
+      const isBtnDisabled = await page.$eval(btnSend, (el: HTMLButtonElement) =>
+        el.getAttribute("disabled")
+      );
+
+      if (!isBtnDisabled) await page.click(btnSend);
+
+      // check if the button is hidden. Meaning ChatGPT is still answering the question
+      await page.waitForSelector(btnSend, { hidden: true });
+
+      // check if the button is visible again. Meaning ChatGPT has answered the question
+      await page.waitForSelector(btnSend);
+
+      const messageEl = "div[data-message-author-role='assistant']";
+      await page.waitForSelector(messageEl);
+
+      // get the latest message from ChatGPT
+      answer = await page.$$eval(messageEl, (elements: Element[]) => {
+        const latest = elements[elements.length - 1];
+        return latest.textContent || '';
+      });
+
+      console.log("ChatGPT:", answer);
+    } while (isChat);
+
+    await new Promise(
+      (resolve) => setTimeout(resolve, Math.random() * 100 + 200) // random delay between 200 and 300 ms
+    );
+
+    await browser.close();
+
+    return answer;
   } catch (error) {
-    await page.screenshot({ path: "error.png" });
     await browser.close();
     return Promise.reject(error);
   }
-
-  console.log("ChatGPT is ready!");
-  let answer: string;
-
-  do {
-    let question: string;
-    try {
-      question = await input("Question: ", 60 * 1000); // If no input in 60 seconds, it will timeout and return an error
-    } catch (error) {
-      await browser.close();
-      return Promise.reject(error);
-    }
-    console.log("Processing...");
-
-    await page.type(textArea, question, {
-      delay: Math.random() * 50, // random delay between 0 and 50 ms
-    });
-
-    // check is the button is enabled by checking the attribute disabled
-    const btnSend = "button[data-testid='send-button']";
-    await page.waitForSelector(btnSend);
-    const isBtnDisabled = await page.$eval(btnSend, (el) =>
-      el.getAttribute("disabled")
-    );
-
-    if (!isBtnDisabled) await page.click(btnSend);
-
-    // check if the button is hidden. Meaning ChatGPT is still answering the question
-    await page.waitForSelector(btnSend, { hidden: true });
-
-    // check if the button is visible again. Meaning ChatGPT has answered the question
-    await page.waitForSelector(btnSend);
-
-    const messageEl = "div[data-message-author-role='assistant']";
-    await page.waitForSelector(messageEl);
-
-    // get the latest message from ChatGPT
-    answer = await page.$$eval(messageEl, (el) => {
-      const latest = el[el.length - 1];
-      return latest.innerText;
-    });
-
-    console.log("ChatGPT:", answer);
-  } while (isChat);
-
-  await new Promise(
-    (resolve) => setTimeout(resolve, Math.random() * 100 + 200) // random delay between 200 and 300 ms
-  );
-
-  await browser.close();
-
-  return answer;
 };
 
 // Add `true` as an argument to keep asking questions
