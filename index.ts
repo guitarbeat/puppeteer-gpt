@@ -35,11 +35,11 @@ async function processCsvWorkflow(csvPath: string, page: any) {
       continue;
     }
     
-    const attachments = row.attachment ? [row.attachment] : [];
+    const attachments = row.attachment ? row.attachment.split('|').map(path => path.trim()).filter(Boolean) : [];
     
     try {
       console.log(`Row ${i+1}: Processing "${row.prompt.substring(0, 40)}${row.prompt.length > 40 ? '...' : ''}"`);
-      console.log(`Row ${i+1}: Using attachment: ${attachments.join(', ') || 'none'}`);
+      console.log(`Row ${i+1}: Using ${attachments.length} attachment(s): ${attachments.join(', ') || 'none'}`);
       
       const response = await sendMessageWithAttachments(page, row.prompt, attachments);
       row.response = response;

@@ -2,7 +2,7 @@ import fs from 'fs';
 import Papa from 'papaparse';
 
 export interface CsvPromptRow {
-  attachment: string;
+  attachment: string; // Multiple files can be separated by pipe (|) delimiter
   prompt: string;
   response?: string;
 }

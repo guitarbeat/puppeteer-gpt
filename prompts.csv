@@ -1,245 +1,3687 @@
-attachment,prompt,response
-screenshots/error-2025-04-15T20-12-47-654Z.png,Analyze this error screenshot. What might be causing the issue?,"The screenshot you've provided shows the ChatGPT project interface for the BME 349 - HW4 workspace. There doesn’t appear to be an “error” in the conventional sense (like a crash or alert), but based on your question, here are some possible causes of confusion or perceived issues:
-
-🔍 Possible Issues and Causes
-
-
-Empty Chat View
-
-
-Cause: No chat is currently active. The center panel says: “Start a new chat, or drag an old one in.”
-
-
-Fix: You need to either click “New chat in this project” or drag a previous chat (if visible elsewhere) into the main panel.
-
-
-
-
-Unopened Uploaded Files
-
-
-Cause: The files under “Project files” (e.g., HW4.pdf and HW4_solution_hf.pdf) are not opened or referenced yet in a conversation.
-
-
-Fix: Click into the “Project files” card and reference them directly in your new message to engage with them.
-
-
-
-
-No Prompt Entered
-
-
-Cause: No prompt has been entered in the “New chat in this project” box.
-
-
-Fix: Enter a question or prompt (like “Grade 2a for student X using HW4.pdf”) and submit it.
-
-
-
-
-Misinterpretation of UI
-
-
-Cause: If you expected an auto-preview or auto-analysis of the project files, that won’t happen until you prompt it.
-
-
-Fix: Ask a question about the files or use them in a command, such as:
-
-“Please grade question 2 for this student using the solution file.”
-
-
-
-
-
-
-✅ Suggested Next Step
-Just enter a prompt like this to proceed:
-yamlCopy codeStudent: [Name] (ID: [ID])
-2a submission: See attached schematic
-2b submission: [Paste their Arduino code]
-2c submission: See attached video
-
-…and I’ll generate a formatted grade instantly based on the rubric.
-Let me know if you were expecting something else or if there's another issue you're seeing!"
-package.json,Review this package.json file and suggest improvements.,"Here are review notes and improvement suggestions for your package.json file for the puppeteer-gpt project:
-
-✅ Strengths
-
-
-Clear name, description, and author field.
-
-
-puppeteer-extra and the stealth plugin are included – great for automation robustness.
-
-
-Uses TypeScript with proper ts-node support.
-
-
-Has useful keywords for discoverability.
-
-
-
-🔧 Suggestions for Improvement
-1. Refine main field
-
-
-You use ts-node index.ts, so setting ""main"": ""index.js"" may be misleading unless you compile TypeScript separately.
-
-
-Suggestion:
-jsonCopy code""main"": ""index.ts""
-
-
-
-2. Add a build script
-If you ever want to compile to plain JavaScript (e.g., for deployment), add a build script:
-jsonCopy code""build"": ""tsc""
-
-3. Add a tsconfig.json (if missing)
-Make sure you have a corresponding tsconfig.json. Otherwise, TypeScript and ts-node may behave unpredictably. You can generate one with:
-bashCopy codenpx tsc --init
-
-4. Organize scripts for clarity
-Consider adding additional scripts like:
-jsonCopy code""dev"": ""ts-node-dev --respawn index.ts""
-
-If you install ts-node-dev, this helps with faster reloading during development.
-5. Add repository and bugs info
-These are useful for collaboration or open-source publishing:
-jsonCopy code""repository"": {
-  ""type"": ""git"",
-  ""url"": ""https://github.com/your-username/puppeteer-gpt""
-},
-""bugs"": {
-  ""url"": ""https://github.com/your-username/puppeteer-gpt/issues""
-}
-
-6. Audit your devDependencies
-@types/filesystem is not commonly needed unless you're using a very specific API. Double-check that it’s required.
-
-📦 Optional Dependency Suggestions
-If you're dealing with logins, scraping, or automation debugging:
-
-
-dotenv – for managing environment variables
-
-
-chalk or debug – for CLI output clarity
-
-
-playwright – consider if you want a Puppeteer alternative with more modern browser control
-
-
-prettier and eslint – for consistent code formatting and linting
-
-
-
-Would you like a cleaned-up or fully rewritten version of your package.json with these changes?"
-screenshots/error-2025-04-15T20-12-47-654Z.png,Describe what you see in this image in detail. What's happening?,"This image shows the ChatGPT projects interface, specifically within a project titled:
-
-BME 349 - HW4
-
-Here's a detailed breakdown of what's happening:
-
-🧭 Top Navigation
-
-
-ChatGPT 4o is selected at the top, meaning the user is using the GPT-4 Turbo model.
-
-
-There is a project icon (folder) at the top-left corner, indicating this is within a specific ChatGPT project workspace.
-
-
-A compose bar is visible, labeled “New chat in this project”, where the user can start a new message.
-
-
-The panel includes icons for:
-
-
-Web browsing (globe)
-
-
-Microphone input (mic)
-
-
-File upload (up arrow)
-
-
-And a three-dot menu (...) for more options
-
-
-
-
-
-📂 Main Project View
-
-
-Project title: BME 349 - HW4 is prominently displayed.
-
-
-Two boxes appear below this:
-
-
-“Project files”
-
-
-Shows “2 files” uploaded
-
-
-Includes a double-document icon with a red overlay, indicating multiple documents
-
-
-
-
-“Instructions”
-
-
-Caption: “Reference the answer sheet …” (truncated)
-
-
-
-
-
-
-
-⏳ Chat Area
-
-
-The center section shows a neutral placeholder message:
-
-“Start a new chat, or drag an old one in”
-
-
-
-This means no chat thread is currently open.
-
-
-
-❓ What’s Happening / Possible Issue
-There is no error message on the screen, but it may feel like “nothing is happening” because:
-
-
-No chat thread has been started or loaded.
-
-
-The user hasn't interacted with the uploaded files or instructions yet.
-
-
-It’s waiting for user input — either a prompt in the chat box or an action like dragging in a previous chat.
-
-
-
-✅ What You Can Do
-To proceed:
-
-
-Click into “New chat in this project” and start typing.
-
-
-Reference the uploaded files directly (e.g., “Grade question 2a using HW4.pdf”).
-
-
-Or drag an old chat in from the side panel (if any saved threads exist).
-
-
-Let me know if you expected something else to appear — like a file preview or auto-grading — and I can walk you through getting that started."
+"student_name","student_id","attachment","has_video","prompt","response"
+"kattaashwin","4480205","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kattaashwin_4480205_83601342_HW4 (1).pdf","No","Student: kattaashwin (ID: 4480205)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4480205
+Name: kattaashwin
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"lunaaldair","4480364","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597685_BME 349 HW 4 P4.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597671_BME_349_HW_4_P4.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597669_BME 349 HW 4 P4.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597433_BME 349 HW 4 P3.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597419_BME_349_HW_4_P3.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597414_BME 349 HW 4 P3.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597408_BME 349 HW 4 P2.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597391_BME_349_HW_4_P2.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597390_BME 349 HW 4 P2.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597357_BME 349 HW 4 P1.2.png|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597338_BME_349_HW_4_P1.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597327_BME 349 HW 4 P1.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597040_BME 349 HW 4 P1.pdf","Yes","Student: lunaaldair (ID: 4480364)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4480364
+Name: lunaaldair
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"fairleyashauntee","4480474","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/fairleyashauntee_4480474_83594904_Instrumentation_HW4_Q4_AF.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/fairleyashauntee_4480474_83594843_Instrumentation_HW4_Q2_AF.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/fairleyashauntee_4480474_83594670_Instrumentation_HW4_Q3_AF.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/fairleyashauntee_4480474_83594646_Instrumentation_HW4_Q1_AF.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/fairleyashauntee_4480474_83594500_instrumentation HW4_Schenatic_AF.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/fairleyashauntee_4480474_83594499_Instrumentation_HW4_Code_AF.pdf","Yes","Student: fairleyashauntee (ID: 4480474)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4480474
+Name: fairleyashauntee
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"medinaalex","4480512","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/medinaalex_4480512_83601905_2025-03-07_HW04_BME349.pdf","No","Student: medinaalex (ID: 4480512)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4480512
+Name: medinaalex
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"cieloilaria","4481234","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cieloilaria_4481234_83605951_Question 4 Video.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cieloilaria_4481234_83605877_HW4 - instrumentation-IlariaCielo.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cieloilaria_4481234_83601757_InstrumentationHw4_QuestionTwo.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cieloilaria_4481234_83601741_Question 3 Video.mp4","Yes","Student: cieloilaria (ID: 4481234)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4481234
+Name: cieloilaria
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"contreraslynette","4481645","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/contreraslynette_4481645_83606846_IMG_8161-1.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/contreraslynette_4481645_83606845_IMG_8159-1.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/contreraslynette_4481645_83606844_IMG_8154-1.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/contreraslynette_4481645_83606816_HW4 -1.docx","Yes","Student: contreraslynette (ID: 4481645)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4481645
+Name: contreraslynette
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"martinezmia","4481868","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/martinezmia_4481868_83556267_1741233974.591888.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/martinezmia_4481868_83556266_1741233942.253552.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/martinezmia_4481868_83556265_1741233904.698124.MOV","Yes","Student: martinezmia (ID: 4481868)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4481868
+Name: martinezmia
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"awosikaolumodemi","4482086","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/awosikaolumodemi_4482086_83604518_BME349_HW4Q4_PAWalk_BLight.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/awosikaolumodemi_4482086_83604513_BME349_HW4Q3_PennyAbbey_TWLight.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/awosikaolumodemi_4482086_83604502_BME349_HW4Q2_PennyLane_OWLight.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/awosikaolumodemi_4482086_83604486_BME349_HW4Q2_IMG_6803.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/awosikaolumodemi_4482086_83604485_BME349_HW4Q3_IMG_6805.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/awosikaolumodemi_4482086_83604484_BME349_HW4Q4_IMG_2123.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/awosikaolumodemi_4482086_83604480_BME349_HW4.pdf","Yes","Student: awosikaolumodemi (ID: 4482086)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4482086
+Name: awosikaolumodemi
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"ardszarina","4482727","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ardszarina_4482727_83602709_HW4_Q4.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ardszarina_4482727_83602701_HW4_Q3.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ardszarina_4482727_83602700_HW4_Q2.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ardszarina_4482727_83602691_HW4.pdf","Yes","Student: ardszarina (ID: 4482727)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4482727
+Name: ardszarina
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"mishrataru","4482902","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83605001_IMG_2693.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83604975_IMG_2691.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83604961_IMG_2689.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83604914_IMG_2687.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83604702_plotnumber1.png|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83604466_HW4Q4.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83604434_HW4Q3.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83604428_HW4Q2.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83604419_HQ4Q1.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83604412_HW1R^2Value.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83604401_Schematics.pdf","Yes","Student: mishrataru (ID: 4482902)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4482902
+Name: mishrataru
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"aldenalec","4485322","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aldenalec_4485322_83600399_BME 349 HW4.docx|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aldenalec_4485322_83600350_IMG_7259.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aldenalec_4485322_83600349_IMG_7260.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aldenalec_4485322_83600344_IMG_7261.MOV","Yes","Student: aldenalec (ID: 4485322)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4485322
+Name: aldenalec
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"savarinobella","4485490","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/savarinobella_4485490_83551369_HW4-4.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/savarinobella_4485490_83551368_HW4-2.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/savarinobella_4485490_83551367_HW4-3.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/savarinobella_4485490_83551303_Homework 4.pdf","Yes","Student: savarinobella (ID: 4485490)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4485490
+Name: savarinobella
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"nerengkarina","4486555","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nerengkarina_4486555_83597856_Q4 Video.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nerengkarina_4486555_83597853_Q3 Video.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nerengkarina_4486555_83597850_Q2 Video.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nerengkarina_4486555_83597845_HW4.docx","Yes","Student: nerengkarina (ID: 4486555)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4486555
+Name: nerengkarina
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"egedeolivia","4487116","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/egedeolivia_4487116_83603788_IMG_7137 (1).heic|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/egedeolivia_4487116_83603787_IMG_7130.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/egedeolivia_4487116_83603785_IMG_7131.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/egedeolivia_4487116_83603776_IMG_2123.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/egedeolivia_4487116_83603691_Instrumentation HW 4.docx","Yes","Student: egedeolivia (ID: 4487116)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4487116
+Name: egedeolivia
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"grissomrykhr","4487354","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/grissomrykhr_4487354_83572443_BME 349 HW 4.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/grissomrykhr_4487354_83572299_IMG_0078 2.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/grissomrykhr_4487354_83572267_IMG_0069 2.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/grissomrykhr_4487354_83572265_IMG_0065 2.mov","Yes","Student: grissomrykhr (ID: 4487354)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4487354
+Name: grissomrykhr
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"patelvrunda","4487678","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelvrunda_4487678_83551956_Homework4_Question3_VrundaPatel.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelvrunda_4487678_83551955_Homework4_Question4_VrundaPatel.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelvrunda_4487678_83551950_Homework4_Question2_VrundaPatel.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelvrunda_4487678_83551933_HW4.docx","Yes","Student: patelvrunda (ID: 4487678)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4487678
+Name: patelvrunda
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"kendallsamuel","4490443","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kendallsamuel_4490443_83602302_HW4Q4C.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kendallsamuel_4490443_83602295_HW4Q3C.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kendallsamuel_4490443_83602293_HW4Q2C.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kendallsamuel_4490443_83602286_INSHW4.pdf","Yes","Student: kendallsamuel (ID: 4490443)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4490443
+Name: kendallsamuel
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"azizammarah","4491756","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/azizammarah_4491756_83590607_IMG_3055.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/azizammarah_4491756_83590606_IMG_3054.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/azizammarah_4491756_83590605_BME 349_ Biomedical Instrumentation HW 4.pdf","Yes","Student: azizammarah (ID: 4491756)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4491756
+Name: azizammarah
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"sudharsanaprameya","4492384","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/sudharsanaprameya_4492384_83604851_Q4.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/sudharsanaprameya_4492384_83604850_Q3.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/sudharsanaprameya_4492384_83604849_Q2.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/sudharsanaprameya_4492384_83604787_HW4.docx","Yes","Student: sudharsanaprameya (ID: 4492384)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4492384
+Name: sudharsanaprameya
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"qureshimaarig","4494453","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/qureshimaarig_4494453_83492318_Q4 circuit video.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/qureshimaarig_4494453_83492267_Q3 circuit video.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/qureshimaarig_4494453_83492243_Q2 circuit video.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/qureshimaarig_4494453_83492074_Final Assigmnet minus vidoes.pdf","Yes","Student: qureshimaarig (ID: 4494453)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4494453
+Name: qureshimaarig
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"yakayzeynep","4495789","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/yakayzeynep_4495789_83596268_HW3_Q4_video.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/yakayzeynep_4495789_83596267_HW3_Q3_video.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/yakayzeynep_4495789_83596266_HW3_Q2_video.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/yakayzeynep_4495789_83595385_BME 349 HW4 Instrumentation .pdf","Yes","Student: yakayzeynep (ID: 4495789)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4495789
+Name: yakayzeynep
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"hoffmanntaylor","4505556","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/hoffmanntaylor_4505556_83581839_HW4_Q4.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/hoffmanntaylor_4505556_83581820_HW4_Q3.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/hoffmanntaylor_4505556_83581817_HW4_Q2.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/hoffmanntaylor_4505556_83581779_BME 349 Homework 4.pdf","Yes","Student: hoffmanntaylor (ID: 4505556)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4505556
+Name: hoffmanntaylor
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"fouldsbailey","4538716","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/fouldsbailey_4538716_83558179_HW4P4.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/fouldsbailey_4538716_83558178_HW4P2.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/fouldsbailey_4538716_83558177_HW4P3.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/fouldsbailey_4538716_83558174_HW4.pdf","Yes","Student: fouldsbailey (ID: 4538716)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4538716
+Name: fouldsbailey
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"gutierrezdaniela","4544102","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/gutierrezdaniela_4544102_83598464_1741387608.778236.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/gutierrezdaniela_4544102_83598461_1741387592.632998.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/gutierrezdaniela_4544102_83598460_1741387603.630498.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/gutierrezdaniela_4544102_83598459_1741387598.4308228.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/gutierrezdaniela_4544102_83598454_HW4 (1).pdf","Yes","Student: gutierrezdaniela (ID: 4544102)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4544102
+Name: gutierrezdaniela
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"patelashvi","4544451","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelashvi_4544451_83527507_InstrumentationHW4Q2.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelashvi_4544451_83527423_InstrumentationHW4Q3.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelashvi_4544451_83527319_Homework Four Instrumentation.pdf","Yes","Student: patelashvi (ID: 4544451)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4544451
+Name: patelashvi
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"duvvadaarchita","4544459","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/duvvadaarchita_4544459_83574377_Q4.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/duvvadaarchita_4544459_83574376_Q3.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/duvvadaarchita_4544459_83574374_Q2.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/duvvadaarchita_4544459_83574373_HW4AD.pdf","Yes","Student: duvvadaarchita (ID: 4544459)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4544459
+Name: duvvadaarchita
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"pinedagarzaalfonso","4544470","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/pinedagarzaalfonso_4544470_83601768_1741397445.3678288.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/pinedagarzaalfonso_4544470_83601767_1741397440.099187.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/pinedagarzaalfonso_4544470_83601766_1741397430.991456.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/pinedagarzaalfonso_4544470_83601764_ajpHW4.pdf","Yes","Student: pinedagarzaalfonso (ID: 4544470)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4544470
+Name: pinedagarzaalfonso
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"corumannabelle","4544562","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/corumannabelle_4544562_83487115_Instrumentation HW4 Q4.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/corumannabelle_4544562_83487095_Instrumentation HW Q3.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/corumannabelle_4544562_83487094_Instrumentation HW Q2.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/corumannabelle_4544562_83487092_Instrumentation HW4.pdf","Yes","Student: corumannabelle (ID: 4544562)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4544562
+Name: corumannabelle
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"alrehanibasil","4544807","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/alrehanibasil_4544807_83601574_1741396794.993599.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/alrehanibasil_4544807_83601573_1741396810.049504.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/alrehanibasil_4544807_83601572_Untitled document.docx","Yes","Student: alrehanibasil (ID: 4544807)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4544807
+Name: alrehanibasil
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"medranochristopher","4544964","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/medranochristopher_4544964_83606614_IMG_7743.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/medranochristopher_4544964_83606573_IMG_7739.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/medranochristopher_4544964_83606571_IMG_7738.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/medranochristopher_4544964_83606452_Instrumentation_HW4_Q4.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/medranochristopher_4544964_83606449_Instrumentation_HW4_Q3.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/medranochristopher_4544964_83606446_Instrumentation_HW4_Q2.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/medranochristopher_4544964_83606444_CMedrano_InstrHW4_Q1.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/medranochristopher_4544964_83606419_HW4 - Instrumentation CMedrano.pdf","Yes","Student: medranochristopher (ID: 4544964)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4544964
+Name: medranochristopher
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"tranallan","4544971","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/tranallan_4544971_83605484_Instrumentation HW4.docx","No","Student: tranallan (ID: 4544971)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4544971
+Name: tranallan
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"mulrycaroline","4545143","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mulrycaroline_4545143_83453297_HW 4-2.pdf","No","Student: mulrycaroline (ID: 4545143)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4545143
+Name: mulrycaroline
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"chakidebarghya","4545342","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/chakidebarghya_4545342_83603044_349_hw4_p4.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/chakidebarghya_4545342_83603043_349_hw4_p3.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/chakidebarghya_4545342_83603042_349_hw4_p2.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/chakidebarghya_4545342_83603032_BME349_HW4.pdf","Yes","Student: chakidebarghya (ID: 4545342)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4545342
+Name: chakidebarghya
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"gomezfloreselizabeth","4545356","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/gomezfloreselizabeth_4545356_83606388_1741410013.046489.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/gomezfloreselizabeth_4545356_83606385_1741410024.601181.MOV","Yes","Student: gomezfloreselizabeth (ID: 4545356)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4545356
+Name: gomezfloreselizabeth
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"kaneriadeeya","4545487","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kaneriadeeya_4545487_83603290_1741402407.263507.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kaneriadeeya_4545487_83603288_1741402384.8490329.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kaneriadeeya_4545487_83603286_1741402399.097363.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kaneriadeeya_4545487_83603281_Instrumentation Homework 4.docx","Yes","Student: kaneriadeeya (ID: 4545487)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4545487
+Name: kaneriadeeya
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"chinchankarevelyn","4545667","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/chinchankarevelyn_4545667_83576884_Q4.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/chinchankarevelyn_4545667_83576871_Q3.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/chinchankarevelyn_4545667_83576865_Q2.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/chinchankarevelyn_4545667_83576805_HW4.pdf","Yes","Student: chinchankarevelyn (ID: 4545667)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4545667
+Name: chinchankarevelyn
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"garciagricell","4545738","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/garciagricell_4545738_83607295_IMG_8072.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/garciagricell_4545738_83607290_IMG_8071.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/garciagricell_4545738_83607289_IMG_8068.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/garciagricell_4545738_83607275_1.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/garciagricell_4545738_83607263_Homework 7_BME365s.pdf","Yes","Student: garciagricell (ID: 4545738)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4545738
+Name: garciagricell
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"villarfrances","4545755","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/villarfrances_4545755_83607937_problem3.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/villarfrances_4545755_83607936_problem2.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/villarfrances_4545755_83607930_Instrumentation HW 4 FV.pdf","Yes","Student: villarfrances (ID: 4545755)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4545755
+Name: villarfrances
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"mbonuebby","4545910","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mbonuebby_4545910_83602546_IMG_4132.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mbonuebby_4545910_83602542_IMG_4129.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mbonuebby_4545910_83602540_IMG_4130.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mbonuebby_4545910_83602526_EbbyMbonuHW4.pdf","Yes","Student: mbonuebby (ID: 4545910)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4545910
+Name: mbonuebby
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"guptegaurav","4546098","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/guptegaurav_4546098_83605740_HW4_Q4C.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/guptegaurav_4546098_83605729_HW4_Q3C.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/guptegaurav_4546098_83605723_HW4_Q2C.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/guptegaurav_4546098_83605720_Gupte HW4.pdf","Yes","Student: guptegaurav (ID: 4546098)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4546098
+Name: guptegaurav
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"ponderjulia","4546272","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ponderjulia_4546272_83553163_Instrumentation HW4 Q4.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ponderjulia_4546272_83553162_Instrumentation HW4 Q2.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ponderjulia_4546272_83553160_Instrumentation HW4 Q3.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ponderjulia_4546272_83553158_Instrumentation HW4.pdf","Yes","Student: ponderjulia (ID: 4546272)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4546272
+Name: ponderjulia
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"cabrialesjerry","4546276","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cabrialesjerry_4546276_83606216_problem4.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cabrialesjerry_4546276_83606194_problem3.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cabrialesjerry_4546276_83606193_problem2.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cabrialesjerry_4546276_83606130_Homework4_JLC_FINAL.pdf","Yes","Student: cabrialesjerry (ID: 4546276)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4546276
+Name: cabrialesjerry
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"rodriguezitalia","4546344","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rodriguezitalia_4546344_83607393_IMG_0590-1.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rodriguezitalia_4546344_83607392_InstrumentationHW4_Q1-1.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rodriguezitalia_4546344_83607391_IMG_0591-1.HEIC|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rodriguezitalia_4546344_83607390_InstrumentationHW4_Q4-1.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rodriguezitalia_4546344_83607389_InstrumentationHW4_Q3-1.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rodriguezitalia_4546344_83607388_InstrumentationHW4_Q2-1.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rodriguezitalia_4546344_83607387_IMG_0589-1.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rodriguezitalia_4546344_83607386_IMG_0588-1.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rodriguezitalia_4546344_83607306_InstrumentationHW4-1.pdf","Yes","Student: rodriguezitalia (ID: 4546344)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4546344
+Name: rodriguezitalia
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"delangeljaqueline","4546424","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/delangeljaqueline_4546424_83608261_hw4 instrumentation.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/delangeljaqueline_4546424_83608251_IMG_3314.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/delangeljaqueline_4546424_83608223_IMG_3305.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/delangeljaqueline_4546424_83608214_IMG_3307.MOV","Yes","Student: delangeljaqueline (ID: 4546424)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4546424
+Name: delangeljaqueline
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"cutrufellojess","4546490","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cutrufellojess_4546490_83589683_BME329_HW4_Q4-1.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cutrufellojess_4546490_83589682_BME349_HW4_Q2-1.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cutrufellojess_4546490_83589681_BME349_HW4_Q3-1.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cutrufellojess_4546490_83589669_HW 4-1.pdf","Yes","Student: cutrufellojess (ID: 4546490)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4546490
+Name: cutrufellojess
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"ardilajose","4546565","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ardilajose_4546565_83601637_1741396999.507831.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ardilajose_4546565_83601636_1741396984.65358.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ardilajose_4546565_83601635_1741396992.4881191.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ardilajose_4546565_83601634_HW4.pdf","Yes","Student: ardilajose (ID: 4546565)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4546565
+Name: ardilajose
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"nguyenkevin","4546735","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nguyenkevin_4546735_83516147_1741113691.584995.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nguyenkevin_4546735_83516144_BME349 HW4.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nguyenkevin_4546735_83516141_1741113695.122272.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nguyenkevin_4546735_83516139_1741113698.064049.MOV","Yes","Student: nguyenkevin (ID: 4546735)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4546735
+Name: nguyenkevin
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"huynhkylie","4546758","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/huynhkylie_4546758_83561535_HW4 (2).pdf","No","Student: huynhkylie (ID: 4546758)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4546758
+Name: huynhkylie
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"alfaroguandiquekelly","4546779","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/alfaroguandiquekelly_4546779_83601013_IMG_E7672[1].MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/alfaroguandiquekelly_4546779_83601008_IMG_E7671[1].MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/alfaroguandiquekelly_4546779_83600993_IMG_E7668[1].MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/alfaroguandiquekelly_4546779_83600857_Instrumentation HW 4.pdf","Yes","Student: alfaroguandiquekelly (ID: 4546779)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4546779
+Name: alfaroguandiquekelly
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"wilsonkailey","4546974","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/wilsonkailey_4546974_83607508_drive-download-20250308T053927Z-001.zip|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/wilsonkailey_4546974_83607451_BME349_HW4.pdf","No","Student: wilsonkailey (ID: 4546974)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4546974
+Name: wilsonkailey
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"xiakin","4547003","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/xiakin_4547003_83594385_homework 4 -intrument.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/xiakin_4547003_83594361_14AAA00C-BD66-4ADB-987B-611F485B4CC8.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/xiakin_4547003_83594358_771906AB-6E62-4D93-B9C9-9A9E63C29CA2.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/xiakin_4547003_83594350_57275E7C-5718-472B-B7AE-28E9ED8EC7C3.mov","Yes","Student: xiakin (ID: 4547003)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4547003
+Name: xiakin
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"clarkleo","4547162","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/clarkleo_4547162_83582946_HW4 Q4 Vid.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/clarkleo_4547162_83582939_HW4 Q3 Vid.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/clarkleo_4547162_83582936_HW 4 Q2 Vid.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/clarkleo_4547162_83582927_Homework 4 Completed.docx","Yes","Student: clarkleo (ID: 4547162)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4547162
+Name: clarkleo
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"vallantekiana","4547165","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/vallantekiana_4547165_83548334_1741213497.878386.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/vallantekiana_4547165_83548333_1741213493.101762.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/vallantekiana_4547165_83548332_1741213489.318871.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/vallantekiana_4547165_83548330_Final Instrumentation Homework 4 FINAL DOC.pdf","Yes","Student: vallantekiana (ID: 4547165)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4547165
+Name: vallantekiana
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"crosbynelson","4547972","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83576078_IMG_1208.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83576062_instrumentation_hw4_q41.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575999_Instrumentation hw4 q4.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575987_IMG_1207.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575969_instrumentation_hw4_q31.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575957_Instrumentation hw4 q3.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575945_IMG_1205.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575916_instrumentation_hw4_q21.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575879_Instrumentation hw4 q2.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575863_hw4_q1_plot.png|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575836_instrumentation_hw1_q11-1.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575793_IMG_1209.jpeg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575771_Instrumentation hw4 q1.pdf","Yes","Student: crosbynelson (ID: 4547972)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4547972
+Name: crosbynelson
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"mejianicolas","4548028","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mejianicolas_4548028_83578787_question4C.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mejianicolas_4548028_83578775_question3C.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mejianicolas_4548028_83578769_question2C.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mejianicolas_4548028_83578731_HW4-Instrumention-NicolasMejia.pdf","Yes","Student: mejianicolas (ID: 4548028)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4548028
+Name: mejianicolas
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"patelriya","4548065","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelriya_4548065_83605733_BME349_HW4.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelriya_4548065_83605728_HW4_P4.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelriya_4548065_83605727_HW4_P2.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelriya_4548065_83605726_HW4_P3.mp4","Yes","Student: patelriya (ID: 4548065)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4548065
+Name: patelriya
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"ambohprecious","4548066","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ambohprecious_4548066_83600708_1741393918.929247.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ambohprecious_4548066_83600707_1741393875.073636.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ambohprecious_4548066_83600706_1741393847.536711.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ambohprecious_4548066_83600705_Homework 4-1.pdf","Yes","Student: ambohprecious (ID: 4548066)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4548066
+Name: ambohprecious
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"holmbergniki","4548125","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/holmbergniki_4548125_83578044_BME 349 HW 4.pdf","No","Student: holmbergniki (ID: 4548125)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4548125
+Name: holmbergniki
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"eralessydney","4548253","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/eralessydney_4548253_83599485_Hw4_P4.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/eralessydney_4548253_83599482_Hw4_P3.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/eralessydney_4548253_83599479_Hw4_P2.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/eralessydney_4548253_83599476_Hw4.P1.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/eralessydney_4548253_83599474_Video.P3.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/eralessydney_4548253_83599473_Video.P4.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/eralessydney_4548253_83599472_Video.P2.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/eralessydney_4548253_83599471_Sydney Erales_Instrumentaion HW 4.pdf","Yes","Student: eralessydney (ID: 4548253)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4548253
+Name: eralessydney
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"kangsowon","4548304","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kangsowon_4548304_83582494_Question4_Video.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kangsowon_4548304_83582493_Question3_Video.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kangsowon_4548304_83582480_Question2_Video.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kangsowon_4548304_83582462_Homework 4_SK.pdf","Yes","Student: kangsowon (ID: 4548304)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4548304
+Name: kangsowon
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"rajaduraimuruganrahul","4548428","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598149_HW4 Q4c-1.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598148_HW4 Q2c-1.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598147_HW4 Q3c-1.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598146_HW4 Q1b-1.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598145_HW4 Q1d-1.png|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598144_HW4 Q2a-1.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598143_HW4_Q3b-1.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598142_HW4_Q2b-1.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598141_HW4 Q3a-1.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598140_HW4_Q1c-1.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598138_HW4 Q4a-1.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598137_HW4_Q4b-1.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598136_HW4 Q1a-1.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598131_HW4 Files.zip","Yes","Student: rajaduraimuruganrahul (ID: 4548428)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4548428
+Name: rajaduraimuruganrahul
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"cheemalamarrisriya","4548442","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cheemalamarrisriya_4548442_83604668_q4hw4.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cheemalamarrisriya_4548442_83604666_Instrumentation HW4 completed.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cheemalamarrisriya_4548442_83604665_q3hw4.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cheemalamarrisriya_4548442_83604664_q2hw4.mp4","Yes","Student: cheemalamarrisriya (ID: 4548442)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4548442
+Name: cheemalamarrisriya
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"allasahithi","4548528","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/allasahithi_4548528_83599065_HW4Q4-1.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/allasahithi_4548528_83599064_HW4Q3-1.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/allasahithi_4548528_83599063_HW4Q2-1.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/allasahithi_4548528_83599062_HW4Q1-1.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/allasahithi_4548528_83599061_HW 4-1.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/allasahithi_4548528_83599052_HW4Q4-1.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/allasahithi_4548528_83599051_HW4Q3-1.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/allasahithi_4548528_83599050_HW4Q2-1.MOV","Yes","Student: allasahithi (ID: 4548528)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4548528
+Name: allasahithi
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"engravtlaliadaia","4548669","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/engravtlaliadaia_4548669_83602534_IMG_9325.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/engravtlaliadaia_4548669_83602533_IMG_9321.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/engravtlaliadaia_4548669_83602532_IMG_9319.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/engravtlaliadaia_4548669_83602418_HW4.docx","Yes","Student: engravtlaliadaia (ID: 4548669)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4548669
+Name: engravtlaliadaia
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"pathakshireen","4548755","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/pathakshireen_4548755_83580087_Problem4.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/pathakshireen_4548755_83580086_Problem3.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/pathakshireen_4548755_83580085_Problem1.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/pathakshireen_4548755_83580062_HW4Instrumentation.pdf","Yes","Student: pathakshireen (ID: 4548755)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4548755
+Name: pathakshireen
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"trantrevor","4548965","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/trantrevor_4548965_83568798_Q4-1.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/trantrevor_4548965_83568796_Q2-1.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/trantrevor_4548965_83568790_Q3 (1).MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/trantrevor_4548965_83568784_HW4 - Trevor Tran (1).pdf","Yes","Student: trantrevor (ID: 4548965)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4548965
+Name: trantrevor
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"nguyenhanna","4552134","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nguyenhanna_4552134_83586351_Question2.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nguyenhanna_4552134_83586350_20250305_005828.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nguyenhanna_4552134_83586349_Snapchat-1111128559.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nguyenhanna_4552134_83586347_Instrumentation HW4.pdf","Yes","Student: nguyenhanna (ID: 4552134)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4552134
+Name: nguyenhanna
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"patelnishi","4552672","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelnishi_4552672_83558336_HW4-2.docx","No","Student: patelnishi (ID: 4552672)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4552672
+Name: patelnishi
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"guptaakash","4553873","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/guptaakash_4553873_83607361_Instrumentation HW#4.pdf","No","Student: guptaakash (ID: 4553873)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4553873
+Name: guptaakash
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"avinaangel","4553911","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/avinaangel_4553911_83606196_BME 349 HW4.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/avinaangel_4553911_83606042_Q4.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/avinaangel_4553911_83605541_Q3.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/avinaangel_4553911_83605463_Q2.MOV","Yes","Student: avinaangel (ID: 4553911)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4553911
+Name: avinaangel
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"alialisa","4553919","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/alialisa_4553919_83607372_IMG_1427-1.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/alialisa_4553919_83607371_IMG_1424-1.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/alialisa_4553919_83607370_HW4-1.docx|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/alialisa_4553919_83607338_IMG_1423.MOV","Yes","Student: alialisa (ID: 4553919)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4553919
+Name: alialisa
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"apodacaangelina","4554109","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/apodacaangelina_4554109_83607899_1741413071.931251.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/apodacaangelina_4554109_83607898_1741413066.016492.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/apodacaangelina_4554109_83607897_1741413058.139683.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/apodacaangelina_4554109_83607893_BME349_Hw4_ava748.pdf.pdf","Yes","Student: apodacaangelina (ID: 4554109)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4554109
+Name: apodacaangelina
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"venkatbhanaviya","4554251","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/venkatbhanaviya_4554251_83606719_vidQ4.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/venkatbhanaviya_4554251_83606699_vidQ3.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/venkatbhanaviya_4554251_83606681_vidQ2.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/venkatbhanaviya_4554251_83606647_HW 4 (2).pdf","Yes","Student: venkatbhanaviya (ID: 4554251)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4554251
+Name: venkatbhanaviya
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"haqueariyana","4554317","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/haqueariyana_4554317_83601438_HW4-1.docx","No","Student: haqueariyana (ID: 4554317)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4554317
+Name: haqueariyana
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"awataneydishita","4554582","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/awataneydishita_4554582_83603755_HW4-#3-1.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/awataneydishita_4554582_83603754_HW4-#2-1.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/awataneydishita_4554582_83603752_HW4-#4 (2).mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/awataneydishita_4554582_83603748_Instrumentation HW4 (1).pdf","Yes","Student: awataneydishita (ID: 4554582)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4554582
+Name: awataneydishita
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"diazisabella","4554953","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/diazisabella_4554953_83604517_Q4.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/diazisabella_4554953_83604512_Q3.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/diazisabella_4554953_83604507_Q2.mov|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/diazisabella_4554953_83604493_HW4_BME349_IsabellaDiaz.pdf","Yes","Student: diazisabella (ID: 4554953)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4554953
+Name: diazisabella
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"bautistajustine","4555036","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/bautistajustine_4555036_83597184_Instrumentation HW 4.pdf","No","Student: bautistajustine (ID: 4555036)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4555036
+Name: bautistajustine
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"guojeffrey","4555054","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/guojeffrey_4555054_83607358_BME 349 Hmwk 4.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/guojeffrey_4555054_83607333_Problem4.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/guojeffrey_4555054_83607328_problem3.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/guojeffrey_4555054_83607324_Problem2.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/guojeffrey_4555054_83607318_problem1.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/guojeffrey_4555054_83607316_Problem4.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/guojeffrey_4555054_83607312_Problem3.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/guojeffrey_4555054_83607311_Problem2.MOV","Yes","Student: guojeffrey (ID: 4555054)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4555054
+Name: guojeffrey
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"seshadrijanavi","4555248","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/seshadrijanavi_4555248_83570475_HW4 (1).pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/seshadrijanavi_4555248_83570472_IMG_1075.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/seshadrijanavi_4555248_83570469_IMG_1087.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/seshadrijanavi_4555248_83570468_IMG_1088.MOV","Yes","Student: seshadrijanavi (ID: 4555248)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4555248
+Name: seshadrijanavi
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"ghoshmrigayu","4555763","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ghoshmrigayu_4555763_83464583_bme349_hw4_q4.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ghoshmrigayu_4555763_83464582_bme349_hw4_q3.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ghoshmrigayu_4555763_83464579_bme349_hw4_q2.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ghoshmrigayu_4555763_83464574_HW 4.docx","Yes","Student: ghoshmrigayu (ID: 4555763)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4555763
+Name: ghoshmrigayu
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"tohnadia","4555915","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/tohnadia_4555915_83516453_BME 349 HW 4.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/tohnadia_4555915_83514749_hw4 question4.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/tohnadia_4555915_83511888_hw4 question3.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/tohnadia_4555915_83511312_hw4 question 2.MOV","Yes","Student: tohnadia (ID: 4555915)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4555915
+Name: tohnadia
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"prasadpriyanka","4555920","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/prasadpriyanka_4555920_83605205_Instrumentation HW4.pdf","No","Student: prasadpriyanka (ID: 4555920)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4555920
+Name: prasadpriyanka
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"shelkesaivee","4556370","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/shelkesaivee_4556370_83568028_BMEInstrumentation_HW4_Question4.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/shelkesaivee_4556370_83568002_BMEInstrumentation_HW4_Question3.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/shelkesaivee_4556370_83568001_BMEInstrumentation_HW4_Question2.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/shelkesaivee_4556370_83567902_BME Instrumentation HW 4.docx","Yes","Student: shelkesaivee (ID: 4556370)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4556370
+Name: shelkesaivee
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"aroraamrita","4557684","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607511_HW4 .ino files copied because Canvas doesn't like them.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607233_hw4_q4_video.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607232_hw4_q3_video.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607231_hw4_q2_video.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607230_hw4_q3_pic.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607229_hw4_q1_pic.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607228_hw4_q2_pic.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607227_bme349_hw4_q4_pic.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607226_HW4 SCHEMATICS.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607224_Arduino Multimeter Plot Screenshot 2025-03-07 232823.png","Yes","Student: aroraamrita (ID: 4557684)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4557684
+Name: aroraamrita
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"eadestatum","4557843","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/eadestatum_4557843_83602294_1741398959.571352.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/eadestatum_4557843_83602284_1741398944.745716.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/eadestatum_4557843_83602283_1741398931.222439.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/eadestatum_4557843_83602277_Instrumentation HW 4-2.pdf","Yes","Student: eadestatum (ID: 4557843)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4557843
+Name: eadestatum
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"handelinkeelyn","4558658","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/handelinkeelyn_4558658_83604449_HW4 - Google Docs.pdf","No","Student: handelinkeelyn (ID: 4558658)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4558658
+Name: handelinkeelyn
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"jalifeoctavio","4559159","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/jalifeoctavio_4559159_83598255_HW4 (1).pdf","No","Student: jalifeoctavio (ID: 4559159)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4559159
+Name: jalifeoctavio
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"murthysahana","4559297","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/murthysahana_4559297_83568969_homework4_4.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/murthysahana_4559297_83568968_homework4_3.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/murthysahana_4559297_83568967_homework4_2.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/murthysahana_4559297_83568904_instrumentation homework 4.pdf","Yes","Student: murthysahana (ID: 4559297)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4559297
+Name: murthysahana
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"pauluma","4559671","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/pauluma_4559671_83583532_HW4.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/pauluma_4559671_83583382_HW4-P4.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/pauluma_4559671_83583375_HW4-P3.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/pauluma_4559671_83583371_HW4-P2.MOV","Yes","Student: pauluma (ID: 4559671)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4559671
+Name: pauluma
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"kotamreddyvarsha","4559691","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kotamreddyvarsha_4559691_83586620_HW4_4-1.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kotamreddyvarsha_4559691_83586619_HW4_2-1.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kotamreddyvarsha_4559691_83586618_HW4_3-1.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kotamreddyvarsha_4559691_83586557_HW4 - BME 349.docx","Yes","Student: kotamreddyvarsha (ID: 4559691)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4559691
+Name: kotamreddyvarsha
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"sharmavansh","4559707","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/sharmavansh_4559707_83607556_1741412442.39483.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/sharmavansh_4559707_83607551_1741412433.888778.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/sharmavansh_4559707_83607547_1741412419.380784.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/sharmavansh_4559707_83607546_1741412427.780117.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/sharmavansh_4559707_83607533_HW4Done-1.pdf","Yes","Student: sharmavansh (ID: 4559707)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4559707
+Name: sharmavansh
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"nicholashannah","4560466","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nicholashannah_4560466_83602054_HW4Q4.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nicholashannah_4560466_83602053_HW4Q3.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nicholashannah_4560466_83602052_HW4Q2.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nicholashannah_4560466_83602045_HW4 Instrumentation-1.docx","Yes","Student: nicholashannah (ID: 4560466)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4560466
+Name: nicholashannah
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"floressena","4570104","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/floressena_4570104_83606741_Instrumentation 4 Q3.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/floressena_4570104_83606740_Instrumentation 4 Q2.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/floressena_4570104_83606739_Instrumentation 4 Q1.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/floressena_4570104_83606599_instrumentation code.pdf","Yes","Student: floressena (ID: 4570104)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4570104
+Name: floressena
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"ondapmegansophia","4581975","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ondapmegansophia_4581975_83534622_BME349_HW4.docx","No","Student: ondapmegansophia (ID: 4581975)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4581975
+Name: ondapmegansophia
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"jamdagneyapaarth","4617663","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/jamdagneyapaarth_4617663_83607587_BME 349 HW 4-1.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/jamdagneyapaarth_4617663_83607584_IMG_4269.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/jamdagneyapaarth_4617663_83607583_IMG_4268.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/jamdagneyapaarth_4617663_83607579_IMG_4265.MOV|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/jamdagneyapaarth_4617663_83607575_IMG_4270.HEIC","Yes","Student: jamdagneyapaarth (ID: 4617663)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4617663
+Name: jamdagneyapaarth
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"kimshaun","4689174","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kimshaun_4689174_83605297_WalkButton.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kimshaun_4689174_83605296_PennyRoad.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kimshaun_4689174_83605295_AbbeyRoad.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kimshaun_4689174_83605206_HW4_ShaunKim_kk38554.pdf","Yes","Student: kimshaun (ID: 4689174)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4689174
+Name: kimshaun
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
+"vestergaardlaustsenphilip","4710531","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/vestergaardlaustsenphilip_4710531_83593438_Problem4_Video.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/vestergaardlaustsenphilip_4710531_83593430_Problem3_Video.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/vestergaardlaustsenphilip_4710531_83593429_Problem2_Video.mp4|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/vestergaardlaustsenphilip_4710531_83593290_HomeWork4BiomedicalInstrumentationProblem4.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/vestergaardlaustsenphilip_4710531_83593287_HomeWork4BiomedicalInstrumentationProblem3.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/vestergaardlaustsenphilip_4710531_83593281_HomeWork4BiomedicalInstrumentationProblem2.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/vestergaardlaustsenphilip_4710531_83593279_HomeWork4BiomedicalInstrumentationProblem1.ino|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/vestergaardlaustsenphilip_4710531_83593273_Biomedical_Instrumentation_Homework4.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/vestergaardlaustsenphilip_4710531_83593272_CalibrationPlotCode.m","Yes","Student: vestergaardlaustsenphilip (ID: 4710531)
+Assignment: HW4
+2a submission: See attached file (circuit schematic)
+2b submission: See attached file (Arduino code)
+2c submission: See attached file (video demonstration)
+
+Please grade the traffic light implementation (Question 2) according to the rubric:
+
+1. For 2a (Schematic):
+   - Verify all components are shown (Arduino, three LEDs, resistors)
+   - Check for proper connections and pin assignments
+   - Confirm resistor values are appropriate for LED safety
+
+2. For 2b (Arduino Code):
+   - Verify the traffic light sequence is correctly implemented
+   - Check timing (green: 2s, yellow: 1s, red: 2s)
+   - Evaluate code quality, comments, and variable names
+   - Note if non-blocking delays are used (higher marks)
+
+3. For 2c (Video):
+   - Confirm the circuit functions through at least two complete cycles
+   - Verify the timing matches requirements
+   - Check if the implementation matches the code and schematic
+
+IMPORTANT: Use the exact format below for your response, which will be parsed automatically:
+
+<GRADE_DATA>
+Student ID: 4710531
+Name: vestergaardlaustsenphilip
+2a_score: [SCORE: 0 or 8.33]
+2a_comment: [YOUR SPECIFIC FEEDBACK]
+2b_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2b_comment: [YOUR SPECIFIC FEEDBACK]
+2c_score: [SCORE: 0, 1, 2, 3, or 8.33]
+2c_comment: [YOUR SPECIFIC FEEDBACK]
+total_score: [SUM OF ALL SCORES]
+flags: [LIST ANY FLAGS OR ""None""]
+</GRADE_DATA>",""
