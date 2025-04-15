@@ -1,8 +1,11 @@
 import puppeteer from 'puppeteer-extra';
-// Use require for the plugin for compatibility
+// Use require for compatibility with CJS/ESM interop
+// @ts-ignore
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
-puppeteer.use(StealthPlugin.default());
 import { PuppeteerLaunchOptions } from 'puppeteer';
+
+// Add stealth plugin
+puppeteer.use(StealthPlugin());
 
 interface LaunchBrowserOptions extends PuppeteerLaunchOptions {
   /**

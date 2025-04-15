@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { Page } from 'puppeteer';
+import { waitForUserToContinue } from '../utils/userInput';
 
 export interface AuthConfig {
   cookiePath: string;
@@ -14,7 +15,7 @@ export class AuthService {
 
   constructor(config: AuthConfig) {
     this.config = {
-      loginTimeout: 30000,
+      loginTimeout: 60000, // Set a longer default timeout for login
       ...config
     };
   }
@@ -67,6 +68,31 @@ export class AuthService {
       return false;
     }
   }
+  
+  /**
+   * Check if we're on the login page
+   */
+  private async isOnLoginPage(page: Page): Promise<boolean> {
+    try {
+      // Check for email input field and sign in text
+      const signInSelectors = [
+        'input[type="email"]', 
+        'input[placeholder="Email or phone"]',
+        'text/Sign in',
+        'text/to continue to ChatGPT'
+      ];
+      
+      for (const selector of signInSelectors) {
+        if (await page.$(selector)) {
+          return true;
+        }
+      }
+      
+      return false;
+    } catch {
+      return false;
+    }
+  }
 
   /**
    * Authenticate the user
@@ -86,21 +112,70 @@ export class AuthService {
       console.log('Successfully logged in using saved cookies');
       return true;
     }
-
-    // Wait for manual login
-    console.log('Manual login required. Please log in manually...');
-    try {
-      await page.waitForSelector(successSelector, { 
-        timeout: loginTimeout 
-      });
+    
+    // Check if on login page
+    if (await this.isOnLoginPage(page)) {
+      console.log('=== LOGIN REQUIRED ===');
+      console.log('Please login manually in the browser window');
       
-      // Save new cookies after successful login
-      await this.saveCookies(page);
-      console.log('Login successful. Cookies saved.');
-      return true;
-    } catch (error) {
-      console.error('Login timeout or failed:', error);
-      return false;
+      // Take a screenshot to help debug
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      const screenshotPath = `screenshots/login-page-${timestamp}.png`;
+      await page.screenshot({ path: screenshotPath });
+      console.log(`Login page screenshot saved to ${screenshotPath}`);
+      
+      // Wait for user to manually login
+      console.log('');
+      console.log('IMPORTANT: Please complete the login process in the browser window');
+      console.log('After logging in successfully, return to this terminal');
+      console.log('');
+      
+      // Wait for manual login with extended timeout
+      try {
+        console.log(`Waiting up to ${this.config.loginTimeout! / 1000} seconds for manual login...`);
+        await page.waitForSelector(successSelector, { 
+          timeout: loginTimeout 
+        });
+        
+        // Login successful - save cookies and ask user to confirm
+        await this.saveCookies(page);
+        console.log('Login successful. Cookies saved.');
+        
+        // Ask user to confirm before continuing
+        await waitForUserToContinue('Login detected. Press Enter to continue with the script...');
+        
+        return true;
+      } catch (error) {
+        console.error('Login timeout or failed:', error);
+        
+        // Ask if user wants to try again or continue anyway
+        console.log('');
+        console.log('Login timeout occurred, but you may still be logged in.');
+        await waitForUserToContinue('If you completed the login, press Enter to continue anyway...');
+        
+        // Save cookies regardless, in case login actually succeeded
+        await this.saveCookies(page);
+        
+        // Check again if we're logged in
+        if (await this.isLoggedIn(page)) {
+          console.log('Login verification successful!');
+          return true;
+        }
+        
+        return false;
+      }
     }
+    
+    // Not logged in but not on login page either - could be another error
+    console.log('Not on login page but not logged in either. Taking screenshot...');
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const screenshotPath = `screenshots/auth-error-${timestamp}.png`;
+    await page.screenshot({ path: screenshotPath });
+    console.log(`Authentication issue screenshot saved to ${screenshotPath}`);
+    
+    // Ask user what to do
+    await waitForUserToContinue('Press Enter to continue anyway, or Ctrl+C to abort...');
+    
+    return false;
   }
 } 

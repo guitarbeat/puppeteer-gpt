@@ -2,14 +2,67 @@ import readline from "readline";
 import { launchBrowser } from "./src/core/puppeteer";
 import { AuthService } from "./src/services/auth";
 import { authConfig } from "./src/config/auth";
+import { sendMessageWithAttachments } from './src/utils/sendMessageWithAttachments';
+import { readCsvPrompts, writeCsvPrompts, CsvPromptRow } from './src/utils/processCsvPrompts';
 import fs from 'fs';
 import path from 'path';
-import { sendMessageWithAttachments } from './src/utils/sendMessageWithAttachments';
+
+// Ensure screenshots directory exists
+if (!fs.existsSync('screenshots')) {
+  fs.mkdirSync('screenshots', { recursive: true });
+  console.log('Created screenshots directory');
+}
 
 const readlineInterface = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
+
+/**
+ * Process a CSV file containing prompts and attachments
+ * @param csvPath Path to the CSV file
+ * @param page Puppeteer page
+ */
+async function processCsvWorkflow(csvPath: string, page: any) {
+  console.log(`Processing CSV file: ${csvPath}`);
+  const rows = await readCsvPrompts(csvPath);
+  console.log(`Found ${rows.length} rows to process`);
+
+  for (let i = 0; i < rows.length; i++) {
+    const row = rows[i];
+    if (!row.prompt) {
+      console.log(`Row ${i+1}: Skipping - no prompt`);
+      continue;
+    }
+    
+    const attachments = row.attachment ? [row.attachment] : [];
+    
+    try {
+      console.log(`Row ${i+1}: Processing "${row.prompt.substring(0, 40)}${row.prompt.length > 40 ? '...' : ''}"`);
+      console.log(`Row ${i+1}: Using attachment: ${attachments.join(', ') || 'none'}`);
+      
+      const response = await sendMessageWithAttachments(page, row.prompt, attachments);
+      row.response = response;
+      
+      // Save after each successful response in case of errors later
+      writeCsvPrompts(csvPath, rows);
+      
+      console.log(`Row ${i+1}: Success! Response: "${response.substring(0, 60)}${response.length > 60 ? '...' : ''}"`);
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      row.response = `ERROR: ${errorMessage}`;
+      console.error(`Row ${i+1}: Failed - ${errorMessage}`);
+      
+      // Save the error in the CSV
+      writeCsvPrompts(csvPath, rows);
+    }
+    
+    // Add a small delay between requests to avoid rate limiting
+    await new Promise(resolve => setTimeout(resolve, 2000));
+  }
+
+  console.log(`CSV processing complete. Results saved to ${csvPath}`);
+}
 
 /**
  *
@@ -37,12 +90,21 @@ const input = (question: string, timeout?: number) => {
 };
 
 /**
- * Open ChatGPT and ask questions
- * @param isChat  If true, it will keep asking for questions. If false, it will only ask once. Default is `false`
- * @returns The answer from ChatGPT
+ * Process a CSV file with ChatGPT
+ * @param csvPath Path to the CSV file with prompts and attachments
+ * @returns Nothing
  */
-const openChatGPT = async (isChat?: boolean) => {
-  console.log("Opening ChatGPT...");
+const processChatGPTWithCSV = async (csvPath?: string) => {
+  if (!csvPath) {
+    csvPath = "prompts.csv"; // Default path
+  }
+  
+  if (!fs.existsSync(csvPath)) {
+    console.error(`Error: CSV file not found at ${csvPath}`);
+    return;
+  }
+  
+  console.log(`Opening ChatGPT to process CSV: ${csvPath}`);
 
   const width = 480;
   const height = 853;
@@ -134,72 +196,23 @@ const openChatGPT = async (isChat?: boolean) => {
 
     console.log("ChatGPT project chat is ready!");
 
-    // Example: Send a message with an attachment
-    try {
-      const answer = await sendMessageWithAttachments(
-        page,
-        "Here is a screenshot for context.",
-        ['screenshots/error-2025-04-15T20-12-47-654Z.png']
-      );
-      console.log("ChatGPT:", answer);
-    } catch (err) {
-      console.error('Failed to send message with attachment:', err);
-    }
-
-    let answer: string;
-
-    do {
-      let question: string;
-      try {
-        question = await input("Question: ", 60 * 1000);
-      } catch (error) {
-        await browser.close();
-        return Promise.reject(error);
-      }
-      console.log("Processing...");
-
-      // Type in the chat textarea
-      await page.type("#prompt-textarea", question, {
-        delay: Math.random() * 50,
-      });
-
-      // Handle send button
-      const btnSend = "[data-testid='send-button']";
-      await page.waitForSelector(btnSend);
-      const isBtnDisabled = await page.$eval(btnSend, (el) =>
-        el.getAttribute("disabled")
-      );
-
-      if (!isBtnDisabled) await page.click(btnSend);
-
-      // Wait for response
-      await page.waitForSelector(btnSend, { hidden: true });
-      await page.waitForSelector(btnSend);
-
-      const messageEl = "div[data-message-author-role='assistant']";
-      await page.waitForSelector(messageEl);
-
-      answer = await page.$$eval(messageEl, (elements: Element[]) => {
-        const latest = elements[elements.length - 1];
-        return latest.textContent || '';
-      });
-
-      console.log("ChatGPT:", answer);
-    } while (isChat);
+    // Process the CSV file
+    await processCsvWorkflow(csvPath, page);
 
     await new Promise(
       (resolve) => setTimeout(resolve, Math.random() * 100 + 200)
     );
 
     await browser.close();
+    console.log("Browser closed. CSV processing complete.");
 
-    return answer;
   } catch (error) {
     await browser.close();
     return Promise.reject(error);
   }
 };
 
-// Add `true` as an argument to keep asking questions
-openChatGPT();
+// Check if a CSV path was provided as a command-line argument
+const csvPath = process.argv[2];
+processChatGPTWithCSV(csvPath);
 
