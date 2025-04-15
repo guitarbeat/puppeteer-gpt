@@ -1,5 +1,7 @@
 import readline from "readline";
 import { launchBrowser } from "./src/core/puppeteer";
+import fs from 'fs';
+import path from 'path';
 
 const readlineInterface = readline.createInterface({
   input: process.stdin,
@@ -53,8 +55,14 @@ const openChatGPT = async (isChat?: boolean) => {
   page.setUserAgent('Mozilla/5.0 (Windows NT 5.1; rv:5.0) Gecko/20100101 Firefox/5.0');
 
   try {
+    // Load cookies before navigating
+    const cookiesPath = path.join(__dirname, 'cookies', 'chatgpt.com.cookies.json');
+    const cookiesString = fs.readFileSync(cookiesPath, 'utf8');
+    const cookies = JSON.parse(cookiesString);
+    await page.setCookie(...cookies);
+
     console.log("Navigating to ChatGPT...");
-    await page.goto("https://chat.openai.com/", { waitUntil: "load" });
+    await page.goto("https://chat.openai.com/", { waitUntil: "networkidle0" });
 
     const textArea = "textarea#prompt-textarea";
     console.log("Waiting for chat input to be ready...");
