@@ -1,7 +1,10 @@
 import readline from "readline";
 import { launchBrowser } from "./src/core/puppeteer";
+import { AuthService } from "./src/services/auth";
+import { authConfig } from "./src/config/auth";
 import fs from 'fs';
 import path from 'path';
+import { sendMessageWithAttachments } from './src/utils/sendMessageWithAttachments';
 
 const readlineInterface = readline.createInterface({
   input: process.stdin,
@@ -52,9 +55,17 @@ const openChatGPT = async (isChat?: boolean) => {
   });
 
   page.setViewport({ width, height });
-  page.setUserAgent('Mozilla/5.0 (Windows NT 5.1; rv:5.0) Gecko/20100101 Firefox/5.0');
 
   try {
+    // Initialize auth service
+    const authService = new AuthService(authConfig);
+    
+    // Authenticate
+    const isAuthenticated = await authService.authenticate(page);
+    if (!isAuthenticated) {
+      throw new Error('Authentication failed');
+    }
+
     // Load cookies before navigating
     const cookiesPath = path.join(__dirname, 'cookies', 'chatgpt.com.cookies.json');
     const cookiesString = fs.readFileSync(cookiesPath, 'utf8');
@@ -82,13 +93,12 @@ const openChatGPT = async (isChat?: boolean) => {
         console.log("Continuing despite subscription warning...");
       }
       
-      // Wait for either h1 (title) or text input field - whichever comes first
-      console.log("Looking for page elements...");
+      // Wait for the chat interface elements
+      console.log("Looking for chat interface elements...");
       const selectors = [
-        "h1", 
-        "textarea#prompt-textarea", 
-        "div[role='textbox']",
-        "div[role='button']"
+        "#prompt-textarea",
+        "[data-testid='send-button']",
+        "button[aria-label='Upload files and more']"
       ];
       
       // Wait for any of these selectors to appear
@@ -100,47 +110,11 @@ const openChatGPT = async (isChat?: boolean) => {
         )
       ).catch(() => null);
       
-      if (element) {
-        console.log(`Found element: ${element.selector}`);
-        
-        // If the element we found is h1, log its content
-        if (element.selector === "h1" && element.element) {
-          const h1Text = await element.element.evaluate(el => el.textContent);
-        console.log("Found project title:", h1Text);
-        }
-      } else {
-        throw new Error("Could not find any expected elements on the page");
-      }
-
-      // Look for the new chat input area
-      console.log("Looking for new chat input...");
-      const newChatInput = await page.$("div[role='textbox'], textarea#prompt-textarea");
-      
-      if (!newChatInput) {
-        console.log("No chat input found, looking for 'New chat' button...");
-        // Try to find and click the "New chat in this project" button
-        const newChatButton = await page.$("div[role='button']");
-        if (newChatButton) {
-          const buttonText = await newChatButton.evaluate(el => el.textContent);
-          console.log("Found button with text:", buttonText);
-          if (buttonText?.includes("New chat")) {
-            console.log("Clicking 'New chat' button...");
-            await newChatButton.click();
-            // Wait for the chat interface to load after clicking
-            await page.waitForSelector("textarea#prompt-textarea", { timeout: 30000 })
-              .catch(e => {
-                console.log("Warning: Could not find textarea after clicking New chat button");
-                // Continue anyway, we'll check for it again below
-              });
-        }
-      }
+      if (!element) {
+        throw new Error("Could not find chat interface elements");
       }
       
-      // Final check for chat input
-      const chatInput = await page.$("textarea#prompt-textarea, div[role='textbox']");
-      if (!chatInput) {
-        throw new Error("Could not find chat input after all attempts");
-      }
+      console.log(`Found element: ${element.selector}`);
       
     } catch (error) {
       console.error("Detailed error:", error);
@@ -159,6 +133,19 @@ const openChatGPT = async (isChat?: boolean) => {
     }
 
     console.log("ChatGPT project chat is ready!");
+
+    // Example: Send a message with an attachment
+    try {
+      const answer = await sendMessageWithAttachments(
+        page,
+        "Here is a screenshot for context.",
+        ['screenshots/error-2025-04-15T20-12-47-654Z.png']
+      );
+      console.log("ChatGPT:", answer);
+    } catch (err) {
+      console.error('Failed to send message with attachment:', err);
+    }
+
     let answer: string;
 
     do {
@@ -172,14 +159,14 @@ const openChatGPT = async (isChat?: boolean) => {
       console.log("Processing...");
 
       // Type in the chat textarea
-      await page.type("textarea#prompt-textarea, div[role='textbox']", question, {
+      await page.type("#prompt-textarea", question, {
         delay: Math.random() * 50,
       });
 
       // Handle send button
-      const btnSend = "button[data-testid='send-button']";
+      const btnSend = "[data-testid='send-button']";
       await page.waitForSelector(btnSend);
-      const isBtnDisabled = await page.$eval(btnSend, (el: HTMLButtonElement) =>
+      const isBtnDisabled = await page.$eval(btnSend, (el) =>
         el.getAttribute("disabled")
       );
 

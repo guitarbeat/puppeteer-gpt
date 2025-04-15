@@ -1,4 +1,8 @@
-import puppeteer, { PuppeteerLaunchOptions } from "puppeteer";
+import puppeteer from 'puppeteer-extra';
+// Use require for the plugin for compatibility
+const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+puppeteer.use(StealthPlugin.default());
+import { PuppeteerLaunchOptions } from 'puppeteer';
 
 interface LaunchBrowserOptions extends PuppeteerLaunchOptions {
   /**
@@ -23,7 +27,7 @@ interface LaunchBrowserOptions extends PuppeteerLaunchOptions {
 }
 
 /**
- * Launch a puppeteer browser instance
+ * Launch a puppeteer browser instance with stealth mode
  *
  * @param width  The width of the browser window. Default is `640`
  * @param height  The height of the browser window. Default is `480`
@@ -67,6 +71,14 @@ export const launchBrowser = async ({
   });
 
   const [page] = await browser.pages();
+
+  // Set additional stealth configurations
+  await page.setExtraHTTPHeaders({
+    'Accept-Language': 'en-US,en;q=0.9',
+  });
+
+  // Set a realistic user agent
+  await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36');
 
   page.setDefaultNavigationTimeout(0);
 

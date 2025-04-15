@@ -20,7 +20,9 @@
     "typescript": "^5.4.3"
   },
   "dependencies": {
-    "puppeteer": "^22.6.0",
-    "puppeteer-extra": "^3.3.6"
+    "firefox-profile": "^4.7.0",
+    "puppeteer": "^22.15.0",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
   }
 }
