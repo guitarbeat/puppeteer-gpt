@@ -1,6 +1,10 @@
 import { Page } from 'puppeteer';
 import * as fs from 'fs';
 import * as path from 'path';
+import { ErrorContext } from './errorContext';
+
+// Create error context for this file
+const errorContext = new ErrorContext(__filename);
 
 /**
  * Utility for managing screenshots
@@ -10,6 +14,17 @@ export class ScreenshotManager {
   private static currentSessionDir: string | null = null;
   private static currentRowNumber: number | null = null;
   private static stepContext: string | null = null;
+  
+  // Single flag to control screenshots - true = enabled, false = errors only
+  private static screenshotsEnabled = true;
+  
+  /**
+   * Enable or disable regular screenshots (errors are always captured)
+   */
+  static setScreenshotsEnabled(enabled: boolean): void {
+    this.screenshotsEnabled = enabled;
+    console.log(`Screenshots ${enabled ? 'enabled' : 'disabled'} (errors will still be captured)`);
+  }
   
   /**
    * Initialize a new session directory with timestamp
@@ -94,19 +109,41 @@ export class ScreenshotManager {
   }
   
   /**
-   * Take a screenshot and save it
-   * @param page Puppeteer page to screenshot
-   * @param prefix Prefix to add to the filename
-   * @param fullPage Whether to take a full page screenshot
-   * @param logToConsole Whether to log the screenshot path to console
-   * @returns Path to the saved screenshot
+   * Take a debug screenshot (non-essential, skipped when screenshots disabled)
    */
-  static async takeScreenshot(
+  static async debug(page: Page, prefix: string): Promise<string | null> {
+    return this.takeScreenshot(page, prefix, false, false, false);
+  }
+
+  /**
+   * Take an important screenshot (captured even when regular screenshots disabled)
+   */
+  static async important(page: Page, prefix: string, fullPage = true): Promise<string | null> {
+    return this.takeScreenshot(page, prefix, fullPage, true, true);
+  }
+
+  /**
+   * Take an error screenshot
+   */
+  static async error(page: Page, errorType: string, details?: string): Promise<string | null> {
+    return this.takeErrorScreenshot(page, errorType, details, true);
+  }
+  
+  /**
+   * Take a screenshot and save it (internal implementation)
+   */
+  private static async takeScreenshot(
     page: Page, 
     prefix: string, 
     fullPage = false,
-    logToConsole = true
-  ): Promise<string> {
+    logToConsole = true,
+    isImportant = false
+  ): Promise<string | null> {
+    // Skip non-important screenshots if disabled
+    if (!isImportant && !this.screenshotsEnabled) {
+      return null;
+    }
+    
     const screenshotDir = this.ensureScreenshotDirectory();
     
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(11, 19); // Just use time HH-MM-SS
@@ -126,7 +163,7 @@ export class ScreenshotManager {
     
     await page.screenshot({ 
       path: screenshotPath, 
-      fullPage 
+      fullPage
     });
     
     if (logToConsole) {
@@ -137,31 +174,32 @@ export class ScreenshotManager {
   }
   
   /**
-   * Take an error screenshot with logging
-   * @param page Puppeteer page to screenshot
-   * @param errorType Type of error for the filename
-   * @param details Error details to log
-   * @param logToConsole Whether to log the error to console
-   * @returns Path to the saved screenshot
+   * Take an error screenshot with logging (internal implementation)
    */
-  static async takeErrorScreenshot(
+  private static async takeErrorScreenshot(
     page: Page, 
     errorType: string, 
     details?: string,
     logToConsole = true
-  ): Promise<string> {
+  ): Promise<string | null> {
+    // Always log errors, even if we don't take screenshots
     if (logToConsole && details) {
-      console.error(`Error [${errorType}]: ${details}`);
+      errorContext.logError(`Error [${errorType}]`, new Error(details), {
+        errorType,
+        action: 'screenshot',
+        url: await page.url()
+      });
     }
     
     const screenshotPath = await this.takeScreenshot(
       page, 
       `error-${errorType}`, 
-      true,
-      false // Don't log within takeScreenshot
+      true, // Always use full page for errors
+      false, // Don't log within takeScreenshot
+      true   // Mark as important
     );
     
-    if (logToConsole) {
+    if (screenshotPath && logToConsole) {
       console.error(`Error screenshot saved to ${screenshotPath}`);
     }
     
@@ -170,18 +208,13 @@ export class ScreenshotManager {
   
   /**
    * Take an error screenshot for a retry attempt
-   * @param page Puppeteer page
-   * @param rowNum Row number
-   * @param retryCount Current retry count
-   * @param logToConsole Whether to log to console
-   * @returns Path to the saved screenshot
    */
   static async takeRetryErrorScreenshot(
     page: Page,
     rowNum: number,
     retryCount: number,
     logToConsole = true
-  ): Promise<string> {
+  ): Promise<string | null> {
     return this.takeErrorScreenshot(
       page,
       `row${rowNum}-retry${retryCount}`,
@@ -192,7 +225,6 @@ export class ScreenshotManager {
   
   /**
    * Get the current session directory
-   * @returns The path to the current session directory or null if not initialized
    */
   static getCurrentSessionDir(): string | null {
     if (!this.currentSessionDir) {

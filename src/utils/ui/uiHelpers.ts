@@ -2,6 +2,10 @@ import { Page } from 'puppeteer';
 import { uploadLogger } from '../logger';
 import { ScreenshotManager } from '../screenshot';
 import { SELECTORS } from '../types';
+import { ErrorContext } from '../errorContext';
+
+// Create error context for this file
+const errorContext = new ErrorContext(__filename, uploadLogger);
 
 /**
  * Enters text into a textarea
@@ -136,7 +140,7 @@ export async function enterText(page: Page, selector: string, text: string): Pro
     
     if (!inputValue || inputValue.trim() === '') {
       // Take screenshot to see the state
-      await ScreenshotManager.takeScreenshot(page, "text-entry-failure", true);
+      await ScreenshotManager.debug(page, "text-entry-failure");
       uploadLogger.warn('Text entry verification failed - textarea value is empty or whitespace');
     } else if (inputValue.length < text.length * 0.9) { // Allow for some truncation/difference
       uploadLogger.warn(`Text entry truncated: ${inputValue.length} chars vs expected ${text.length}`);
@@ -144,6 +148,11 @@ export async function enterText(page: Page, selector: string, text: string): Pro
       uploadLogger.debug(`Text entry successful: ${inputValue.length} chars entered`);
     }
   } catch (error) {
+    errorContext.logError(`Could not enter text in selector "${selector}"`, error, {
+      selector,
+      textLength: text?.length,
+      action: 'enterText'
+    });
     throw new Error(`Could not enter text: ${error instanceof Error ? error.message : String(error)}`);
   }
 }
@@ -171,16 +180,19 @@ export async function verifyTextEntry(page: Page, selector: string): Promise<boo
       uploadLogger.debug(`Visual text check: ${JSON.stringify(visualTextContent)}`);
       
       // Take screenshot to see what's actually rendering
-      await ScreenshotManager.takeScreenshot(page, "text-verification-debug", true);
+      await ScreenshotManager.debug(page, "text-verification-debug");
       
       return false;
     }
     uploadLogger.debug(`Text verified in textarea: ${inputValue.substring(0, 50)}${inputValue.length > 50 ? '...' : ''}`);
     return true;
   } catch (error) {
-    uploadLogger.warn('Could not verify text entry', error);
+    errorContext.logError(`Could not verify text entry for selector "${selector}"`, error, {
+      selector,
+      action: 'verifyTextEntry'
+    });
     // Take screenshot on verification error
-    await ScreenshotManager.takeScreenshot(page, "text-verification-error", true);
+    await ScreenshotManager.error(page, "text-verification-error");
     return false;
   }
 }

@@ -23,6 +23,8 @@ function parseCommandLineArgs() {
     verbose: false,
     quiet: false,
     rowLogsExclusive: true,
+    // Screenshot setting
+    screenshotsDisabled: false, // By default, take regular screenshots
   };
   
   // Parse args
@@ -41,6 +43,8 @@ function parseCommandLineArgs() {
       options.quiet = true;
     } else if (arg === '--row-logs-exclusive' || arg === '-e') {
       options.rowLogsExclusive = true;
+    } else if (arg === '--no-screenshots' || arg === '--disable-screenshots') {
+      options.screenshotsDisabled = true;
     } else if (!arg.startsWith('-') && !options.csvPath) {
       // First non-flag arg is treated as the CSV path
       options.csvPath = arg;
@@ -93,6 +97,7 @@ Options:
   -v, --verbose       Show more detailed logs
   -q, --quiet         Show only errors
   -e, --row-logs-exclusive  Write row-specific logs only to row log files (not to main log)
+  --no-screenshots    Disable regular screenshots (error screenshots still taken)
   -h, --help          Display this help message
 
 Examples:
@@ -101,8 +106,7 @@ Examples:
   node index.js --no-retry           # Process default file without retrying error rows
   node index.js my-file.csv -n       # Process specified file without retrying error rows
   node index.js --reverse            # Process default file in reverse order
-  node index.js my-file.csv -r       # Process specified file in reverse order
-  node index.js --row-logs-exclusive # Use exclusive row logging
+  node index.js --no-screenshots     # Only take screenshots for errors
   `);
 }
 
@@ -114,13 +118,6 @@ async function main() {
     // Parse command line arguments
     const options = parseCommandLineArgs();
     
-    // Configure logger based on options
-    configureLogger({
-      verbose: options.verbose,
-      quiet: options.quiet,
-      rowLogsExclusive: options.rowLogsExclusive
-    });
-    
     // Show help if requested
     if (options.showHelp) {
       displayHelp();
@@ -129,6 +126,16 @@ async function main() {
     
     // Initialize screenshot directory first
     ScreenshotManager.initializeSession();
+    
+    // Configure screenshot settings
+    ScreenshotManager.setScreenshotsEnabled(!options.screenshotsDisabled);
+    
+    // Configure logger based on options
+    configureLogger({
+      verbose: options.verbose,
+      quiet: options.quiet,
+      rowLogsExclusive: options.rowLogsExclusive
+    });
     
     // Initialize log file in the same directory - this will also start console capture
     logger.initLogFile();
@@ -142,6 +149,7 @@ async function main() {
     logger.info(`Retry Failed Rows: ${options.retryFailedRows ? 'Yes' : 'No'}`);
     logger.info(`Process in Reverse: ${options.processInReverse ? 'Yes' : 'No'}`);
     logger.info(`Row Logs Exclusive: ${options.rowLogsExclusive ? 'Yes' : 'No'}`);
+    logger.info(`Screenshots: ${options.screenshotsDisabled ? 'Errors only' : 'Enabled'}`);
     
     console.log('This console.log message should appear in the log file too');
     
@@ -200,11 +208,10 @@ async function main() {
     } catch (error) {
       // Handle any errors that occur during processing
       logger.error('Error during CSV processing', error);
-      
       if (page) {
-        await ScreenshotManager.takeErrorScreenshot(
-          page, 
-          'processing-failure', 
+        await ScreenshotManager.error(
+          page,
+          'processing-failure',
           error instanceof Error ? error.message : String(error)
         );
       }

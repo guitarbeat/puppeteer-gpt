@@ -204,7 +204,7 @@ export class BrowserService {
       browserLogger.success(`Chat interface detected: ${element.selector}`);
       return true;
     } catch (error) {
-      await this.saveErrorScreenshot(page, "chat-interface-error");
+      await this.saveErrorScreenshot("chat-interface-error", "Failed to detect chat interface");
       browserLogger.error('Failed to detect chat interface', error);
       throw new Error(`Failed to detect chat interface: ${error instanceof Error ? error.message : String(error)}`);
     }
@@ -227,15 +227,21 @@ export class BrowserService {
   }
 
   /**
-   * Save an error screenshot
+   * Save screenshot for an error, with enhanced metadata 
    */
-  async saveErrorScreenshot(page: Page, errorPrefix: string): Promise<string> {
-    return await ScreenshotManager.takeErrorScreenshot(
-      page,
-      errorPrefix,
-      undefined,
-      false // Don't log from ScreenshotManager
-    );
+  async saveErrorScreenshot(errorType: string, details: string = ''): Promise<string | null> {
+    try {
+      if (!this.page) {
+        return null;
+      }
+      
+      // Use the new error screenshot method instead of the old one
+      return await ScreenshotManager.error(this.page, errorType, details);
+    } catch (err) {
+      // Don't throw an error when trying to capture an error
+      browserLogger.error('Error taking error screenshot:', err);
+      return null;
+    }
   }
 
   /**

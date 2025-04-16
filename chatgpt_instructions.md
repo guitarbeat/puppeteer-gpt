@@ -42,7 +42,7 @@ This GPT is an automated grader for Question 2 (traffic light circuit) in HW4. I
 
 Your response MUST follow this exact format:
 
-```
+```example
 <GRADE_DATA>
 Student ID: [STUDENT_ID]
 Name: [USERNAME]
@@ -77,7 +77,7 @@ flags: [ANY ISSUES OR "None"]
 
 ## Example of Properly Formatted Response
 
-```
+```example
 <GRADE_DATA>
 Student ID: 4560466
 Name: nicholashannah

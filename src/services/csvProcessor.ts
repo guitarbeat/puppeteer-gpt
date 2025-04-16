@@ -13,8 +13,6 @@ import { truncateString } from '../utils/fileHelpers';
 export class CsvProcessor {
   private retryFailedRows: boolean;
   private processInReverse: boolean;
-  // Regex pattern to validate grading format responses - more forgiving version
-  private gradeDataPattern = /<GRADE_DATA>[\s\S]*?<\/GRADE_DATA>/i;
 
   constructor(retryFailedRows = true, processInReverse = false) {
     this.retryFailedRows = retryFailedRows;
@@ -229,30 +227,8 @@ export class CsvProcessor {
         // Send message and get response
         const response = await sendMessageWithAttachments(page, row.prompt, attachments);
         
-        // Validate the response format
-        const isValidFormat = this.validateResponseFormat(response);
-        
-        if (!isValidFormat && retryCount < maxRetries) {
-          // If format validation fails, throw an error to trigger retry
-          throw new Error("Response format validation failed - missing expected grading structure");
-        }
-        
         // Store the response
         row.response = response;
-        
-        // Log results and update state
-        if (isValidFormat) {
-          csvLogger.logMultiple(rowLogger, 'success', rowNum, 'Response format validation passed');
-        } else {
-          // Final attempt failed format validation but we'll still save it
-          csvLogger.logMultiple(
-            rowLogger, 
-            'warn', 
-            rowNum, 
-            'Response format validation failed, but saving anyway', 
-            `after ${retryCount} retries`
-          );
-        }
         
         // Update step context after receiving response
         ScreenshotManager.setStepContext('completed');
@@ -314,7 +290,7 @@ export class CsvProcessor {
     
     // Take a screenshot of the final state
     try {
-      await ScreenshotManager.takeScreenshot(page, 'after-row-complete', false, false);
+      await ScreenshotManager.debug(page, 'after-row-complete');
     } catch (error) {
       // Ignore screenshot errors
     }
@@ -392,54 +368,5 @@ export class CsvProcessor {
       // Log retry attempt
       csvLogger.logMultiple(rowLogger, 'info', rowNum, 'Will retry in a moment...');
     }
-  }
-
-  // Additional validation helper to check content quality
-  private validateGradeContent(response: string): boolean {
-    // Check for essential elements that should be present
-    const hasStudentInfo = /<Student ID>.*?<\/Student ID>/i.test(response) || 
-                          /Student ID:.*?\n/i.test(response);
-    const hasName = /<Name>.*?<\/Name>/i.test(response) || 
-                   /Name:.*?\n/i.test(response);
-    const hasScore = /<.*?Score>.*?<\/.*?Score>/i.test(response) || 
-                    /.*?score:.*?\n/i.test(response);
-    const hasTotalScore = /<Total Score>.*?<\/Total Score>/i.test(response) || 
-                         /total_score:.*?\n/i.test(response);
-
-    if (!hasStudentInfo) {
-      csvLogger.warn('Missing student ID information');
-    }
-    if (!hasName) {
-      csvLogger.warn('Missing student name information');
-    }
-    if (!hasScore) {
-      csvLogger.warn('Missing score information');
-    }
-    if (!hasTotalScore) {
-      csvLogger.warn('Missing total score information');
-    }
-
-    // Consider it valid if it has at least student info and some kind of score
-    return (hasStudentInfo || hasName) && (hasScore || hasTotalScore);
-  }
-
-  /**
-   * Validates if the response matches the expected grading format
-   * @param response The response text to validate
-   * @returns True if the response matches the expected format
-   */
-  private validateResponseFormat(response: string): boolean {
-    if (!response) return false;
-    
-    // First check if we have the basic GRADE_DATA structure
-    const hasGradeData = this.gradeDataPattern.test(response);
-    
-    if (!hasGradeData) {
-      csvLogger.warn('Response format validation failed. Expected <GRADE_DATA> structure not found.');
-      return false;
-    }
-
-    // If we have GRADE_DATA tags, validate the content quality
-    return this.validateGradeContent(response);
   }
 } 

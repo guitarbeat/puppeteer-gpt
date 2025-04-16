@@ -69,6 +69,12 @@ export interface LoggerOptions {
   rowLogExclusive?: boolean; // When true, row-specific logs are only written to row log file
 }
 
+// Define types for console methods
+type ConsoleLogMethod = typeof console.log;
+type ConsoleErrorMethod = typeof console.error;
+type ConsoleWarnMethod = typeof console.warn;
+type ConsoleInfoMethod = typeof console.info;
+
 /**
  * Logger utility for the application
  */
@@ -85,10 +91,10 @@ export class Logger {
   private options: LoggerOptions;
   private logFile: fs.WriteStream | null = null;
   private rowLogFiles: Map<number, fs.WriteStream> = new Map();
-  private static console_log = console.log;
-  private static console_error = console.error;
-  private static console_warn = console.warn;
-  private static console_info = console.info;
+  private static console_log: ConsoleLogMethod = console.log;
+  private static console_error: ConsoleErrorMethod = console.error;
+  private static console_warn: ConsoleWarnMethod = console.warn;
+  private static console_info: ConsoleInfoMethod = console.info;
   
   // We'll store a global instance for intercepting console methods
   private static globalInstance: Logger | null = null;
@@ -112,25 +118,22 @@ export class Logger {
   private interceptConsoleMethods(): void {
     const self = this;
     
-    // Replace console.log
+    // Replace console methods with wrappers
     console.log = function(...args: any[]) {
       Logger.console_log.apply(console, args);
       self.captureConsoleOutput('INFO', args);
     };
     
-    // Replace console.error
     console.error = function(...args: any[]) {
       Logger.console_error.apply(console, args);
       self.captureConsoleOutput('ERROR', args);
     };
     
-    // Replace console.warn
     console.warn = function(...args: any[]) {
       Logger.console_warn.apply(console, args);
       self.captureConsoleOutput('WARN', args);
     };
     
-    // Replace console.info
     console.info = function(...args: any[]) {
       Logger.console_info.apply(console, args);
       self.captureConsoleOutput('INFO', args);
@@ -162,35 +165,30 @@ export class Logger {
         return this.formatArg(arg);
       }).join(' ');
       
-      const timestamp = new Date().toLocaleTimeString('en-US', { 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit',
-        hour12: true 
-      });
-      
+      const timestamp = this.getTimestampString();
       const logEntry = `[${timestamp}] [CONSOLE:${level}] ${formattedArgs}\n`;
       
-      // Always write to main log file
-      if (this.logFile) {
-        this.logFile.write(logEntry, () => {
-          // Empty callback to ensure data is flushed
-        });
-      }
-      
-      // Also write to row-specific log file if applicable
-      const currentRow = ScreenshotManager['currentRowNumber'];
-      if (currentRow !== null && this.rowLogFiles.has(currentRow)) {
-        const rowLogFile = this.rowLogFiles.get(currentRow);
-        if (rowLogFile) {
-          const rowPrefix = this.isRowSpecificLog(formattedArgs, currentRow) ? '' : `[MAIN] `;
-          rowLogFile.write(`${rowPrefix}${logEntry}`, () => {
-            // Empty callback to ensure data is flushed
-          });
-        }
-      }
+      this.writeToLogStreams(logEntry);
     } catch (error) {
       // Ignore errors in console capture to prevent recursion
+    }
+  }
+
+  // Helper to write to all active log streams
+  private writeToLogStreams(entry: string, rowPrefix = '[MAIN] ', isRowSpecific = false): void {
+    // Always write to main log file
+    if (this.logFile) {
+      this.logFile.write(entry);
+    }
+    
+    // Also write to row-specific log file if applicable
+    const currentRow = ScreenshotManager['currentRowNumber'];
+    if (currentRow !== null && this.rowLogFiles.has(currentRow)) {
+      const rowLogFile = this.rowLogFiles.get(currentRow);
+      if (rowLogFile) {
+        const prefix = isRowSpecific ? '' : rowPrefix;
+        rowLogFile.write(`${prefix}${entry}`);
+      }
     }
   }
 
@@ -252,9 +250,7 @@ export class Logger {
       
       // Write a header to the log file
       const header = `=== Log started at ${now.toLocaleString()} ===\n\n`;
-      this.logFile.write(header, () => {
-        // Callback ensures header is written
-      });
+      this.logFile.write(header);
       
       console.log(colors.colorize('blue', `Log file created: ${logFilePath}`));
     } catch (error) {
@@ -296,9 +292,7 @@ export class Logger {
       // Write a header to the log file
       const now = new Date();
       const header = `=== Row ${rowNumber} log started at ${now.toLocaleString()} ===\n\n`;
-      rowLogFile.write(header, () => {
-        // Callback ensures header is written
-      });
+      rowLogFile.write(header);
       
       // Store the log file stream
       this.rowLogFiles.set(rowNumber, rowLogFile);
@@ -353,8 +347,20 @@ export class Logger {
    */
   private formatArgs(args: any[]): string {
     if (!args || args.length === 0) return '';
-    
     return args.map(arg => this.formatArg(arg)).join(' ');
+  }
+  
+  /**
+   * Get formatted timestamp string for logs
+   */
+  private getTimestampString(): string {
+    const now = new Date();
+    return now.toLocaleTimeString('en-US', { 
+      hour: '2-digit', 
+      minute: '2-digit', 
+      second: '2-digit',
+      hour12: true 
+    });
   }
   
   /**
@@ -381,30 +387,10 @@ export class Logger {
       // only write to the row log file
       if (isRowSpecific && hasRowLogFile && this.options.rowLogExclusive) {
         const rowLogFile = this.rowLogFiles.get(currentRow!);
-        rowLogFile?.write(logEntry, () => {
-          // Callback to ensure write completes
-        });
+        rowLogFile?.write(logEntry);
       } else {
-        // Otherwise write to main log (and possibly to row log too)
-        
-        // Write to main log file
-        if (this.logFile) {
-          this.logFile.write(logEntry, () => {
-            // Callback to ensure write completes
-          });
-        }
-        
-        // Also write to row-specific log file if applicable and not already written above
-        if (hasRowLogFile && !(isRowSpecific && this.options.rowLogExclusive)) {
-          const rowLogFile = this.rowLogFiles.get(currentRow!);
-          if (rowLogFile) {
-            // Add a prefix to non-row-specific logs in the row log file
-            const rowPrefix = isRowSpecific ? '' : `[MAIN] `;
-            rowLogFile.write(`${rowPrefix}${logEntry}`, () => {
-              // Callback to ensure write completes
-            });
-          }
-        }
+        // Otherwise write to main log and possibly row log
+        this.writeToLogStreams(logEntry, '[MAIN] ', isRowSpecific);
       }
     } catch (error) {
       // If we encounter an error writing to the log file, disable file logging
@@ -419,15 +405,7 @@ export class Logger {
    */
   private getTimestamp(): string {
     if (!this.options.showTimestamp) return '';
-    
-    const now = new Date();
-    const timeStr = now.toLocaleTimeString('en-US', { 
-      hour: '2-digit', 
-      minute: '2-digit', 
-      second: '2-digit',
-      hour12: true 
-    });
-    return `[${timeStr}] `;
+    return `[${this.getTimestampString()}] `;
   }
 
   /**
@@ -463,95 +441,70 @@ export class Logger {
   }
 
   /**
-   * Log a debug message
+   * Internal log method to reduce duplication
    */
-  debug(message: string, ...args: any[]): void {
+  private logMessage(
+    level: LogLevel, 
+    type: string, 
+    textColor: keyof Omit<ColorCodes, 'colorize'>, 
+    message: string, 
+    error?: unknown, 
+    ...args: any[]
+  ): void {
     // Check if this is a row-specific log
     const isRowSpecific = ScreenshotManager['currentRowNumber'] !== null &&
       (message.includes(`[Row ${ScreenshotManager['currentRowNumber']}]`) || 
        this.options.prefix === `Row ${ScreenshotManager['currentRowNumber']}`);
     
-    if (this.options.level <= LogLevel.DEBUG) {
-      const logMessage = `${colors.colorize('gray', this.formatPrefix('DEBUG'))} ${colors.colorize('gray', message)}`;
-      console.log(logMessage, ...args);
+    // Log to console if level permits
+    if (this.options.level <= level) {
+      const prefix = this.formatPrefix(type);
+      const coloredPrefix = colors.colorize(textColor, prefix);
+      const coloredMessage = level !== LogLevel.INFO ? colors.colorize(textColor, message) : message;
+      const errorDetails = error ? '\n' + this.formatError(error) : '';
+      
+      const logFn = level === LogLevel.ERROR ? 'error' : 'log';
+      console[logFn](`${coloredPrefix} ${coloredMessage}${errorDetails}`, ...args);
     }
     
-    // Always write to log file if enabled and meets log level
-    this.writeToLogFile(LogLevel.DEBUG, this.formatPrefix('DEBUG') + message, args, isRowSpecific);
+    // Write to log file
+    const errorDetails = error ? '\n' + this.formatError(error) : '';
+    this.writeToLogFile(level, this.formatPrefix(type) + message + errorDetails, args, isRowSpecific);
+  }
+
+  /**
+   * Log a debug message
+   */
+  debug(message: string, ...args: any[]): void {
+    this.logMessage(LogLevel.DEBUG, 'DEBUG', 'gray', message, undefined, ...args);
   }
 
   /**
    * Log an info message
    */
   info(message: string, ...args: any[]): void {
-    // Check if this is a row-specific log
-    const isRowSpecific = ScreenshotManager['currentRowNumber'] !== null &&
-      (message.includes(`[Row ${ScreenshotManager['currentRowNumber']}]`) || 
-       this.options.prefix === `Row ${ScreenshotManager['currentRowNumber']}`);
-    
-    if (this.options.level <= LogLevel.INFO) {
-      const logMessage = `${colors.colorize('blue', this.formatPrefix('INFO'))} ${message}`;
-      console.log(logMessage, ...args);
-    }
-    
-    // Always write to log file if enabled and meets log level
-    this.writeToLogFile(LogLevel.INFO, this.formatPrefix('INFO') + message, args, isRowSpecific);
+    this.logMessage(LogLevel.INFO, 'INFO', 'blue', message, undefined, ...args);
   }
 
   /**
    * Log a success message
    */
   success(message: string, ...args: any[]): void {
-    // Check if this is a row-specific log
-    const isRowSpecific = ScreenshotManager['currentRowNumber'] !== null &&
-      (message.includes(`[Row ${ScreenshotManager['currentRowNumber']}]`) || 
-       this.options.prefix === `Row ${ScreenshotManager['currentRowNumber']}`);
-    
-    if (this.options.level <= LogLevel.SUCCESS) {
-      const logMessage = `${colors.colorize('green', this.formatPrefix('SUCCESS'))} ${colors.colorize('green', message)}`;
-      console.log(logMessage, ...args);
-    }
-    
-    // Always write to log file if enabled and meets log level
-    this.writeToLogFile(LogLevel.SUCCESS, this.formatPrefix('SUCCESS') + message, args, isRowSpecific);
+    this.logMessage(LogLevel.SUCCESS, 'SUCCESS', 'green', message, undefined, ...args);
   }
 
   /**
    * Log a warning message
    */
   warn(message: string, ...args: any[]): void {
-    // Check if this is a row-specific log
-    const isRowSpecific = ScreenshotManager['currentRowNumber'] !== null &&
-      (message.includes(`[Row ${ScreenshotManager['currentRowNumber']}]`) || 
-       this.options.prefix === `Row ${ScreenshotManager['currentRowNumber']}`);
-    
-    if (this.options.level <= LogLevel.WARN) {
-      const logMessage = `${colors.colorize('yellow', this.formatPrefix('WARN'))} ${colors.colorize('yellow', message)}`;
-      console.log(logMessage, ...args);
-    }
-    
-    // Always write to log file if enabled and meets log level
-    this.writeToLogFile(LogLevel.WARN, this.formatPrefix('WARN') + message, args, isRowSpecific);
+    this.logMessage(LogLevel.WARN, 'WARN', 'yellow', message, undefined, ...args);
   }
 
   /**
    * Log an error message
    */
   error(message: string, error?: unknown, ...args: any[]): void {
-    // Check if this is a row-specific log
-    const isRowSpecific = ScreenshotManager['currentRowNumber'] !== null &&
-      (message.includes(`[Row ${ScreenshotManager['currentRowNumber']}]`) || 
-       this.options.prefix === `Row ${ScreenshotManager['currentRowNumber']}`);
-    
-    if (this.options.level <= LogLevel.ERROR) {
-      const errorDetails = error ? '\n' + this.formatError(error) : '';
-      const logMessage = `${colors.colorize('red', this.formatPrefix('ERROR'))} ${colors.colorize('red', message)}${errorDetails}`;
-      console.error(logMessage, ...args);
-    }
-    
-    // Always write to log file if enabled and meets log level
-    const errorDetails = error ? '\n' + this.formatError(error) : '';
-    this.writeToLogFile(LogLevel.ERROR, this.formatPrefix('ERROR') + message + errorDetails, args, isRowSpecific);
+    this.logMessage(LogLevel.ERROR, 'ERROR', 'red', message, error, ...args);
   }
 
   /**
@@ -626,11 +579,6 @@ export class Logger {
 
   /**
    * Log to both row-specific and global loggers with the same message
-   * @param rowLogger Row-specific logger instance
-   * @param level Log level (info, success, error, warn)
-   * @param rowNum Row number
-   * @param message Message to log
-   * @param details Optional details string
    */
   logMultiple(
     rowLogger: Logger,

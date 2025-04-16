@@ -241,22 +241,7 @@ Name: contreraslynette
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>","xmlCopyEdit<GRADE_DATA>
-<StudentID>hf</StudentID>
-<Name>HW4_solution_hf</Name>
-
-<2a_score>8.33</2a_score>
-<2a_comment>Schematic includes all critical components: Arduino, 3 LEDs, proper pin assignments, and resistor usage (values presumed safe).</2a_comment>
-
-<2b_score>8.33</2b_score>
-<2b_comment>Provides both blocking and non-blocking implementations; non-blocking version correctly uses RTOS-style timing without delays.</2b_comment>
-
-<2c_score>8.33</2c_score>
-<2c_comment>Implementation video confirmed with ≥2 full cycles and correct light durations (green=2s, yellow=1s, red=2s).</2c_comment>
-
-<total_score>24.99</total_score>
-<flags>None</flags>
-</GRADE_DATA>"
+</GRADE_DATA>",
 martinezmia,4481868,,No,"Student: martinezmia (ID: 4481868)
 Assignment: HW4
 
@@ -282,22 +267,7 @@ Name: martinezmia
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>","xmlCopyEdit<GRADE_DATA>
-<StudentID>None</StudentID>
-<Name>None</Name>
-
-<2a_score>8.33</2a_score>
-<2a_comment>Schematic clearly shows red, yellow, and green LEDs each with current-limiting resistors, appropriately connected to Arduino digital pins (2–4). The configuration meets all electrical safety requirements, including standard 330Ω resistors.</2a_comment>
-
-<2b_score>8.33</2b_score>
-<2b_comment>Two versions of Arduino code are provided—one with `delay()` and one using non-blocking `millis()`-based timing. The second version demonstrates correct RTOS-style task scheduling and meets timing requirements (Green: 2s, Yellow: 1s, Red: 2s). Clear comments enhance readability.</2b_comment>
-
-<2c_score>8.33</2c_score>
-<2c_comment>Video demonstration was referenced in the solution. It is stated to include at least two full cycles, and the implementation aligns with the provided code and schematic, satisfying RTOS timing criteria.</2c_comment>
-
-<total_score>24.99</total_score>
-<flags>None</flags>
-</GRADE_DATA>"
+</GRADE_DATA>",
 awosikaolumodemi,4482086,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/awosikaolumodemi_4482086_83604480_BME349_HW4.pdf,No,"Student: awosikaolumodemi (ID: 4482086)
 Assignment: HW4
 
@@ -2544,8 +2514,7 @@ Name: handelinkeelyn
 2c_comment: Video demonstrates correct LED sequence over two cycles with appropriate timing; functioning circuit confirmed.
 total_score: 12.00
 flags: None
-</GRADE_DATA>
-"
+</GRADE_DATA>"
 jalifeoctavio,4559159,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/jalifeoctavio_4559159_83598255_HW4 (1).pdf,No,"Student: jalifeoctavio (ID: 4559159)
 Assignment: HW4
 

@@ -104,8 +104,8 @@ export async function waitForAssistantResponse(
   uploadLogger.info(`Waiting for ChatGPT to respond... (timeout: ${timeout/1000}s)`);
   
   try {
-    // Take a screenshot at the start of waiting
-    await ScreenshotManager.takeScreenshot(page, 'response-waiting-start', false, false);
+    // Take a single screenshot at the start of waiting
+    await ScreenshotManager.important(page, 'response-waiting-start');
     
     // First wait for the send button to become disabled (processing)
     await page.waitForFunction(
@@ -117,14 +117,14 @@ export async function waitForAssistantResponse(
       sendButtonSelector
     );
     
-    // Take a screenshot once the send button is disabled
-    await ScreenshotManager.takeScreenshot(page, 'response-generation-started', false, false);
+    // Don't take a screenshot here - this happens immediately after sending
     
     // Track response progress
     let responseCheckInterval: NodeJS.Timeout | undefined;
     let progressCheckInterval: NodeJS.Timeout | undefined;
     let lastProgressUpdate = Date.now();
     let responseStartTime = Date.now();
+    let lastScreenshotTime = Date.now();
     
     // This promise will resolve when a response is detected
     const responsePromise = new Promise<string>((resolve, reject) => {
@@ -132,7 +132,6 @@ export async function waitForAssistantResponse(
       let stableCount = 0;
       let checkCount = 0;
       let maxStableTime = 15000; // 15 seconds of no change by default
-      let lastScreenshotTime = Date.now();
       
       // Function to check if the response is complete based on multiple signals
       const isResponseComplete = async (): Promise<boolean> => {
@@ -145,8 +144,8 @@ export async function waitForAssistantResponse(
           
           if (sendButtonEnabled) {
             uploadLogger.info('Send button is enabled again, response is complete');
-            // Take a screenshot when complete
-            await ScreenshotManager.takeScreenshot(page, 'response-complete-button-enabled', false, false);
+            // Take a screenshot when complete (marked as important)
+            await ScreenshotManager.important(page, 'response-complete-button-enabled');
             return true;
           }
           
@@ -160,8 +159,7 @@ export async function waitForAssistantResponse(
           
           if (hasRegenerateButton) {
             uploadLogger.info('Regenerate button detected, response is complete');
-            // Take a screenshot when regenerate button appears
-            await ScreenshotManager.takeScreenshot(page, 'response-complete-regenerate', false, false);
+            // No need for a separate screenshot here
             return true;
           }
           
@@ -175,9 +173,7 @@ export async function waitForAssistantResponse(
           
           if (hasContinueButton) {
             uploadLogger.info('Continue button detected, response is partially complete');
-            // Take a screenshot when continue button appears
-            await ScreenshotManager.takeScreenshot(page, 'response-partial-continue', false, false);
-            // We'll still wait for stability, but with shorter time
+            // No need for a screenshot here either
             maxStableTime = 5000; // 5 seconds
           }
           
@@ -213,10 +209,12 @@ export async function waitForAssistantResponse(
             const responseText = await getLatestResponse();
             const currentLength = responseText.length;
             
-            // Take periodic screenshots of the response (at most every 30 seconds)
+            // Take one progress screenshot only if:
+            // 1. It's been more than 60 seconds since the last screenshot
+            // 2. And we have substantial text (at least 100 chars)
             const currentTime = Date.now();
-            if (currentTime - lastScreenshotTime > 30000) {
-              await ScreenshotManager.takeScreenshot(page, `response-progress-${currentLength}chars`, false, false);
+            if (currentLength > 100 && currentTime - lastScreenshotTime > 60000) {
+              await ScreenshotManager.debug(page, 'response-progress');
               lastScreenshotTime = currentTime;
             }
             
@@ -234,8 +232,8 @@ export async function waitForAssistantResponse(
               // If text hasn't changed for specified time, consider it complete
               if (stableTime >= maxStableTime) {
                 uploadLogger.info(`Response stable for ${stableTime/1000}s and is ${currentLength} chars`);
-                // Take a final screenshot when response is stable
-                await ScreenshotManager.takeScreenshot(page, `response-complete-stable-${currentLength}chars`, false, false);
+                // Take a final screenshot when response is stable (marked as important)
+                await ScreenshotManager.important(page, 'response-complete-stable');
                 resolve(responseText);
               }
             } else {
@@ -276,8 +274,8 @@ export async function waitForAssistantResponse(
         const noProgressTime = currentTime - lastProgressUpdate;
         if (totalElapsed > timeout/2 && noProgressTime > 60000 && lastLength > 0) {
           uploadLogger.warn(`No progress for ${noProgressTime/1000}s, returning current response`);
-          // Take screenshot when timing out
-          await ScreenshotManager.takeScreenshot(page, `response-timeout-no-progress-${lastLength}chars`, false, false);
+          // Take screenshot when timing out (marked as important since it's an error condition)
+          await ScreenshotManager.important(page, 'response-timeout-no-progress');
           const finalResponse = await getLatestResponse();
           resolve(finalResponse || '');
         }
@@ -295,8 +293,8 @@ export async function waitForAssistantResponse(
     // Create a timeout promise
     const timeoutPromise = new Promise<string>((_, reject) => {
       setTimeout(async () => {
-        // Take a screenshot before timing out
-        await ScreenshotManager.takeScreenshot(page, 'response-global-timeout', true, false);
+        // Take a screenshot before timing out (marked as important)
+        await ScreenshotManager.important(page, 'response-global-timeout', true);
         reject(new Error(`Waiting for assistant response timed out after ${timeout}ms`));
       }, timeout);
     });
@@ -309,8 +307,8 @@ export async function waitForAssistantResponse(
       clearInterval(responseCheckInterval);
       clearInterval(progressCheckInterval);
       
-      // Take final screenshot with response
-      await ScreenshotManager.takeScreenshot(page, 'response-received-final', false, false);
+      // Take one final screenshot with the full response (marked as important)
+      await ScreenshotManager.important(page, 'response-received-final');
       
       // Update step context
       ScreenshotManager.setStepContext('response_received');
@@ -325,7 +323,7 @@ export async function waitForAssistantResponse(
     uploadLogger.error('Error waiting for assistant response:', error);
     
     // Take error screenshot
-    await ScreenshotManager.takeErrorScreenshot(page, 'response-waiting-error', String(error));
+    await ScreenshotManager.error(page, 'response-waiting-error', String(error));
     
     // Last attempt to get partial response
     try {
@@ -410,10 +408,10 @@ export async function waitForVisibleElement(
 }
 
 /**
- * Wait for chat interface element without resetting the page
- * This function no longer resets the page state, it just verifies the chat interface is available
+ * Wait for chat interface element to be available
+ * This function simply verifies the chat interface is available
  */
-export async function resetPageState(
+export async function verifyPageInterface(
   page: Page,
   selector: string,
   stabilizationDelay: number = 1000,

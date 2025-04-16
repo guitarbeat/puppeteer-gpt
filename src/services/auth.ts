@@ -4,6 +4,10 @@ import { Page } from 'puppeteer';
 import { waitForUserToContinue } from '../utils/userInput';
 import { authConfig } from '../config/auth';
 import { appConfig } from '../config/appConfig';
+import { ErrorContext } from '../utils/errorContext';
+
+// Create error context for this file
+const errorContext = new ErrorContext(__filename);
 
 export interface AuthConfig {
   cookiePath: string;
@@ -154,7 +158,13 @@ export class AuthService {
         
         return true;
       } catch (error) {
-        console.error('Login timeout or failed:', error);
+        // Enhanced error logging with context
+        errorContext.logError('Login timeout or failed', error, {
+          loginUrl: this.config.loginUrl,
+          timeout: loginTimeout,
+          action: 'authentication',
+          successSelector
+        });
         
         // Ask if user wants to try again or continue anyway
         console.log('');

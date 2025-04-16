@@ -38,35 +38,7 @@ export async function sendMessageWithAttachments(
     
     // Disable auto-submission behavior first
     try {
-      await page.evaluate(() => {
-        // Override the form submission globally while we enter text
-        const originalSubmit = HTMLFormElement.prototype.submit;
-        HTMLFormElement.prototype.submit = function() {
-          console.log("Form submission prevented during text entry");
-          return false;
-        };
-        
-        // Restore after a delay
-        setTimeout(() => {
-          HTMLFormElement.prototype.submit = originalSubmit;
-        }, 3000);
-        
-        // Also prevent Enter key from submitting
-        const preventEnterSubmit = function(e: KeyboardEvent) {
-          if (e.key === 'Enter' && !e.shiftKey) {
-            e.stopPropagation();
-            e.preventDefault();
-          }
-        };
-        
-        // Add listener to capture Enter key
-        document.addEventListener('keydown', preventEnterSubmit, true);
-        
-        // Remove after a delay
-        setTimeout(() => {
-          document.removeEventListener('keydown', preventEnterSubmit, true);
-        }, 3000);
-      });
+      await disableAutoSubmission(page);
     } catch (err) {
       uploadLogger.warn("Could not disable auto-submission, proceeding anyway:", err);
     }
@@ -79,7 +51,7 @@ export async function sendMessageWithAttachments(
       // Wait for the field to clear
       await new Promise(resolve => setTimeout(resolve, 500));
       
-      // Modified approach: Fake typing to simulate human input
+      // Try to enter text with simulated typing
       uploadLogger.info('Typing text into ChatGPT...');
       
       try {
@@ -87,14 +59,7 @@ export async function sendMessageWithAttachments(
         await page.focus(SELECTORS.TEXTAREA);
         
         // Clear any existing content
-        await page.evaluate((selector) => {
-          const editor = document.querySelector(selector);
-          if (editor) {
-            editor.innerHTML = '';
-            return true;
-          }
-          return false;
-        }, SELECTORS.TEXTAREA);
+        await clearTextArea(page);
         
         // Type the message character by character with natural delays
         await simulateHumanTyping(page, message);
@@ -104,49 +69,15 @@ export async function sendMessageWithAttachments(
         uploadLogger.warn('Error during simulated typing:', typingError);
         uploadLogger.info('Falling back to direct text insertion...');
         
-        // FALLBACK: If typing simulation fails, use the original direct DOM manipulation
-        await page.evaluate((selector, textToEnter) => {
-          // Find the contenteditable element
-          const editor = document.querySelector(selector);
-          if (!editor) return false;
-          
-          // Clear existing content first
-          editor.innerHTML = '';
-          
-          // Create HTML with proper newlines
-          // Convert newlines to <br> tags
-          const html = textToEnter
-            .split('\n')
-            .map(line => `<p>${line || '<br>'}</p>`)
-            .join('');
-          
-          // Set innerHTML
-          editor.innerHTML = html;
-          
-          // Focus the element and dispatch input event to ensure React updates
-          // Cast to HTMLElement to use focus method
-          (editor as HTMLElement).focus();
-          
-          // Trigger input events for React to recognize the change
-          const inputEvent = new InputEvent('input', {
-            bubbles: true,
-            cancelable: true,
-            composed: true
-          });
-          editor.dispatchEvent(inputEvent);
-          
-          return true;
-        }, SELECTORS.TEXTAREA, message);
+        // FALLBACK: If typing simulation fails, use direct DOM manipulation
+        await directTextInsertion(page, message);
       }
       
-      // Longer wait for the DOM update to propagate
+      // Wait for the DOM update to propagate
       await new Promise(resolve => setTimeout(resolve, 2000));
       
-      // Verify the textarea contains our text by checking innerText
-      const textareaContent = await page.$eval(SELECTORS.TEXTAREA, (el: any) => {
-        // For contenteditable, get the text content 
-        return el.innerText || '';
-      });
+      // Verify the textarea contains our text
+      const textareaContent = await getTextAreaContent(page);
       
       if (!textareaContent || textareaContent.length < message.length * 0.9) {
         uploadLogger.warn(`Text may not be fully entered: ${textareaContent.length} vs expected ${message.length} chars`);
@@ -154,22 +85,9 @@ export async function sendMessageWithAttachments(
         // Update step context for fallback text entry
         ScreenshotManager.setStepContext('text_entry_fallback');
         
-        // FALLBACK: Try direct DOM value setting if paste didn't work
+        // FALLBACK: Try direct DOM value setting
         uploadLogger.info("Text entry incomplete, trying direct DOM manipulation...");
-        await page.evaluate((selector, text) => {
-          const textarea = document.querySelector(selector);
-          if (textarea) {
-            // @ts-ignore
-            textarea.value = text;
-            
-            // Trigger input/change events to ensure React updates
-            const event = new Event('input', { bubbles: true });
-            textarea.dispatchEvent(event);
-            
-            const changeEvent = new Event('change', { bubbles: true });
-            textarea.dispatchEvent(changeEvent);
-          }
-        }, SELECTORS.TEXTAREA, message);
+        await directValueSetting(page, message);
         
         // Add extra time after direct DOM manipulation
         await new Promise(resolve => setTimeout(resolve, 1500));
@@ -178,7 +96,7 @@ export async function sendMessageWithAttachments(
       }
       
       // Take a screenshot after text entry to verify
-      await ScreenshotManager.takeScreenshot(page, 'message-entered-debug', false, false);
+      await ScreenshotManager.debug(page, 'message-entered-debug');
       uploadLogger.success('Message text entered (not sent yet)');
       
       // Add a moment for React to process
@@ -189,7 +107,7 @@ export async function sendMessageWithAttachments(
       
       uploadLogger.error('Error entering text:', textError);
       // Take error screenshot
-      await ScreenshotManager.takeErrorScreenshot(page, 'text-entry-error');
+      await ScreenshotManager.error(page, 'text-entry-error');
       throw new Error(`Failed to enter text: ${textError instanceof Error ? textError.message : String(textError)}`);
     }
     
@@ -201,7 +119,7 @@ export async function sendMessageWithAttachments(
       uploadLogger.info(`Adding ${attachments.length} attachment(s) after entering text`);
       await handleAttachments(page, attachments, mergedOptions.useMultiUpload ?? false);
       
-      // IMPORTANT: Wait after attachments are uploaded before sending
+      // Wait after attachments are uploaded before sending
       uploadLogger.info('Waiting for attachment processing to complete...');
       await new Promise(resolve => setTimeout(resolve, 2000));
     } else {
@@ -214,59 +132,25 @@ export async function sendMessageWithAttachments(
     // Final verification before sending
     uploadLogger.info('Verifying text before sending...');
     
-    // For contenteditable divs, we need to check innerText, not value
-    const finalTextContent = await page.evaluate((selector) => {
-      const editor = document.querySelector(selector);
-      if (!editor) return '';
-      
-      // Multiple ways to check for content in a contenteditable
-      // Use type assertions to handle Element properties
-      return (editor as HTMLElement).innerText || 
-             editor.textContent || 
-             editor.innerHTML.replace(/<[^>]*>/g, '').trim();
-    }, SELECTORS.TEXTAREA);
+    // Check content in contenteditable
+    const finalTextContent = await getTextAreaContent(page);
     
     if (!finalTextContent || finalTextContent.trim() === '') {
       // Update step context for error
       ScreenshotManager.setStepContext('text_missing_error');
       
       uploadLogger.error('CRITICAL: Text disappeared from textarea before sending!');
-      await ScreenshotManager.takeErrorScreenshot(page, 'text-missing-before-send');
+      await ScreenshotManager.error(page, 'text-missing-before-send');
       
-      // Try to recover by re-entering the text one last time
+      // Try to recover by re-entering the text
       uploadLogger.info('Attempting to recover by re-entering text...');
-      
-      await page.evaluate((selector, textToEnter) => {
-        const editor = document.querySelector(selector);
-        if (!editor) return false;
-        
-        // Clear existing content first
-        editor.innerHTML = '';
-        
-        // Create HTML with proper newlines
-        const html = textToEnter
-          .split('\n')
-          .map(line => `<p>${line || '<br>'}</p>`)
-          .join('');
-        
-        // Set innerHTML
-        editor.innerHTML = html;
-        
-        // Focus and dispatch event
-        (editor as HTMLElement).focus();
-        editor.dispatchEvent(new InputEvent('input', { bubbles: true }));
-        
-        return true;
-      }, SELECTORS.TEXTAREA, message);
+      await directTextInsertion(page, message);
       
       // Wait for the text to be recognized
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       // Check if recovery was successful
-      const recoveredText = await page.evaluate((selector) => {
-        const editor = document.querySelector(selector);
-        return editor ? (editor as HTMLElement).innerText || '' : '';
-      }, SELECTORS.TEXTAREA);
+      const recoveredText = await getTextAreaContent(page);
       
       if (!recoveredText || recoveredText.trim() === '') {
         throw new Error("Failed to recover text before sending message");
@@ -304,10 +188,121 @@ export async function sendMessageWithAttachments(
     uploadLogger.error('Failed to send message', error);
     
     // Take an error screenshot
-    await ScreenshotManager.takeErrorScreenshot(page, 'message-error');
+    await ScreenshotManager.error(page, 'message-error');
     
     throw error;
   }
+}
+
+/**
+ * Disables auto-submission behavior while entering text
+ */
+async function disableAutoSubmission(page: Page): Promise<void> {
+  await page.evaluate(() => {
+    // Override the form submission globally while we enter text
+    const originalSubmit = HTMLFormElement.prototype.submit;
+    HTMLFormElement.prototype.submit = function() {
+      console.log("Form submission prevented during text entry");
+      return false;
+    };
+    
+    // Restore after a delay
+    setTimeout(() => {
+      HTMLFormElement.prototype.submit = originalSubmit;
+    }, 3000);
+    
+    // Also prevent Enter key from submitting
+    const preventEnterSubmit = function(e: KeyboardEvent) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    };
+    
+    // Add listener to capture Enter key
+    document.addEventListener('keydown', preventEnterSubmit, true);
+    
+    // Remove after a delay
+    setTimeout(() => {
+      document.removeEventListener('keydown', preventEnterSubmit, true);
+    }, 3000);
+  });
+}
+
+/**
+ * Clears the textarea content
+ */
+async function clearTextArea(page: Page): Promise<void> {
+  await page.evaluate((selector) => {
+    const editor = document.querySelector(selector);
+    if (editor) {
+      editor.innerHTML = '';
+      return true;
+    }
+    return false;
+  }, SELECTORS.TEXTAREA);
+}
+
+/**
+ * Gets the current content from the textarea
+ */
+async function getTextAreaContent(page: Page): Promise<string> {
+  return await page.evaluate((selector) => {
+    const editor = document.querySelector(selector);
+    if (!editor) return '';
+    
+    return (editor as HTMLElement).innerText || 
+           editor.textContent || 
+           editor.innerHTML.replace(/<[^>]*>/g, '').trim();
+  }, SELECTORS.TEXTAREA);
+}
+
+/**
+ * Inserts text directly into the DOM
+ */
+async function directTextInsertion(page: Page, text: string): Promise<void> {
+  await page.evaluate((selector, textToEnter) => {
+    const editor = document.querySelector(selector);
+    if (!editor) return false;
+    
+    // Clear existing content first
+    editor.innerHTML = '';
+    
+    // Create HTML with proper newlines
+    const html = textToEnter
+      .split('\n')
+      .map(line => `<p>${line || '<br>'}</p>`)
+      .join('');
+    
+    // Set innerHTML
+    editor.innerHTML = html;
+    
+    // Focus and dispatch event
+    (editor as HTMLElement).focus();
+    editor.dispatchEvent(new InputEvent('input', { bubbles: true }));
+    
+    return true;
+  }, SELECTORS.TEXTAREA, text);
+}
+
+/**
+ * Sets the value of the textarea directly
+ */
+async function directValueSetting(page: Page, text: string): Promise<void> {
+  await page.evaluate((selector, text) => {
+    const textarea = document.querySelector(selector);
+    if (textarea) {
+      // @ts-ignore
+      textarea.value = text;
+      
+      // Trigger input/change events to ensure React updates
+      const event = new Event('input', { bubbles: true });
+      textarea.dispatchEvent(event);
+      
+      const changeEvent = new Event('change', { bubbles: true });
+      textarea.dispatchEvent(changeEvent);
+    }
+  }, SELECTORS.TEXTAREA, text);
 }
 
 /**
@@ -339,32 +334,7 @@ async function sendMessage(page: Page): Promise<void> {
     
     // Approach 1: JavaScript click
     try {
-      await page.evaluate((selector) => {
-        const button = document.querySelector(selector);
-        if (button) {
-          // Force enable the button if somehow disabled
-          if (button.hasAttribute('disabled')) {
-            button.removeAttribute('disabled');
-          }
-          
-          // Click with multiple methods
-          (button as HTMLElement).click();
-          
-          // Also try mouse event simulation
-          button.dispatchEvent(new MouseEvent('click', {
-            bubbles: true,
-            cancelable: true,
-            view: window
-          }));
-          
-          // Another click for good measure
-          setTimeout(() => (button as HTMLElement).click(), 100);
-          
-          return true;
-        }
-        return false;
-      }, sendButtonSelector);
-      
+      await jsClick(page, sendButtonSelector);
       success = true;
     } catch (jsError) {
       uploadLogger.warn('JavaScript click failed, trying direct click');
@@ -383,33 +353,7 @@ async function sendMessage(page: Page): Promise<void> {
     // Approach 3: Use keyboard shortcuts (Enter, Meta+Enter, Ctrl+Enter)
     if (!success) {
       try {
-        // Focus the textarea first
-        await page.focus(SELECTORS.TEXTAREA);
-        
-        // Try Meta+Enter (Command+Enter on Mac)
-        await page.keyboard.down('Meta');
-        await page.keyboard.press('Enter');
-        await page.keyboard.up('Meta');
-        
-        // Wait a moment
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-        // Check if button is now disabled (which means message is being sent)
-        const isNowDisabled = await page.$eval(
-          sendButtonSelector, 
-          (el) => el.hasAttribute('disabled') || el.getAttribute('disabled') === 'disabled'
-        );
-        
-        if (!isNowDisabled) {
-          // Try Ctrl+Enter
-          await page.keyboard.down('Control');
-          await page.keyboard.press('Enter');
-          await page.keyboard.up('Control');
-          
-          // Wait a moment
-          await new Promise(resolve => setTimeout(resolve, 500));
-        }
-        
+        await tryKeyboardShortcuts(page);
         success = true;
       } catch (keyboardError) {
         uploadLogger.warn('Keyboard shortcuts failed');
@@ -424,10 +368,73 @@ async function sendMessage(page: Page): Promise<void> {
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     // Take a screenshot after sending
-    await ScreenshotManager.takeScreenshot(page, 'after-send-attempt', false, false);
+    await ScreenshotManager.debug(page, 'after-send-attempt');
   } catch (error) {
     uploadLogger.error('Failed to send message', error);
     throw error;
+  }
+}
+
+/**
+ * JavaScript-based click implementation
+ */
+async function jsClick(page: Page, selector: string): Promise<void> {
+  await page.evaluate((selector) => {
+    const button = document.querySelector(selector);
+    if (button) {
+      // Force enable the button if somehow disabled
+      if (button.hasAttribute('disabled')) {
+        button.removeAttribute('disabled');
+      }
+      
+      // Click with multiple methods
+      (button as HTMLElement).click();
+      
+      // Also try mouse event simulation
+      button.dispatchEvent(new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+        view: window
+      }));
+      
+      // Another click for good measure
+      setTimeout(() => (button as HTMLElement).click(), 100);
+      
+      return true;
+    }
+    return false;
+  }, selector);
+}
+
+/**
+ * Try various keyboard shortcuts to send the message
+ */
+async function tryKeyboardShortcuts(page: Page): Promise<void> {
+  // Focus the textarea first
+  await page.focus(SELECTORS.TEXTAREA);
+  
+  // Try Meta+Enter (Command+Enter on Mac)
+  await page.keyboard.down('Meta');
+  await page.keyboard.press('Enter');
+  await page.keyboard.up('Meta');
+  
+  // Wait a moment
+  await new Promise(resolve => setTimeout(resolve, 500));
+  
+  // Check if button is now disabled (which means message is being sent)
+  const isNowDisabled = await page.$eval(
+    SELECTORS.SEND_BUTTON, 
+    (el) => el.hasAttribute('disabled') || el.getAttribute('disabled') === 'disabled'
+  );
+  
+  if (!isNowDisabled) {
+    // Try Ctrl+Enter
+    await page.keyboard.down('Control');
+    await page.keyboard.press('Enter');
+    await page.keyboard.up('Control');
+    
+    // Wait a moment
+    await new Promise(resolve => setTimeout(resolve, 500));
   }
 }
 
@@ -476,14 +483,6 @@ async function handleAttachments(page: Page, attachments: string[], useMultiUplo
       // Continue with other attachments
     }
   }
-}
-
-/**
- * Navigate back to the project page - disabled to maintain conversation context
- */
-async function navigateToProjectPage(page: Page): Promise<void> {
-  // This function is intentionally disabled to maintain conversation context
-  uploadLogger.info('Navigation to project page disabled to maintain conversation context');
 }
 
 /**
