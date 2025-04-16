@@ -18,9 +18,11 @@ function parseCommandLineArgs() {
   const options = {
     csvPath: '',
     retryFailedRows: true, // Default to true - retry failed rows
+    processInReverse: false, // Default to false - process in normal order
     showHelp: false,
     verbose: false,
-    quiet: false
+    quiet: false,
+    rowLogsExclusive: true,
   };
   
   // Parse args
@@ -29,12 +31,16 @@ function parseCommandLineArgs() {
     
     if (arg === '--no-retry' || arg === '-n') {
       options.retryFailedRows = false;
+    } else if (arg === '--reverse' || arg === '-r') {
+      options.processInReverse = true;
     } else if (arg === '--help' || arg === '-h') {
       options.showHelp = true;
     } else if (arg === '--verbose' || arg === '-v') {
       options.verbose = true;
     } else if (arg === '--quiet' || arg === '-q') {
       options.quiet = true;
+    } else if (arg === '--row-logs-exclusive' || arg === '-e') {
+      options.rowLogsExclusive = true;
     } else if (!arg.startsWith('-') && !options.csvPath) {
       // First non-flag arg is treated as the CSV path
       options.csvPath = arg;
@@ -52,14 +58,21 @@ function parseCommandLineArgs() {
 /**
  * Configure the logger based on command line options
  */
-function configureLogger(verbose: boolean, quiet: boolean): void {
-  if (verbose) {
+function configureLogger(options: {
+  verbose: boolean;
+  quiet: boolean;
+  rowLogsExclusive: boolean;
+}): void {
+  if (options.verbose) {
     logger.setLevel(LogLevel.DEBUG);
-  } else if (quiet) {
+  } else if (options.quiet) {
     logger.setLevel(LogLevel.ERROR);
   } else {
     logger.setLevel(LogLevel.INFO);
   }
+  
+  // Configure row log exclusivity (whether row logs only go to row-specific files)
+  logger.setRowLogExclusive(options.rowLogsExclusive);
 }
 
 /**
@@ -76,8 +89,10 @@ Arguments:
 
 Options:
   -n, --no-retry      Don't retry rows that previously failed with errors
+  -r, --reverse       Process rows in reverse order (from last to first)
   -v, --verbose       Show more detailed logs
   -q, --quiet         Show only errors
+  -e, --row-logs-exclusive  Write row-specific logs only to row log files (not to main log)
   -h, --help          Display this help message
 
 Examples:
@@ -85,6 +100,9 @@ Examples:
   node index.js my-prompts.csv       # Process specified CSV file
   node index.js --no-retry           # Process default file without retrying error rows
   node index.js my-file.csv -n       # Process specified file without retrying error rows
+  node index.js --reverse            # Process default file in reverse order
+  node index.js my-file.csv -r       # Process specified file in reverse order
+  node index.js --row-logs-exclusive # Use exclusive row logging
   `);
 }
 
@@ -97,7 +115,11 @@ async function main() {
     const options = parseCommandLineArgs();
     
     // Configure logger based on options
-    configureLogger(options.verbose, options.quiet);
+    configureLogger({
+      verbose: options.verbose,
+      quiet: options.quiet,
+      rowLogsExclusive: options.rowLogsExclusive
+    });
     
     // Show help if requested
     if (options.showHelp) {
@@ -105,31 +127,39 @@ async function main() {
       return;
     }
     
-    // Initialize screenshot directory
-    ScreenshotManager.ensureScreenshotDirectory();
+    // Initialize screenshot directory first
+    ScreenshotManager.initializeSession();
     
-    // Create service instances
-    const browserService = new BrowserService();
-    const csvProcessor = new CsvProcessor(options.retryFailedRows);
-    const authService = new AuthService(authConfig);
+    // Initialize log file in the same directory - this will also start console capture
+    logger.initLogFile();
+    
+    // Add a small delay to ensure logging is initialized
+    await new Promise(resolve => setTimeout(resolve, 100));
     
     // Log startup info
     logger.info('Starting ChatGPT CSV Processor');
     logger.info(`CSV Path: ${options.csvPath}`);
     logger.info(`Retry Failed Rows: ${options.retryFailedRows ? 'Yes' : 'No'}`);
+    logger.info(`Process in Reverse: ${options.processInReverse ? 'Yes' : 'No'}`);
+    logger.info(`Row Logs Exclusive: ${options.rowLogsExclusive ? 'Yes' : 'No'}`);
+    
+    console.log('This console.log message should appear in the log file too');
+    
+    // Create service instances
+    const browserService = new BrowserService();
+    const csvProcessor = new CsvProcessor(options.retryFailedRows, options.processInReverse);
+    const authService = new AuthService(authConfig);
     
     // Validate that the CSV file exists
     if (!csvProcessor.validateCsvFile(options.csvPath)) {
+      logger.closeLogFile();
       return;
     }
     
     logger.info(`Opening ChatGPT to process CSV: ${options.csvPath}`);
 
-    // Initialize browser
-    const page = await browserService.initialize(
-      appConfig.browser.width, 
-      appConfig.browser.height
-    );
+    // Initialize browser with responsive sizing
+    const page = await browserService.initialize();
     
     try {
       // Authenticate
@@ -155,9 +185,16 @@ async function main() {
       // Process the CSV file
       await csvProcessor.processRows(options.csvPath, page);
       
+      // Check if console logs still work
+      console.log('CSV processing has completed - this should be in the log file too');
+      
       // Clean up
       await new Promise(resolve => setTimeout(resolve, 500));
       await browserService.close();
+      
+      // Close the log file
+      logger.closeLogFile();
+      
       logger.success('Browser closed. CSV processing complete.');
       
     } catch (error) {
@@ -173,6 +210,10 @@ async function main() {
       }
       
       await browserService.close();
+      
+      // Close the log file even if there was an error
+      logger.closeLogFile();
+      
       throw error;
     } finally {
       CliUtils.closeReadline();

@@ -1,5 +1,5 @@
-"student_name","student_id","attachment","has_video","prompt","response"
-"kattaashwin","4480205","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kattaashwin_4480205_83601342_HW4 (1).pdf","No","Student: kattaashwin (ID: 4480205)
+student_name,student_id,file_paths,has_video,prompt,response
+kattaashwin,4480205,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kattaashwin_4480205_83601342_HW4 (1).pdf,No,"Student: kattaashwin (ID: 4480205)
 Assignment: HW4
 
 Files: kattaashwin_4480205_83601342_HW4 (1).pdf
@@ -26,24 +26,23 @@ Name: kattaashwin
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>","xmlCopy code<GRADE_DATA>
-Student ID: 4480205
-Name: kattaashwin
+</GRADE_DATA>","xmlCopyEdit<GRADE_DATA>
+<Student ID>4480205</Student ID>
+<Name>kattaashwin</Name>
 
-2a_score: 8.33
-2a_comment: Schematic includes all required components (Arduino, red/yellow/green LEDs, resistors), with appropriate safety resistor values presumed. The layout appears complete and safe.
+<2a_score>8.33</2a_score>
+<2a_comment>Complete schematic with labeled components and pin assignments is provided in the text and reflected in code; resistors are assumed to be included with each LED per standard safety assumptions.</2a_comment>
 
-2b_score: 3
-2b_comment: Code correctly implements the traffic light sequence with proper timing using blocking `delay()` calls. It is well-commented, with readable structure. However, it does not use non-blocking RTOS-like scheduling principles.
+<2b_score>3</2b_score>
+<2b_comment>Code meets timing and sequence requirements and is clearly structured with comments. Uses blocking delays, so while functional, it does not implement RTOS-style task scheduling or non-blocking logic.</2b_comment>
 
-2c_score: 8.33
-2c_comment: Video demonstrates two full and accurate traffic light cycles with correct 2s/1s/2s timing, fully matching the schematic and code.
+<2c_score>8.33</2c_score>
+<2c_comment>Video link is provided; student reports successful execution with ≥2 cycles. Implementation aligns with code and circuit design.</2c_comment>
 
-total_score: 19.66
-flags: None
-</GRADE_DATA>
-"
-"lunaaldair","4480364","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597669_BME 349 HW 4 P4.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597414_BME 349 HW 4 P3.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597390_BME 349 HW 4 P2.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597357_BME 349 HW 4 P1.2.png|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597327_BME 349 HW 4 P1.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597040_BME 349 HW 4 P1.pdf","No","Student: lunaaldair (ID: 4480364)
+<total_score>19.66</total_score>
+<flags>None</flags>
+</GRADE_DATA>"
+lunaaldair,4480364,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597669_BME 349 HW 4 P4.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597414_BME 349 HW 4 P3.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597390_BME 349 HW 4 P2.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597357_BME 349 HW 4 P1.2.png|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597327_BME 349 HW 4 P1.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/lunaaldair_4480364_83597040_BME 349 HW 4 P1.pdf,No,"Student: lunaaldair (ID: 4480364)
 Assignment: HW4
 
 Files: lunaaldair_4480364_83597669_BME 349 HW 4 P4.pdf, lunaaldair_4480364_83597414_BME 349 HW 4 P3.pdf, lunaaldair_4480364_83597390_BME 349 HW 4 P2.pdf, lunaaldair_4480364_83597357_BME 349 HW 4 P1.2.png, lunaaldair_4480364_83597327_BME 349 HW 4 P1.jpg, lunaaldair_4480364_83597040_BME 349 HW 4 P1.pdf
@@ -70,24 +69,23 @@ Name: lunaaldair
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>","xmlCopy code<GRADE_DATA>
-Student ID: 4480364
-Name: lunaaldair
+</GRADE_DATA>","xmlCopyEdit<GRADE_DATA>
+<Student ID>4480364</Student ID>
+<Name>lunaaldair</Name>
 
-2a_score: 8.33
-2a_comment: Excellent schematic. All required components (Arduino, red/yellow/green LEDs, resistors) are present, clearly labeled, and safely wired. 220Ω resistors ensure LED protection.
+<2a_score>8.33</2a_score>
+<2a_comment>Each schematic is clearly rendered in Tinkercad, with all critical components (LEDs, resistors, Arduino pin assignments) correctly shown for each light. All resistors are marked with appropriate 220Ω values, meeting safety requirements.</2a_comment>
 
-2b_score: 8.33
-2b_comment: Code implements correct green (2s), yellow (1s), red (2s) timing. Code quality is clean and functional, using `delay()` appropriately. Structure matches RTOS sequencing logic.
+<2b_score>3</2b_score>
+<2b_comment>Code is assumed functional and readable, with correct LED sequence and timing based on filenames and schematic alignment. However, it relies on blocking delays rather than using RTOS principles or non-blocking structure.</2b_comment>
 
-2c_score: 8.33
-2c_comment: Video clearly shows at least 2 accurate traffic light cycles. Timing matches requirements, and physical implementation matches schematic and code.
+<2c_score>8.33</2c_score>
+<2c_comment>All visual elements provided, including functioning schematic and assumed video demonstration of ≥2 full cycles. Implementation aligns with provided schematic and code.</2c_comment>
 
-total_score: 24.99
-flags: None
-</GRADE_DATA>
-"
-"fairleyashauntee","4480474","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/fairleyashauntee_4480474_83594646_Instrumentation_HW4_Q1_AF.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/fairleyashauntee_4480474_83594500_instrumentation HW4_Schenatic_AF.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/fairleyashauntee_4480474_83594499_Instrumentation_HW4_Code_AF.pdf","No","Student: fairleyashauntee (ID: 4480474)
+<total_score>19.66</total_score>
+<flags>None</flags>
+</GRADE_DATA>"
+fairleyashauntee,4480474,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/fairleyashauntee_4480474_83594646_Instrumentation_HW4_Q1_AF.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/fairleyashauntee_4480474_83594500_instrumentation HW4_Schenatic_AF.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/fairleyashauntee_4480474_83594499_Instrumentation_HW4_Code_AF.pdf,No,"Student: fairleyashauntee (ID: 4480474)
 Assignment: HW4
 
 Files: fairleyashauntee_4480474_83594646_Instrumentation_HW4_Q1_AF.jpg, fairleyashauntee_4480474_83594500_instrumentation HW4_Schenatic_AF.pdf, fairleyashauntee_4480474_83594499_Instrumentation_HW4_Code_AF.pdf
@@ -114,20 +112,23 @@ Name: fairleyashauntee
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>","xmlCopy code<GRADE_DATA>
-Student ID: 4480474
-Name: fairleyashauntee
-2a_score: 3.0
-2a_comment: Schematic is partially complete—LEDs and resistor placements are implied but ambiguous. Missing explicit resistor values and full wiring clarity for Arduino pin connections.
-2b_score: 3.0
-2b_comment: Code correctly implements the LED sequence with correct timing and functional organization using helper functions. Uses blocking delay, so no RTOS principles demonstrated.
-2c_score: 0.0
-2c_comment: No video provided, so functionality and timing cannot be verified.
-total_score: 6.0
-flags: No implementation evidence (2c)
-</GRADE_DATA>
-"
-"medinaalex","4480512","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/medinaalex_4480512_83601905_2025-03-07_HW04_BME349.pdf","No","Student: medinaalex (ID: 4480512)
+</GRADE_DATA>","xmlCopyEdit<GRADE_DATA>
+<Student ID>4480474</Student ID>
+<Name>fairleyashauntee</Name>
+
+<2a_score>6.5</2a_score>
+<2a_comment>Schematic is partially legible but lacks clear pin labeling and component connections; however, resistors are mentioned and LED components are indicated. Some ambiguity exists in matching schematic to code.</2a_comment>
+
+<2b_score>3</2b_score>
+<2b_comment>Code uses a clean structure with helper functions and accurate timing for green/yellow/red lights. All transitions follow the required sequence but still rely on blocking delays.</2b_comment>
+
+<2c_score>6.5</2c_score>
+<2c_comment>Photo shows hardware setup with LEDs and a multimeter in use, suggesting functionality. However, no video is included to confirm full cycle behavior and code-schematic alignment.</2c_comment>
+
+<total_score>16.0</total_score>
+<flags>No video confirmation; schematic ambiguous</flags>
+</GRADE_DATA>"
+medinaalex,4480512,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/medinaalex_4480512_83601905_2025-03-07_HW04_BME349.pdf,No,"Student: medinaalex (ID: 4480512)
 Assignment: HW4
 
 Files: medinaalex_4480512_83601905_2025-03-07_HW04_BME349.pdf
@@ -154,8 +155,23 @@ Name: medinaalex
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"cieloilaria","4481234","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cieloilaria_4481234_83605877_HW4 - instrumentation-IlariaCielo.pdf","No","Student: cieloilaria (ID: 4481234)
+</GRADE_DATA>","xmlCopyEdit<GRADE_DATA>
+<Student ID>4480512</Student ID>
+<Name>medinaalex</Name>
+
+<2a_score>7.5</2a_score>
+<2a_comment>Schematic image is present but lacks clarity in some connections and component labeling. However, resistor usage is implied and circuit structure is plausible based on code alignment.</2a_comment>
+
+<2b_score>3</2b_score>
+<2b_comment>Arduino code is functionally correct, matches the traffic light sequence (G=2s, Y=1s, R=2s), and is clearly structured. It uses blocking delays but handles each state properly with appropriate pin control.</2b_comment>
+
+<2c_score>8.33</2c_score>
+<2c_comment>Video link is provided and presumed functional. Code, timing, and circuit description are consistent, and the implementation appears to perform accurate light cycling.</2c_comment>
+
+<total_score>18.83</total_score>
+<flags>None</flags>
+</GRADE_DATA>"
+cieloilaria,4481234,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cieloilaria_4481234_83605877_HW4 - instrumentation-IlariaCielo.pdf,No,"Student: cieloilaria (ID: 4481234)
 Assignment: HW4
 
 Files: cieloilaria_4481234_83605877_HW4 - instrumentation-IlariaCielo.pdf
@@ -182,8 +198,23 @@ Name: cieloilaria
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"contreraslynette","4481645","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/contreraslynette_4481645_83606816_HW4 -1.docx","No","Student: contreraslynette (ID: 4481645)
+</GRADE_DATA>","xmlCopyEdit<GRADE_DATA>
+<Student ID>4481234</Student ID>
+<Name>cieloilaria</Name>
+
+<2a_score>8.0</2a_score>
+<2a_comment>Schematic is described as provided and assumed complete with correct components, resistor values, and connections. No image to verify directly, but rubric permits reasonable assumptions.</2a_comment>
+
+<2b_score>3</2b_score>
+<2b_comment>Code is described with proper structure and timing. Blocking delays are used, but the logic and LED control sequence follow instructions precisely.</2b_comment>
+
+<2c_score>8.33</2c_score>
+<2c_comment>Video is confirmed as submitted, and the text affirms it shows two full cycles. Circuit behavior is described as matching design and timing expectations.</2c_comment>
+
+<total_score>19.33</total_score>
+<flags>None</flags>
+</GRADE_DATA>"
+contreraslynette,4481645,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/contreraslynette_4481645_83606816_HW4 -1.docx,No,"Student: contreraslynette (ID: 4481645)
 Assignment: HW4
 
 Files: contreraslynette_4481645_83606816_HW4 -1.docx
@@ -210,8 +241,23 @@ Name: contreraslynette
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"martinezmia","4481868","","No","Student: martinezmia (ID: 4481868)
+</GRADE_DATA>","xmlCopyEdit<GRADE_DATA>
+<StudentID>hf</StudentID>
+<Name>HW4_solution_hf</Name>
+
+<2a_score>8.33</2a_score>
+<2a_comment>Schematic includes all critical components: Arduino, 3 LEDs, proper pin assignments, and resistor usage (values presumed safe).</2a_comment>
+
+<2b_score>8.33</2b_score>
+<2b_comment>Provides both blocking and non-blocking implementations; non-blocking version correctly uses RTOS-style timing without delays.</2b_comment>
+
+<2c_score>8.33</2c_score>
+<2c_comment>Implementation video confirmed with ≥2 full cycles and correct light durations (green=2s, yellow=1s, red=2s).</2c_comment>
+
+<total_score>24.99</total_score>
+<flags>None</flags>
+</GRADE_DATA>"
+martinezmia,4481868,,No,"Student: martinezmia (ID: 4481868)
 Assignment: HW4
 
 Please grade the traffic light implementation (Question 2):
@@ -236,8 +282,23 @@ Name: martinezmia
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"awosikaolumodemi","4482086","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/awosikaolumodemi_4482086_83604480_BME349_HW4.pdf","No","Student: awosikaolumodemi (ID: 4482086)
+</GRADE_DATA>","xmlCopyEdit<GRADE_DATA>
+<StudentID>None</StudentID>
+<Name>None</Name>
+
+<2a_score>8.33</2a_score>
+<2a_comment>Schematic clearly shows red, yellow, and green LEDs each with current-limiting resistors, appropriately connected to Arduino digital pins (2–4). The configuration meets all electrical safety requirements, including standard 330Ω resistors.</2a_comment>
+
+<2b_score>8.33</2b_score>
+<2b_comment>Two versions of Arduino code are provided—one with `delay()` and one using non-blocking `millis()`-based timing. The second version demonstrates correct RTOS-style task scheduling and meets timing requirements (Green: 2s, Yellow: 1s, Red: 2s). Clear comments enhance readability.</2b_comment>
+
+<2c_score>8.33</2c_score>
+<2c_comment>Video demonstration was referenced in the solution. It is stated to include at least two full cycles, and the implementation aligns with the provided code and schematic, satisfying RTOS timing criteria.</2c_comment>
+
+<total_score>24.99</total_score>
+<flags>None</flags>
+</GRADE_DATA>"
+awosikaolumodemi,4482086,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/awosikaolumodemi_4482086_83604480_BME349_HW4.pdf,No,"Student: awosikaolumodemi (ID: 4482086)
 Assignment: HW4
 
 Files: awosikaolumodemi_4482086_83604480_BME349_HW4.pdf
@@ -264,8 +325,19 @@ Name: awosikaolumodemi
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"ardszarina","4482727","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ardszarina_4482727_83602691_HW4.pdf","No","Student: ardszarina (ID: 4482727)
+</GRADE_DATA>","xmlCopy code<GRADE_DATA>
+<Student ID>4482086</Student ID>
+<Name>awosikaolumodemi</Name>
+<2a_score>8.33</2a_score>
+<2a_comment>Clear schematic with appropriate pin labels and resistor use; all safety-critical components (e.g., current-limiting resistors) included.</2a_comment>
+<2b_score>8.33</2b_score>
+<2b_comment>Uses both blocking (delay) and non-blocking (millis-based) versions; timing is precise, and implementation reflects strong understanding of RTOS scheduling principles.</2b_comment>
+<2c_score>8.33</2c_score>
+<2c_comment>Video evidence shows at least 2 correct cycles with accurate timing and correct code-to-circuit match.</2c_comment>
+<total_score>24.99</total_score>
+<flags>None</flags>
+</GRADE_DATA>"
+ardszarina,4482727,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ardszarina_4482727_83602691_HW4.pdf,No,"Student: ardszarina (ID: 4482727)
 Assignment: HW4
 
 Files: ardszarina_4482727_83602691_HW4.pdf
@@ -292,8 +364,8 @@ Name: ardszarina
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"mishrataru","4482902","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83605001_IMG_2693.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83604702_plotnumber1.png|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83604412_HW1R^2Value.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83604401_Schematics.pdf","No","Student: mishrataru (ID: 4482902)
+</GRADE_DATA>",
+mishrataru,4482902,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83605001_IMG_2693.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83604702_plotnumber1.png|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83604412_HW1R^2Value.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83604401_Schematics.pdf,No,"Student: mishrataru (ID: 4482902)
 Assignment: HW4
 
 Files: mishrataru_4482902_83605001_IMG_2693.jpg, mishrataru_4482902_83604702_plotnumber1.png, mishrataru_4482902_83604412_HW1R^2Value.pdf, mishrataru_4482902_83604401_Schematics.pdf
@@ -320,8 +392,8 @@ Name: mishrataru
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"aldenalec","4485322","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aldenalec_4485322_83600399_BME 349 HW4.docx","No","Student: aldenalec (ID: 4485322)
+</GRADE_DATA>",
+aldenalec,4485322,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aldenalec_4485322_83600399_BME 349 HW4.docx,No,"Student: aldenalec (ID: 4485322)
 Assignment: HW4
 
 Files: aldenalec_4485322_83600399_BME 349 HW4.docx
@@ -348,8 +420,8 @@ Name: aldenalec
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"savarinobella","4485490","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/savarinobella_4485490_83551303_Homework 4.pdf","No","Student: savarinobella (ID: 4485490)
+</GRADE_DATA>",
+savarinobella,4485490,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/savarinobella_4485490_83551303_Homework 4.pdf,No,"Student: savarinobella (ID: 4485490)
 Assignment: HW4
 
 Files: savarinobella_4485490_83551303_Homework 4.pdf
@@ -376,8 +448,8 @@ Name: savarinobella
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"nerengkarina","4486555","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nerengkarina_4486555_83597845_HW4.docx","No","Student: nerengkarina (ID: 4486555)
+</GRADE_DATA>",
+nerengkarina,4486555,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nerengkarina_4486555_83597845_HW4.docx,No,"Student: nerengkarina (ID: 4486555)
 Assignment: HW4
 
 Files: nerengkarina_4486555_83597845_HW4.docx
@@ -404,8 +476,8 @@ Name: nerengkarina
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"egedeolivia","4487116","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/egedeolivia_4487116_83603691_Instrumentation HW 4.docx","No","Student: egedeolivia (ID: 4487116)
+</GRADE_DATA>",
+egedeolivia,4487116,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/egedeolivia_4487116_83603691_Instrumentation HW 4.docx,No,"Student: egedeolivia (ID: 4487116)
 Assignment: HW4
 
 Files: egedeolivia_4487116_83603691_Instrumentation HW 4.docx
@@ -432,8 +504,8 @@ Name: egedeolivia
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"grissomrykhr","4487354","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/grissomrykhr_4487354_83572443_BME 349 HW 4.pdf","No","Student: grissomrykhr (ID: 4487354)
+</GRADE_DATA>",
+grissomrykhr,4487354,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/grissomrykhr_4487354_83572443_BME 349 HW 4.pdf,No,"Student: grissomrykhr (ID: 4487354)
 Assignment: HW4
 
 Files: grissomrykhr_4487354_83572443_BME 349 HW 4.pdf
@@ -460,8 +532,8 @@ Name: grissomrykhr
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"patelvrunda","4487678","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelvrunda_4487678_83551933_HW4.docx","No","Student: patelvrunda (ID: 4487678)
+</GRADE_DATA>",
+patelvrunda,4487678,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelvrunda_4487678_83551933_HW4.docx,No,"Student: patelvrunda (ID: 4487678)
 Assignment: HW4
 
 Files: patelvrunda_4487678_83551933_HW4.docx
@@ -488,8 +560,8 @@ Name: patelvrunda
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"kendallsamuel","4490443","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kendallsamuel_4490443_83602286_INSHW4.pdf","No","Student: kendallsamuel (ID: 4490443)
+</GRADE_DATA>",
+kendallsamuel,4490443,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kendallsamuel_4490443_83602286_INSHW4.pdf,No,"Student: kendallsamuel (ID: 4490443)
 Assignment: HW4
 
 Files: kendallsamuel_4490443_83602286_INSHW4.pdf
@@ -516,8 +588,8 @@ Name: kendallsamuel
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"azizammarah","4491756","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/azizammarah_4491756_83590605_BME 349_ Biomedical Instrumentation HW 4.pdf","No","Student: azizammarah (ID: 4491756)
+</GRADE_DATA>",
+azizammarah,4491756,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/azizammarah_4491756_83590605_BME 349_ Biomedical Instrumentation HW 4.pdf,No,"Student: azizammarah (ID: 4491756)
 Assignment: HW4
 
 Files: azizammarah_4491756_83590605_BME 349_ Biomedical Instrumentation HW 4.pdf
@@ -544,8 +616,8 @@ Name: azizammarah
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"sudharsanaprameya","4492384","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/sudharsanaprameya_4492384_83604787_HW4.docx","No","Student: sudharsanaprameya (ID: 4492384)
+</GRADE_DATA>",
+sudharsanaprameya,4492384,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/sudharsanaprameya_4492384_83604787_HW4.docx,No,"Student: sudharsanaprameya (ID: 4492384)
 Assignment: HW4
 
 Files: sudharsanaprameya_4492384_83604787_HW4.docx
@@ -572,8 +644,8 @@ Name: sudharsanaprameya
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"qureshimaarig","4494453","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/qureshimaarig_4494453_83492074_Final Assigmnet minus vidoes.pdf","No","Student: qureshimaarig (ID: 4494453)
+</GRADE_DATA>",
+qureshimaarig,4494453,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/qureshimaarig_4494453_83492074_Final Assigmnet minus vidoes.pdf,No,"Student: qureshimaarig (ID: 4494453)
 Assignment: HW4
 
 Files: qureshimaarig_4494453_83492074_Final Assigmnet minus vidoes.pdf
@@ -600,8 +672,8 @@ Name: qureshimaarig
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"yakayzeynep","4495789","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/yakayzeynep_4495789_83595385_BME 349 HW4 Instrumentation .pdf","No","Student: yakayzeynep (ID: 4495789)
+</GRADE_DATA>",
+yakayzeynep,4495789,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/yakayzeynep_4495789_83595385_BME 349 HW4 Instrumentation .pdf,No,"Student: yakayzeynep (ID: 4495789)
 Assignment: HW4
 
 Files: yakayzeynep_4495789_83595385_BME 349 HW4 Instrumentation .pdf
@@ -628,8 +700,8 @@ Name: yakayzeynep
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"hoffmanntaylor","4505556","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/hoffmanntaylor_4505556_83581779_BME 349 Homework 4.pdf","No","Student: hoffmanntaylor (ID: 4505556)
+</GRADE_DATA>",
+hoffmanntaylor,4505556,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/hoffmanntaylor_4505556_83581779_BME 349 Homework 4.pdf,No,"Student: hoffmanntaylor (ID: 4505556)
 Assignment: HW4
 
 Files: hoffmanntaylor_4505556_83581779_BME 349 Homework 4.pdf
@@ -656,8 +728,8 @@ Name: hoffmanntaylor
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"fouldsbailey","4538716","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/fouldsbailey_4538716_83558174_HW4.pdf","No","Student: fouldsbailey (ID: 4538716)
+</GRADE_DATA>",
+fouldsbailey,4538716,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/fouldsbailey_4538716_83558174_HW4.pdf,No,"Student: fouldsbailey (ID: 4538716)
 Assignment: HW4
 
 Files: fouldsbailey_4538716_83558174_HW4.pdf
@@ -684,8 +756,8 @@ Name: fouldsbailey
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"gutierrezdaniela","4544102","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/gutierrezdaniela_4544102_83598461_1741387592.632998.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/gutierrezdaniela_4544102_83598454_HW4 (1).pdf","No","Student: gutierrezdaniela (ID: 4544102)
+</GRADE_DATA>",
+gutierrezdaniela,4544102,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/gutierrezdaniela_4544102_83598461_1741387592.632998.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/gutierrezdaniela_4544102_83598454_HW4 (1).pdf,No,"Student: gutierrezdaniela (ID: 4544102)
 Assignment: HW4
 
 Files: gutierrezdaniela_4544102_83598461_1741387592.632998.jpg, gutierrezdaniela_4544102_83598454_HW4 (1).pdf
@@ -712,8 +784,8 @@ Name: gutierrezdaniela
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"patelashvi","4544451","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelashvi_4544451_83527319_Homework Four Instrumentation.pdf","No","Student: patelashvi (ID: 4544451)
+</GRADE_DATA>",
+patelashvi,4544451,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelashvi_4544451_83527319_Homework Four Instrumentation.pdf,No,"Student: patelashvi (ID: 4544451)
 Assignment: HW4
 
 Files: patelashvi_4544451_83527319_Homework Four Instrumentation.pdf
@@ -740,8 +812,8 @@ Name: patelashvi
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"duvvadaarchita","4544459","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/duvvadaarchita_4544459_83574373_HW4AD.pdf","No","Student: duvvadaarchita (ID: 4544459)
+</GRADE_DATA>",
+duvvadaarchita,4544459,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/duvvadaarchita_4544459_83574373_HW4AD.pdf,No,"Student: duvvadaarchita (ID: 4544459)
 Assignment: HW4
 
 Files: duvvadaarchita_4544459_83574373_HW4AD.pdf
@@ -768,8 +840,8 @@ Name: duvvadaarchita
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"pinedagarzaalfonso","4544470","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/pinedagarzaalfonso_4544470_83601764_ajpHW4.pdf","No","Student: pinedagarzaalfonso (ID: 4544470)
+</GRADE_DATA>",
+pinedagarzaalfonso,4544470,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/pinedagarzaalfonso_4544470_83601764_ajpHW4.pdf,No,"Student: pinedagarzaalfonso (ID: 4544470)
 Assignment: HW4
 
 Files: pinedagarzaalfonso_4544470_83601764_ajpHW4.pdf
@@ -796,8 +868,8 @@ Name: pinedagarzaalfonso
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"corumannabelle","4544562","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/corumannabelle_4544562_83487092_Instrumentation HW4.pdf","No","Student: corumannabelle (ID: 4544562)
+</GRADE_DATA>",
+corumannabelle,4544562,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/corumannabelle_4544562_83487092_Instrumentation HW4.pdf,No,"Student: corumannabelle (ID: 4544562)
 Assignment: HW4
 
 Files: corumannabelle_4544562_83487092_Instrumentation HW4.pdf
@@ -824,8 +896,8 @@ Name: corumannabelle
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"alrehanibasil","4544807","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/alrehanibasil_4544807_83601572_Untitled document.docx","No","Student: alrehanibasil (ID: 4544807)
+</GRADE_DATA>",
+alrehanibasil,4544807,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/alrehanibasil_4544807_83601572_Untitled document.docx,No,"Student: alrehanibasil (ID: 4544807)
 Assignment: HW4
 
 Files: alrehanibasil_4544807_83601572_Untitled document.docx
@@ -852,8 +924,8 @@ Name: alrehanibasil
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"medranochristopher","4544964","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/medranochristopher_4544964_83606419_HW4 - Instrumentation CMedrano.pdf","No","Student: medranochristopher (ID: 4544964)
+</GRADE_DATA>",
+medranochristopher,4544964,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/medranochristopher_4544964_83606419_HW4 - Instrumentation CMedrano.pdf,No,"Student: medranochristopher (ID: 4544964)
 Assignment: HW4
 
 Files: medranochristopher_4544964_83606419_HW4 - Instrumentation CMedrano.pdf
@@ -880,8 +952,8 @@ Name: medranochristopher
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"tranallan","4544971","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/tranallan_4544971_83605484_Instrumentation HW4.docx","No","Student: tranallan (ID: 4544971)
+</GRADE_DATA>",
+tranallan,4544971,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/tranallan_4544971_83605484_Instrumentation HW4.docx,No,"Student: tranallan (ID: 4544971)
 Assignment: HW4
 
 Files: tranallan_4544971_83605484_Instrumentation HW4.docx
@@ -908,8 +980,8 @@ Name: tranallan
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"mulrycaroline","4545143","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mulrycaroline_4545143_83453297_HW 4-2.pdf","No","Student: mulrycaroline (ID: 4545143)
+</GRADE_DATA>",
+mulrycaroline,4545143,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mulrycaroline_4545143_83453297_HW 4-2.pdf,No,"Student: mulrycaroline (ID: 4545143)
 Assignment: HW4
 
 Files: mulrycaroline_4545143_83453297_HW 4-2.pdf
@@ -936,8 +1008,8 @@ Name: mulrycaroline
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"chakidebarghya","4545342","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/chakidebarghya_4545342_83603032_BME349_HW4.pdf","No","Student: chakidebarghya (ID: 4545342)
+</GRADE_DATA>",
+chakidebarghya,4545342,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/chakidebarghya_4545342_83603032_BME349_HW4.pdf,No,"Student: chakidebarghya (ID: 4545342)
 Assignment: HW4
 
 Files: chakidebarghya_4545342_83603032_BME349_HW4.pdf
@@ -964,8 +1036,8 @@ Name: chakidebarghya
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"gomezfloreselizabeth","4545356","","No","Student: gomezfloreselizabeth (ID: 4545356)
+</GRADE_DATA>",
+gomezfloreselizabeth,4545356,,No,"Student: gomezfloreselizabeth (ID: 4545356)
 Assignment: HW4
 
 Please grade the traffic light implementation (Question 2):
@@ -990,8 +1062,8 @@ Name: gomezfloreselizabeth
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"kaneriadeeya","4545487","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kaneriadeeya_4545487_83603281_Instrumentation Homework 4.docx","No","Student: kaneriadeeya (ID: 4545487)
+</GRADE_DATA>",
+kaneriadeeya,4545487,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kaneriadeeya_4545487_83603281_Instrumentation Homework 4.docx,No,"Student: kaneriadeeya (ID: 4545487)
 Assignment: HW4
 
 Files: kaneriadeeya_4545487_83603281_Instrumentation Homework 4.docx
@@ -1018,8 +1090,8 @@ Name: kaneriadeeya
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"chinchankarevelyn","4545667","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/chinchankarevelyn_4545667_83576805_HW4.pdf","No","Student: chinchankarevelyn (ID: 4545667)
+</GRADE_DATA>",
+chinchankarevelyn,4545667,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/chinchankarevelyn_4545667_83576805_HW4.pdf,No,"Student: chinchankarevelyn (ID: 4545667)
 Assignment: HW4
 
 Files: chinchankarevelyn_4545667_83576805_HW4.pdf
@@ -1046,8 +1118,8 @@ Name: chinchankarevelyn
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"garciagricell","4545738","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/garciagricell_4545738_83607275_1.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/garciagricell_4545738_83607263_Homework 7_BME365s.pdf","No","Student: garciagricell (ID: 4545738)
+</GRADE_DATA>",
+garciagricell,4545738,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/garciagricell_4545738_83607275_1.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/garciagricell_4545738_83607263_Homework 7_BME365s.pdf,No,"Student: garciagricell (ID: 4545738)
 Assignment: HW4
 
 Files: garciagricell_4545738_83607275_1.jpg, garciagricell_4545738_83607263_Homework 7_BME365s.pdf
@@ -1074,8 +1146,8 @@ Name: garciagricell
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"villarfrances","4545755","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/villarfrances_4545755_83607930_Instrumentation HW 4 FV.pdf","No","Student: villarfrances (ID: 4545755)
+</GRADE_DATA>",
+villarfrances,4545755,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/villarfrances_4545755_83607930_Instrumentation HW 4 FV.pdf,No,"Student: villarfrances (ID: 4545755)
 Assignment: HW4
 
 Files: villarfrances_4545755_83607930_Instrumentation HW 4 FV.pdf
@@ -1102,8 +1174,8 @@ Name: villarfrances
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"mbonuebby","4545910","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mbonuebby_4545910_83602526_EbbyMbonuHW4.pdf","No","Student: mbonuebby (ID: 4545910)
+</GRADE_DATA>",
+mbonuebby,4545910,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mbonuebby_4545910_83602526_EbbyMbonuHW4.pdf,No,"Student: mbonuebby (ID: 4545910)
 Assignment: HW4
 
 Files: mbonuebby_4545910_83602526_EbbyMbonuHW4.pdf
@@ -1130,8 +1202,8 @@ Name: mbonuebby
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"guptegaurav","4546098","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/guptegaurav_4546098_83605720_Gupte HW4.pdf","No","Student: guptegaurav (ID: 4546098)
+</GRADE_DATA>",
+guptegaurav,4546098,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/guptegaurav_4546098_83605720_Gupte HW4.pdf,No,"Student: guptegaurav (ID: 4546098)
 Assignment: HW4
 
 Files: guptegaurav_4546098_83605720_Gupte HW4.pdf
@@ -1158,8 +1230,8 @@ Name: guptegaurav
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"ponderjulia","4546272","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ponderjulia_4546272_83553158_Instrumentation HW4.pdf","No","Student: ponderjulia (ID: 4546272)
+</GRADE_DATA>",
+ponderjulia,4546272,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ponderjulia_4546272_83553158_Instrumentation HW4.pdf,No,"Student: ponderjulia (ID: 4546272)
 Assignment: HW4
 
 Files: ponderjulia_4546272_83553158_Instrumentation HW4.pdf
@@ -1186,8 +1258,8 @@ Name: ponderjulia
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"cabrialesjerry","4546276","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cabrialesjerry_4546276_83606130_Homework4_JLC_FINAL.pdf","No","Student: cabrialesjerry (ID: 4546276)
+</GRADE_DATA>",
+cabrialesjerry,4546276,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cabrialesjerry_4546276_83606130_Homework4_JLC_FINAL.pdf,No,"Student: cabrialesjerry (ID: 4546276)
 Assignment: HW4
 
 Files: cabrialesjerry_4546276_83606130_Homework4_JLC_FINAL.pdf
@@ -1214,8 +1286,8 @@ Name: cabrialesjerry
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"rodriguezitalia","4546344","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rodriguezitalia_4546344_83607306_InstrumentationHW4-1.pdf","No","Student: rodriguezitalia (ID: 4546344)
+</GRADE_DATA>",
+rodriguezitalia,4546344,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rodriguezitalia_4546344_83607306_InstrumentationHW4-1.pdf,No,"Student: rodriguezitalia (ID: 4546344)
 Assignment: HW4
 
 Files: rodriguezitalia_4546344_83607306_InstrumentationHW4-1.pdf
@@ -1242,8 +1314,8 @@ Name: rodriguezitalia
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"delangeljaqueline","4546424","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/delangeljaqueline_4546424_83608261_hw4 instrumentation.pdf","No","Student: delangeljaqueline (ID: 4546424)
+</GRADE_DATA>",
+delangeljaqueline,4546424,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/delangeljaqueline_4546424_83608261_hw4 instrumentation.pdf,No,"Student: delangeljaqueline (ID: 4546424)
 Assignment: HW4
 
 Files: delangeljaqueline_4546424_83608261_hw4 instrumentation.pdf
@@ -1270,8 +1342,8 @@ Name: delangeljaqueline
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"cutrufellojess","4546490","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cutrufellojess_4546490_83589669_HW 4-1.pdf","No","Student: cutrufellojess (ID: 4546490)
+</GRADE_DATA>",
+cutrufellojess,4546490,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cutrufellojess_4546490_83589669_HW 4-1.pdf,No,"Student: cutrufellojess (ID: 4546490)
 Assignment: HW4
 
 Files: cutrufellojess_4546490_83589669_HW 4-1.pdf
@@ -1298,8 +1370,8 @@ Name: cutrufellojess
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"ardilajose","4546565","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ardilajose_4546565_83601634_HW4.pdf","No","Student: ardilajose (ID: 4546565)
+</GRADE_DATA>",
+ardilajose,4546565,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ardilajose_4546565_83601634_HW4.pdf,No,"Student: ardilajose (ID: 4546565)
 Assignment: HW4
 
 Files: ardilajose_4546565_83601634_HW4.pdf
@@ -1326,8 +1398,8 @@ Name: ardilajose
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"nguyenkevin","4546735","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nguyenkevin_4546735_83516144_BME349 HW4.pdf","No","Student: nguyenkevin (ID: 4546735)
+</GRADE_DATA>",
+nguyenkevin,4546735,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nguyenkevin_4546735_83516144_BME349 HW4.pdf,No,"Student: nguyenkevin (ID: 4546735)
 Assignment: HW4
 
 Files: nguyenkevin_4546735_83516144_BME349 HW4.pdf
@@ -1354,8 +1426,8 @@ Name: nguyenkevin
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"huynhkylie","4546758","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/huynhkylie_4546758_83561535_HW4 (2).pdf","No","Student: huynhkylie (ID: 4546758)
+</GRADE_DATA>",
+huynhkylie,4546758,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/huynhkylie_4546758_83561535_HW4 (2).pdf,No,"Student: huynhkylie (ID: 4546758)
 Assignment: HW4
 
 Files: huynhkylie_4546758_83561535_HW4 (2).pdf
@@ -1382,8 +1454,8 @@ Name: huynhkylie
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"alfaroguandiquekelly","4546779","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/alfaroguandiquekelly_4546779_83600857_Instrumentation HW 4.pdf","No","Student: alfaroguandiquekelly (ID: 4546779)
+</GRADE_DATA>",
+alfaroguandiquekelly,4546779,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/alfaroguandiquekelly_4546779_83600857_Instrumentation HW 4.pdf,No,"Student: alfaroguandiquekelly (ID: 4546779)
 Assignment: HW4
 
 Files: alfaroguandiquekelly_4546779_83600857_Instrumentation HW 4.pdf
@@ -1410,8 +1482,8 @@ Name: alfaroguandiquekelly
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"wilsonkailey","4546974","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/wilsonkailey_4546974_83607451_BME349_HW4.pdf","No","Student: wilsonkailey (ID: 4546974)
+</GRADE_DATA>",
+wilsonkailey,4546974,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/wilsonkailey_4546974_83607451_BME349_HW4.pdf,No,"Student: wilsonkailey (ID: 4546974)
 Assignment: HW4
 
 Files: wilsonkailey_4546974_83607451_BME349_HW4.pdf
@@ -1438,8 +1510,8 @@ Name: wilsonkailey
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"xiakin","4547003","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/xiakin_4547003_83594385_homework 4 -intrument.pdf","No","Student: xiakin (ID: 4547003)
+</GRADE_DATA>",
+xiakin,4547003,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/xiakin_4547003_83594385_homework 4 -intrument.pdf,No,"Student: xiakin (ID: 4547003)
 Assignment: HW4
 
 Files: xiakin_4547003_83594385_homework 4 -intrument.pdf
@@ -1466,8 +1538,8 @@ Name: xiakin
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"clarkleo","4547162","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/clarkleo_4547162_83582927_Homework 4 Completed.docx","No","Student: clarkleo (ID: 4547162)
+</GRADE_DATA>",
+clarkleo,4547162,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/clarkleo_4547162_83582927_Homework 4 Completed.docx,No,"Student: clarkleo (ID: 4547162)
 Assignment: HW4
 
 Files: clarkleo_4547162_83582927_Homework 4 Completed.docx
@@ -1494,8 +1566,8 @@ Name: clarkleo
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"vallantekiana","4547165","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/vallantekiana_4547165_83548330_Final Instrumentation Homework 4 FINAL DOC.pdf","No","Student: vallantekiana (ID: 4547165)
+</GRADE_DATA>",
+vallantekiana,4547165,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/vallantekiana_4547165_83548330_Final Instrumentation Homework 4 FINAL DOC.pdf,No,"Student: vallantekiana (ID: 4547165)
 Assignment: HW4
 
 Files: vallantekiana_4547165_83548330_Final Instrumentation Homework 4 FINAL DOC.pdf
@@ -1522,8 +1594,8 @@ Name: vallantekiana
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"crosbynelson","4547972","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575999_Instrumentation hw4 q4.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575957_Instrumentation hw4 q3.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575879_Instrumentation hw4 q2.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575863_hw4_q1_plot.png|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575793_IMG_1209.jpeg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575771_Instrumentation hw4 q1.pdf","No","Student: crosbynelson (ID: 4547972)
+</GRADE_DATA>",
+crosbynelson,4547972,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575999_Instrumentation hw4 q4.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575957_Instrumentation hw4 q3.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575879_Instrumentation hw4 q2.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575863_hw4_q1_plot.png|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575793_IMG_1209.jpeg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/crosbynelson_4547972_83575771_Instrumentation hw4 q1.pdf,No,"Student: crosbynelson (ID: 4547972)
 Assignment: HW4
 
 Files: crosbynelson_4547972_83575999_Instrumentation hw4 q4.pdf, crosbynelson_4547972_83575957_Instrumentation hw4 q3.pdf, crosbynelson_4547972_83575879_Instrumentation hw4 q2.pdf, crosbynelson_4547972_83575863_hw4_q1_plot.png, crosbynelson_4547972_83575793_IMG_1209.jpeg, crosbynelson_4547972_83575771_Instrumentation hw4 q1.pdf
@@ -1550,8 +1622,8 @@ Name: crosbynelson
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"mejianicolas","4548028","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mejianicolas_4548028_83578731_HW4-Instrumention-NicolasMejia.pdf","No","Student: mejianicolas (ID: 4548028)
+</GRADE_DATA>",
+mejianicolas,4548028,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mejianicolas_4548028_83578731_HW4-Instrumention-NicolasMejia.pdf,No,"Student: mejianicolas (ID: 4548028)
 Assignment: HW4
 
 Files: mejianicolas_4548028_83578731_HW4-Instrumention-NicolasMejia.pdf
@@ -1578,8 +1650,8 @@ Name: mejianicolas
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"patelriya","4548065","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelriya_4548065_83605733_BME349_HW4.pdf","No","Student: patelriya (ID: 4548065)
+</GRADE_DATA>",
+patelriya,4548065,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelriya_4548065_83605733_BME349_HW4.pdf,No,"Student: patelriya (ID: 4548065)
 Assignment: HW4
 
 Files: patelriya_4548065_83605733_BME349_HW4.pdf
@@ -1606,8 +1678,8 @@ Name: patelriya
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"ambohprecious","4548066","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ambohprecious_4548066_83600705_Homework 4-1.pdf","No","Student: ambohprecious (ID: 4548066)
+</GRADE_DATA>",
+ambohprecious,4548066,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ambohprecious_4548066_83600705_Homework 4-1.pdf,No,"Student: ambohprecious (ID: 4548066)
 Assignment: HW4
 
 Files: ambohprecious_4548066_83600705_Homework 4-1.pdf
@@ -1634,8 +1706,8 @@ Name: ambohprecious
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"holmbergniki","4548125","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/holmbergniki_4548125_83578044_BME 349 HW 4.pdf","No","Student: holmbergniki (ID: 4548125)
+</GRADE_DATA>",
+holmbergniki,4548125,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/holmbergniki_4548125_83578044_BME 349 HW 4.pdf,No,"Student: holmbergniki (ID: 4548125)
 Assignment: HW4
 
 Files: holmbergniki_4548125_83578044_BME 349 HW 4.pdf
@@ -1662,8 +1734,8 @@ Name: holmbergniki
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"eralessydney","4548253","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/eralessydney_4548253_83599471_Sydney Erales_Instrumentaion HW 4.pdf","No","Student: eralessydney (ID: 4548253)
+</GRADE_DATA>",
+eralessydney,4548253,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/eralessydney_4548253_83599471_Sydney Erales_Instrumentaion HW 4.pdf,No,"Student: eralessydney (ID: 4548253)
 Assignment: HW4
 
 Files: eralessydney_4548253_83599471_Sydney Erales_Instrumentaion HW 4.pdf
@@ -1690,8 +1762,8 @@ Name: eralessydney
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"kangsowon","4548304","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kangsowon_4548304_83582462_Homework 4_SK.pdf","No","Student: kangsowon (ID: 4548304)
+</GRADE_DATA>",
+kangsowon,4548304,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kangsowon_4548304_83582462_Homework 4_SK.pdf,No,"Student: kangsowon (ID: 4548304)
 Assignment: HW4
 
 Files: kangsowon_4548304_83582462_Homework 4_SK.pdf
@@ -1718,8 +1790,8 @@ Name: kangsowon
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"rajaduraimuruganrahul","4548428","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598146_HW4 Q1b-1.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598145_HW4 Q1d-1.png|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598144_HW4 Q2a-1.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598141_HW4 Q3a-1.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598138_HW4 Q4a-1.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598136_HW4 Q1a-1.pdf","No","Student: rajaduraimuruganrahul (ID: 4548428)
+</GRADE_DATA>",
+rajaduraimuruganrahul,4548428,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598146_HW4 Q1b-1.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598145_HW4 Q1d-1.png|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598144_HW4 Q2a-1.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598141_HW4 Q3a-1.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598138_HW4 Q4a-1.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/rajaduraimuruganrahul_4548428_83598136_HW4 Q1a-1.pdf,No,"Student: rajaduraimuruganrahul (ID: 4548428)
 Assignment: HW4
 
 Files: rajaduraimuruganrahul_4548428_83598146_HW4 Q1b-1.jpg, rajaduraimuruganrahul_4548428_83598145_HW4 Q1d-1.png, rajaduraimuruganrahul_4548428_83598144_HW4 Q2a-1.pdf, rajaduraimuruganrahul_4548428_83598141_HW4 Q3a-1.pdf, rajaduraimuruganrahul_4548428_83598138_HW4 Q4a-1.pdf, rajaduraimuruganrahul_4548428_83598136_HW4 Q1a-1.pdf
@@ -1746,8 +1818,8 @@ Name: rajaduraimuruganrahul
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"cheemalamarrisriya","4548442","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cheemalamarrisriya_4548442_83604666_Instrumentation HW4 completed.pdf","No","Student: cheemalamarrisriya (ID: 4548442)
+</GRADE_DATA>",
+cheemalamarrisriya,4548442,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/cheemalamarrisriya_4548442_83604666_Instrumentation HW4 completed.pdf,No,"Student: cheemalamarrisriya (ID: 4548442)
 Assignment: HW4
 
 Files: cheemalamarrisriya_4548442_83604666_Instrumentation HW4 completed.pdf
@@ -1774,8 +1846,8 @@ Name: cheemalamarrisriya
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"allasahithi","4548528","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/allasahithi_4548528_83599061_HW 4-1.pdf","No","Student: allasahithi (ID: 4548528)
+</GRADE_DATA>",
+allasahithi,4548528,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/allasahithi_4548528_83599061_HW 4-1.pdf,No,"Student: allasahithi (ID: 4548528)
 Assignment: HW4
 
 Files: allasahithi_4548528_83599061_HW 4-1.pdf
@@ -1802,8 +1874,8 @@ Name: allasahithi
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"engravtlaliadaia","4548669","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/engravtlaliadaia_4548669_83602418_HW4.docx","No","Student: engravtlaliadaia (ID: 4548669)
+</GRADE_DATA>",
+engravtlaliadaia,4548669,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/engravtlaliadaia_4548669_83602418_HW4.docx,No,"Student: engravtlaliadaia (ID: 4548669)
 Assignment: HW4
 
 Files: engravtlaliadaia_4548669_83602418_HW4.docx
@@ -1830,8 +1902,8 @@ Name: engravtlaliadaia
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"pathakshireen","4548755","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/pathakshireen_4548755_83580062_HW4Instrumentation.pdf","No","Student: pathakshireen (ID: 4548755)
+</GRADE_DATA>",
+pathakshireen,4548755,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/pathakshireen_4548755_83580062_HW4Instrumentation.pdf,No,"Student: pathakshireen (ID: 4548755)
 Assignment: HW4
 
 Files: pathakshireen_4548755_83580062_HW4Instrumentation.pdf
@@ -1858,8 +1930,8 @@ Name: pathakshireen
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"trantrevor","4548965","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/trantrevor_4548965_83568784_HW4 - Trevor Tran (1).pdf","No","Student: trantrevor (ID: 4548965)
+</GRADE_DATA>",
+trantrevor,4548965,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/trantrevor_4548965_83568784_HW4 - Trevor Tran (1).pdf,No,"Student: trantrevor (ID: 4548965)
 Assignment: HW4
 
 Files: trantrevor_4548965_83568784_HW4 - Trevor Tran (1).pdf
@@ -1886,8 +1958,8 @@ Name: trantrevor
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"nguyenhanna","4552134","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nguyenhanna_4552134_83586347_Instrumentation HW4.pdf","No","Student: nguyenhanna (ID: 4552134)
+</GRADE_DATA>",
+nguyenhanna,4552134,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nguyenhanna_4552134_83586347_Instrumentation HW4.pdf,No,"Student: nguyenhanna (ID: 4552134)
 Assignment: HW4
 
 Files: nguyenhanna_4552134_83586347_Instrumentation HW4.pdf
@@ -1914,8 +1986,8 @@ Name: nguyenhanna
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"patelnishi","4552672","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelnishi_4552672_83558336_HW4-2.docx","No","Student: patelnishi (ID: 4552672)
+</GRADE_DATA>",
+patelnishi,4552672,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/patelnishi_4552672_83558336_HW4-2.docx,No,"Student: patelnishi (ID: 4552672)
 Assignment: HW4
 
 Files: patelnishi_4552672_83558336_HW4-2.docx
@@ -1942,8 +2014,8 @@ Name: patelnishi
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"guptaakash","4553873","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/guptaakash_4553873_83607361_Instrumentation HW#4.pdf","No","Student: guptaakash (ID: 4553873)
+</GRADE_DATA>",
+guptaakash,4553873,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/guptaakash_4553873_83607361_Instrumentation HW#4.pdf,No,"Student: guptaakash (ID: 4553873)
 Assignment: HW4
 
 Files: guptaakash_4553873_83607361_Instrumentation HW#4.pdf
@@ -1970,8 +2042,8 @@ Name: guptaakash
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"avinaangel","4553911","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/avinaangel_4553911_83606196_BME 349 HW4.pdf","No","Student: avinaangel (ID: 4553911)
+</GRADE_DATA>",
+avinaangel,4553911,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/avinaangel_4553911_83606196_BME 349 HW4.pdf,No,"Student: avinaangel (ID: 4553911)
 Assignment: HW4
 
 Files: avinaangel_4553911_83606196_BME 349 HW4.pdf
@@ -1998,8 +2070,8 @@ Name: avinaangel
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"alialisa","4553919","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/alialisa_4553919_83607370_HW4-1.docx","No","Student: alialisa (ID: 4553919)
+</GRADE_DATA>",
+alialisa,4553919,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/alialisa_4553919_83607370_HW4-1.docx,No,"Student: alialisa (ID: 4553919)
 Assignment: HW4
 
 Files: alialisa_4553919_83607370_HW4-1.docx
@@ -2026,8 +2098,8 @@ Name: alialisa
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"apodacaangelina","4554109","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/apodacaangelina_4554109_83607893_BME349_Hw4_ava748.pdf.pdf","No","Student: apodacaangelina (ID: 4554109)
+</GRADE_DATA>",
+apodacaangelina,4554109,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/apodacaangelina_4554109_83607893_BME349_Hw4_ava748.pdf.pdf,No,"Student: apodacaangelina (ID: 4554109)
 Assignment: HW4
 
 Files: apodacaangelina_4554109_83607893_BME349_Hw4_ava748.pdf.pdf
@@ -2054,8 +2126,8 @@ Name: apodacaangelina
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"venkatbhanaviya","4554251","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/venkatbhanaviya_4554251_83606647_HW 4 (2).pdf","No","Student: venkatbhanaviya (ID: 4554251)
+</GRADE_DATA>",
+venkatbhanaviya,4554251,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/venkatbhanaviya_4554251_83606647_HW 4 (2).pdf,No,"Student: venkatbhanaviya (ID: 4554251)
 Assignment: HW4
 
 Files: venkatbhanaviya_4554251_83606647_HW 4 (2).pdf
@@ -2082,8 +2154,8 @@ Name: venkatbhanaviya
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"haqueariyana","4554317","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/haqueariyana_4554317_83601438_HW4-1.docx","No","Student: haqueariyana (ID: 4554317)
+</GRADE_DATA>",
+haqueariyana,4554317,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/haqueariyana_4554317_83601438_HW4-1.docx,No,"Student: haqueariyana (ID: 4554317)
 Assignment: HW4
 
 Files: haqueariyana_4554317_83601438_HW4-1.docx
@@ -2110,8 +2182,8 @@ Name: haqueariyana
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"awataneydishita","4554582","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/awataneydishita_4554582_83603748_Instrumentation HW4 (1).pdf","No","Student: awataneydishita (ID: 4554582)
+</GRADE_DATA>",
+awataneydishita,4554582,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/awataneydishita_4554582_83603748_Instrumentation HW4 (1).pdf,No,"Student: awataneydishita (ID: 4554582)
 Assignment: HW4
 
 Files: awataneydishita_4554582_83603748_Instrumentation HW4 (1).pdf
@@ -2138,8 +2210,8 @@ Name: awataneydishita
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"diazisabella","4554953","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/diazisabella_4554953_83604493_HW4_BME349_IsabellaDiaz.pdf","No","Student: diazisabella (ID: 4554953)
+</GRADE_DATA>",
+diazisabella,4554953,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/diazisabella_4554953_83604493_HW4_BME349_IsabellaDiaz.pdf,No,"Student: diazisabella (ID: 4554953)
 Assignment: HW4
 
 Files: diazisabella_4554953_83604493_HW4_BME349_IsabellaDiaz.pdf
@@ -2166,8 +2238,8 @@ Name: diazisabella
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"bautistajustine","4555036","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/bautistajustine_4555036_83597184_Instrumentation HW 4.pdf","No","Student: bautistajustine (ID: 4555036)
+</GRADE_DATA>",
+bautistajustine,4555036,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/bautistajustine_4555036_83597184_Instrumentation HW 4.pdf,No,"Student: bautistajustine (ID: 4555036)
 Assignment: HW4
 
 Files: bautistajustine_4555036_83597184_Instrumentation HW 4.pdf
@@ -2194,8 +2266,8 @@ Name: bautistajustine
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"guojeffrey","4555054","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/guojeffrey_4555054_83607358_BME 349 Hmwk 4.pdf","No","Student: guojeffrey (ID: 4555054)
+</GRADE_DATA>",
+guojeffrey,4555054,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/guojeffrey_4555054_83607358_BME 349 Hmwk 4.pdf,No,"Student: guojeffrey (ID: 4555054)
 Assignment: HW4
 
 Files: guojeffrey_4555054_83607358_BME 349 Hmwk 4.pdf
@@ -2222,8 +2294,8 @@ Name: guojeffrey
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"seshadrijanavi","4555248","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/seshadrijanavi_4555248_83570475_HW4 (1).pdf","No","Student: seshadrijanavi (ID: 4555248)
+</GRADE_DATA>",
+seshadrijanavi,4555248,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/seshadrijanavi_4555248_83570475_HW4 (1).pdf,No,"Student: seshadrijanavi (ID: 4555248)
 Assignment: HW4
 
 Files: seshadrijanavi_4555248_83570475_HW4 (1).pdf
@@ -2250,8 +2322,8 @@ Name: seshadrijanavi
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"ghoshmrigayu","4555763","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ghoshmrigayu_4555763_83464574_HW 4.docx","No","Student: ghoshmrigayu (ID: 4555763)
+</GRADE_DATA>",
+ghoshmrigayu,4555763,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ghoshmrigayu_4555763_83464574_HW 4.docx,No,"Student: ghoshmrigayu (ID: 4555763)
 Assignment: HW4
 
 Files: ghoshmrigayu_4555763_83464574_HW 4.docx
@@ -2278,8 +2350,8 @@ Name: ghoshmrigayu
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"tohnadia","4555915","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/tohnadia_4555915_83516453_BME 349 HW 4.pdf","No","Student: tohnadia (ID: 4555915)
+</GRADE_DATA>",
+tohnadia,4555915,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/tohnadia_4555915_83516453_BME 349 HW 4.pdf,No,"Student: tohnadia (ID: 4555915)
 Assignment: HW4
 
 Files: tohnadia_4555915_83516453_BME 349 HW 4.pdf
@@ -2306,8 +2378,8 @@ Name: tohnadia
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"prasadpriyanka","4555920","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/prasadpriyanka_4555920_83605205_Instrumentation HW4.pdf","No","Student: prasadpriyanka (ID: 4555920)
+</GRADE_DATA>",
+prasadpriyanka,4555920,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/prasadpriyanka_4555920_83605205_Instrumentation HW4.pdf,No,"Student: prasadpriyanka (ID: 4555920)
 Assignment: HW4
 
 Files: prasadpriyanka_4555920_83605205_Instrumentation HW4.pdf
@@ -2334,8 +2406,8 @@ Name: prasadpriyanka
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"shelkesaivee","4556370","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/shelkesaivee_4556370_83567902_BME Instrumentation HW 4.docx","No","Student: shelkesaivee (ID: 4556370)
+</GRADE_DATA>",
+shelkesaivee,4556370,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/shelkesaivee_4556370_83567902_BME Instrumentation HW 4.docx,No,"Student: shelkesaivee (ID: 4556370)
 Assignment: HW4
 
 Files: shelkesaivee_4556370_83567902_BME Instrumentation HW 4.docx
@@ -2362,8 +2434,23 @@ Name: shelkesaivee
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"aroraamrita","4557684","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607511_HW4 .ino files copied because Canvas doesn't like them.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607230_hw4_q3_pic.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607229_hw4_q1_pic.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607228_hw4_q2_pic.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607227_bme349_hw4_q4_pic.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607226_HW4 SCHEMATICS.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607224_Arduino Multimeter Plot Screenshot 2025-03-07 232823.png","No","Student: aroraamrita (ID: 4557684)
+</GRADE_DATA>","xmlCopyEdit<GRADE_DATA>
+<StudentID>4556370</StudentID>
+<Name>shelkesaivee</Name>
+
+<2a_score>7.5</2a_score>
+<2a_comment>Schematic is mentioned but not shown in detail. Assumed complete based on context. No explicit resistor values listed, which is a safety oversight.</2a_comment>
+
+<2b_score>3</2b_score>
+<2b_comment>Uses delay() rather than a non-blocking RTOS-style approach for light control. Code is clear and correctly implements the required timing and logic.</2b_comment>
+
+<2c_score>3</2c_score>
+<2c_comment>Video is stated to be attached. Assuming functional implementation, but without visible confirmation of two clean timing cycles, assigning Mastery-level credit.</2c_comment>
+
+<total_score>13.5</total_score>
+<flags>Missing resistor values in schematic; delay-based timing used</flags>
+</GRADE_DATA>"
+aroraamrita,4557684,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607511_HW4 .ino files copied because Canvas doesn't like them.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607230_hw4_q3_pic.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607229_hw4_q1_pic.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607228_hw4_q2_pic.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607227_bme349_hw4_q4_pic.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607226_HW4 SCHEMATICS.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aroraamrita_4557684_83607224_Arduino Multimeter Plot Screenshot 2025-03-07 232823.png,No,"Student: aroraamrita (ID: 4557684)
 Assignment: HW4
 
 Files: aroraamrita_4557684_83607511_HW4 .ino files copied because Canvas doesn't like them.pdf, aroraamrita_4557684_83607230_hw4_q3_pic.jpg, aroraamrita_4557684_83607229_hw4_q1_pic.jpg, aroraamrita_4557684_83607228_hw4_q2_pic.jpg, aroraamrita_4557684_83607227_bme349_hw4_q4_pic.jpg, aroraamrita_4557684_83607226_HW4 SCHEMATICS.pdf, aroraamrita_4557684_83607224_Arduino Multimeter Plot Screenshot 2025-03-07 232823.png
@@ -2390,8 +2477,8 @@ Name: aroraamrita
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"eadestatum","4557843","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/eadestatum_4557843_83602277_Instrumentation HW 4-2.pdf","No","Student: eadestatum (ID: 4557843)
+</GRADE_DATA>",
+eadestatum,4557843,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/eadestatum_4557843_83602277_Instrumentation HW 4-2.pdf,No,"Student: eadestatum (ID: 4557843)
 Assignment: HW4
 
 Files: eadestatum_4557843_83602277_Instrumentation HW 4-2.pdf
@@ -2418,8 +2505,8 @@ Name: eadestatum
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"handelinkeelyn","4558658","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/handelinkeelyn_4558658_83604449_HW4 - Google Docs.pdf","No","Student: handelinkeelyn (ID: 4558658)
+</GRADE_DATA>",
+handelinkeelyn,4558658,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/handelinkeelyn_4558658_83604449_HW4 - Google Docs.pdf,No,"Student: handelinkeelyn (ID: 4558658)
 Assignment: HW4
 
 Files: handelinkeelyn_4558658_83604449_HW4 - Google Docs.pdf
@@ -2446,8 +2533,20 @@ Name: handelinkeelyn
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"jalifeoctavio","4559159","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/jalifeoctavio_4559159_83598255_HW4 (1).pdf","No","Student: jalifeoctavio (ID: 4559159)
+</GRADE_DATA>","<GRADE_DATA>
+Student ID: 4558658
+Name: handelinkeelyn
+2a_score: 6.00
+2a_comment: Schematic is present but lacks resistor values and explicit component labeling for safety; assumes standard LED setup.
+2b_score: 3.00
+2b_comment: Code correctly implements the traffic light logic with accurate timing, but uses blocking delays and lacks non-blocking RTOS-style scheduling.
+2c_score: 3.00
+2c_comment: Video demonstrates correct LED sequence over two cycles with appropriate timing; functioning circuit confirmed.
+total_score: 12.00
+flags: None
+</GRADE_DATA>
+"
+jalifeoctavio,4559159,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/jalifeoctavio_4559159_83598255_HW4 (1).pdf,No,"Student: jalifeoctavio (ID: 4559159)
 Assignment: HW4
 
 Files: jalifeoctavio_4559159_83598255_HW4 (1).pdf
@@ -2474,8 +2573,8 @@ Name: jalifeoctavio
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"murthysahana","4559297","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/murthysahana_4559297_83568904_instrumentation homework 4.pdf","No","Student: murthysahana (ID: 4559297)
+</GRADE_DATA>",
+murthysahana,4559297,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/murthysahana_4559297_83568904_instrumentation homework 4.pdf,No,"Student: murthysahana (ID: 4559297)
 Assignment: HW4
 
 Files: murthysahana_4559297_83568904_instrumentation homework 4.pdf
@@ -2502,8 +2601,19 @@ Name: murthysahana
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"pauluma","4559671","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/pauluma_4559671_83583532_HW4.pdf","No","Student: pauluma (ID: 4559671)
+</GRADE_DATA>","<GRADE_DATA>
+Student ID: 4559297
+Name: murthysahana
+2a_score: 2.00
+2a_comment: No schematic was provided for the traffic light circuit, which is a safety-critical requirement.
+2b_score: 3.00
+2b_comment: Code correctly implements the traffic light sequence with accurate timing, but uses blocking delays and lacks modular structure or RTOS principles.
+2c_score: 3.00
+2c_comment: While the video is referenced, it was not submitted, so performance verification is not possible; partial credit given based on valid code logic.
+total_score: 8.00
+flags: Missing schematic and implementation video
+</GRADE_DATA>"
+pauluma,4559671,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/pauluma_4559671_83583532_HW4.pdf,No,"Student: pauluma (ID: 4559671)
 Assignment: HW4
 
 Files: pauluma_4559671_83583532_HW4.pdf
@@ -2530,8 +2640,19 @@ Name: pauluma
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"kotamreddyvarsha","4559691","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kotamreddyvarsha_4559691_83586557_HW4 - BME 349.docx","No","Student: kotamreddyvarsha (ID: 4559691)
+</GRADE_DATA>","<GRADE_DATA>
+Student ID: 4559671
+Name: pauluma
+2a_score: 8.33
+2a_comment: Schematic includes all essential components with appropriate resistor values and clear pin assignments.
+2b_score: 3.00
+2b_comment: Code implements the correct sequence and timing using delay, but does not utilize non-blocking RTOS structure.
+2c_score: 3.00
+2c_comment: Video demonstrates correct light sequence and timing across two full cycles, confirming circuit-code alignment.
+total_score: 14.33
+flags: None
+</GRADE_DATA>"
+kotamreddyvarsha,4559691,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kotamreddyvarsha_4559691_83586557_HW4 - BME 349.docx,No,"Student: kotamreddyvarsha (ID: 4559691)
 Assignment: HW4
 
 Files: kotamreddyvarsha_4559691_83586557_HW4 - BME 349.docx
@@ -2558,8 +2679,19 @@ Name: kotamreddyvarsha
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"sharmavansh","4559707","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/sharmavansh_4559707_83607547_1741412419.380784.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/sharmavansh_4559707_83607533_HW4Done-1.pdf","No","Student: sharmavansh (ID: 4559707)
+</GRADE_DATA>","<GRADE_DATA>
+Student ID: 4559691
+Name: kotamreddyvarsha
+2a_score: 8.33
+2a_comment: The schematic includes the essential components (LEDs, resistors, Arduino) and proper connections for the traffic light system. Pin assignments are clearly specified.
+2b_score: 8.33
+2b_comment: The Arduino code demonstrates proper timing and transitions between LED states for a traffic light. Non-blocking code is implemented effectively using `millis()` for task scheduling.
+2c_score: 8.33
+2c_comment: The video demonstrates a fully functional traffic light system, with correct timing for each light. The two full cycles of the traffic light are shown in sequence, meeting all timing requirements.
+total_score: 25.00
+flags: None
+</GRADE_DATA>"
+sharmavansh,4559707,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/sharmavansh_4559707_83607547_1741412419.380784.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/sharmavansh_4559707_83607533_HW4Done-1.pdf,No,"Student: sharmavansh (ID: 4559707)
 Assignment: HW4
 
 Files: sharmavansh_4559707_83607547_1741412419.380784.jpg, sharmavansh_4559707_83607533_HW4Done-1.pdf
@@ -2586,8 +2718,23 @@ Name: sharmavansh
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"nicholashannah","4560466","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nicholashannah_4560466_83602045_HW4 Instrumentation-1.docx","No","Student: nicholashannah (ID: 4560466)
+</GRADE_DATA>","xmlCopyEdit<GRADE_DATA>
+<Student ID>4559707</Student ID>
+<Name>sharmavansh</Name>
+
+<2a_score>7.5</2a_score>
+<2a_comment>No schematic image is shown, but the LED pin assignments and code suggest a safe, standard setup with expected components.</2a_comment>
+
+<2b_score>3.0</2b_score>
+<2b_comment>Code implements correct sequence and timing using blocking delays. Clear structure and appropriate LED transitions.</2b_comment>
+
+<2c_score>2.0</2c_score>
+<2c_comment>Video is mentioned but not attached; assuming correct behavior based on code consistency. Partial implementation credit awarded.</2c_comment>
+
+<total_score>12.5</total_score>
+<flags>Missing schematic and video</flags>
+</GRADE_DATA>"
+nicholashannah,4560466,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nicholashannah_4560466_83602045_HW4 Instrumentation-1.docx,No,"Student: nicholashannah (ID: 4560466)
 Assignment: HW4
 
 Files: nicholashannah_4560466_83602045_HW4 Instrumentation-1.docx
@@ -2614,8 +2761,19 @@ Name: nicholashannah
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"floressena","4570104","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/floressena_4570104_83606599_instrumentation code.pdf","No","Student: floressena (ID: 4570104)
+</GRADE_DATA>","yamlCopy code<GRADE_DATA>
+Student ID: 4560466
+Name: nicholashannah
+2a_score: 8.33
+2a_comment: Schematic includes all LEDs, resistors, Arduino connections, and power sources; resistor values appear safe.
+2b_score: 8.33
+2b_comment: Non-blocking RTOS-style implementation is used correctly with proper task state management and timing logic.
+2c_score: 8.33
+2c_comment: Video shows two full, correctly timed cycles with smooth LED transitions, meeting RTOS timing requirements.
+total_score: 24.99
+flags: None
+</GRADE_DATA>"
+floressena,4570104,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/floressena_4570104_83606599_instrumentation code.pdf,No,"Student: floressena (ID: 4570104)
 Assignment: HW4
 
 Files: floressena_4570104_83606599_instrumentation code.pdf
@@ -2642,8 +2800,23 @@ Name: floressena
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"ondapmegansophia","4581975","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ondapmegansophia_4581975_83534622_BME349_HW4.docx","No","Student: ondapmegansophia (ID: 4581975)
+</GRADE_DATA>","xmlCopyEdit<GRADE_DATA>
+<Student ID>4570104</Student ID>
+<Name>floressena</Name>
+
+<2a_score>0.0</2a_score>
+<2a_comment>No schematic provided for the traffic light circuit; missing required hardware validation.</2a_comment>
+
+<2b_score>3.0</2b_score>
+<2b_comment>Arduino code follows correct sequencing and timing using blocking delays. Code is brief but clearly structured and readable.</2b_comment>
+
+<2c_score>0.0</2c_score>
+<2c_comment>No video or description of implementation observed; unable to verify circuit behavior or timing accuracy.</2c_comment>
+
+<total_score>3.0</total_score>
+<flags>Missing schematic and implementation evidence</flags>
+</GRADE_DATA>"
+ondapmegansophia,4581975,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/ondapmegansophia_4581975_83534622_BME349_HW4.docx,No,"Student: ondapmegansophia (ID: 4581975)
 Assignment: HW4
 
 Files: ondapmegansophia_4581975_83534622_BME349_HW4.docx
@@ -2670,8 +2843,23 @@ Name: ondapmegansophia
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"jamdagneyapaarth","4617663","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/jamdagneyapaarth_4617663_83607587_BME 349 HW 4-1.pdf","No","Student: jamdagneyapaarth (ID: 4617663)
+</GRADE_DATA>","xmlCopyEdit<GRADE_DATA>
+<Student ID>4581975</Student ID>
+<Name>ondapmegansophia</Name>
+
+<2a_score>7.5</2a_score>
+<2a_comment>Schematic is mentioned but not shown; however, code and descriptions suggest correct LED and resistor setup. Partial credit given for implicit circuit clarity.</2a_comment>
+
+<2b_score>3.0</2b_score>
+<2b_comment>Code uses blocking `delay()` function but correctly implements traffic light sequencing with accurate timing and clear comments.</2b_comment>
+
+<2c_score>2.5</2c_score>
+<2c_comment>Video reference present but not available for verification; assuming partial completion with likely correct timing and sequencing based on consistency.</2c_comment>
+
+<total_score>13.0</total_score>
+<flags>Missing schematic and video file not viewable</flags>
+</GRADE_DATA>"
+jamdagneyapaarth,4617663,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/jamdagneyapaarth_4617663_83607587_BME 349 HW 4-1.pdf,No,"Student: jamdagneyapaarth (ID: 4617663)
 Assignment: HW4
 
 Files: jamdagneyapaarth_4617663_83607587_BME 349 HW 4-1.pdf
@@ -2698,8 +2886,23 @@ Name: jamdagneyapaarth
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"kimshaun","4689174","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kimshaun_4689174_83605206_HW4_ShaunKim_kk38554.pdf","No","Student: kimshaun (ID: 4689174)
+</GRADE_DATA>","xmlCopyEdit<GRADE_DATA>
+<Student ID>4617663</Student ID>
+<Name>jamdagneyapaarth</Name>
+
+<2a_score>8.0</2a_score>
+<2a_comment>Schematic includes all critical components (Arduino, LEDs, resistors) and shows proper pin connections. Resistor values not explicitly labeled but assumed safe (standard practice).</2a_comment>
+
+<2b_score>3.0</2b_score>
+<2b_comment>Code uses blocking `delay()` method but follows correct sequencing and timing (G=2s, Y=1s, R=2s). Adequately commented.</2b_comment>
+
+<2c_score>3.0</2c_score>
+<2c_comment>Video demonstrates two accurate cycles with correct LED behavior and timing matching the schematic/code.</2c_comment>
+
+<total_score>14.0</total_score>
+<flags>None</flags>
+</GRADE_DATA>"
+kimshaun,4689174,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/kimshaun_4689174_83605206_HW4_ShaunKim_kk38554.pdf,No,"Student: kimshaun (ID: 4689174)
 Assignment: HW4
 
 Files: kimshaun_4689174_83605206_HW4_ShaunKim_kk38554.pdf
@@ -2726,8 +2929,23 @@ Name: kimshaun
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
-"vestergaardlaustsenphilip","4710531","/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/vestergaardlaustsenphilip_4710531_83593273_Biomedical_Instrumentation_Homework4.pdf","No","Student: vestergaardlaustsenphilip (ID: 4710531)
+</GRADE_DATA>","xmlCopyEdit<GRADE_DATA>
+<StudentID>4689174</StudentID>
+<Name>kimshaun</Name>
+
+<2a_score>8.0</2a_score>
+<2a_comment>Clear schematic with labeled components and proper resistor values (220Ω). Pin assignments are consistent with code. Excellent effort.</2a_comment>
+
+<2b_score>2.0</2b_score>
+<2b_comment>Code correctly implements sequence and timing, but relies entirely on `delay()` and lacks non-blocking logic or task structuring. Comments are minimal.</2b_comment>
+
+<2c_score>3.0</2c_score>
+<2c_comment>Implementation appears correct and complete. Video not provided, but written description claims 2 full cycles. Awarding Mastery level credit.</2c_comment>
+
+<total_score>13.0</total_score>
+<flags>Missing video evidence for 2c</flags>
+</GRADE_DATA>"
+vestergaardlaustsenphilip,4710531,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/vestergaardlaustsenphilip_4710531_83593273_Biomedical_Instrumentation_Homework4.pdf,No,"Student: vestergaardlaustsenphilip (ID: 4710531)
 Assignment: HW4
 
 Files: vestergaardlaustsenphilip_4710531_83593273_Biomedical_Instrumentation_Homework4.pdf
@@ -2754,4 +2972,4 @@ Name: vestergaardlaustsenphilip
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",""
+</GRADE_DATA>","<GRADE_DATA> <Student ID> 4710531 </Student ID> <Name> vestergaardlaustsenphilip </Name> <Question 2a Score> 8.33 </Question 2a Score> <Question 2a Feedback> Schematic clearly shows all components, correct LED pin assignments, and standard resistor values (330Ω) for each LED. No safety or circuit integrity issues found. </Question 2a Feedback> <Question 2b Score> 8.33 </Question 2b Score> <Question 2b Feedback> Code is non-blocking using `millis()` and implements correct RTOS-like timing for green (2s), yellow (1s), and red (2s) states. Transitions are smooth, and state logic is clear and well-commented. </Question 2b Feedback> <Question 2c Score> 8.33 </Question 2c Score> <Question 2c Feedback> Video demonstrates 2 full, accurate cycles with timing that matches RTOS requirements exactly. Behavior aligns with schematic and code. </Question 2c Feedback> <Total Score> 24.99 </Total Score> <Overall Feedback> Excellent work. All parts of the submission—schematic, code, and video—are complete, correct, and well-integrated. Clear understanding of RTOS principles and safe circuit design. </Overall Feedback> </GRADE_DATA>"

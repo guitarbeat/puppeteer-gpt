@@ -6,7 +6,7 @@ import { csvLogger } from './logger';
 export interface CsvPromptRow {
   student_name: string;
   student_id: string;
-  attachment: string;
+  file_paths: string;
   has_video: string;
   prompt: string;
   response: string;
@@ -28,8 +28,8 @@ export async function readCsvPrompts(csvPath: string): Promise<CsvPromptRow[]> {
     // @ts-ignore - Papaparse types are incomplete
     const rows: CsvPromptRow[] = result.data;
     
-    // Validate and normalize attachment paths
-    return rows.map(validateAttachmentPaths);
+    // Validate and normalize file paths
+    return rows.map(validateFilePaths);
   } catch (error) {
     csvLogger.error(`Error reading CSV file: ${csvPath}`, error);
     throw error;
@@ -37,20 +37,20 @@ export async function readCsvPrompts(csvPath: string): Promise<CsvPromptRow[]> {
 }
 
 /**
- * Validate and fix attachment paths in a CSV row
+ * Validate and fix file paths in a CSV row
  * @param row CSV row to validate
  * @returns Updated row with validated/fixed paths
  */
-function validateAttachmentPaths(row: CsvPromptRow): CsvPromptRow {
-  if (!row.attachment || row.attachment.trim() === '') {
+function validateFilePaths(row: CsvPromptRow): CsvPromptRow {
+  if (!row.file_paths || row.file_paths.trim() === '') {
     return row;
   }
   
-  // Process multiple attachments separated by pipe
-  const attachments = row.attachment.split('|').map(filePath => filePath.trim());
+  // Process multiple file paths separated by pipe
+  const filePaths = row.file_paths.split('|').map(filePath => filePath.trim());
   const validatedPaths: string[] = [];
   
-  for (const filePath of attachments) {
+  for (const filePath of filePaths) {
     try {
       // Decode URI components to handle URL-encoded characters
       const decodedPath = decodeURIComponent(filePath);
@@ -72,9 +72,9 @@ function validateAttachmentPaths(row: CsvPromptRow): CsvPromptRow {
       }
       
       // Log if file not found
-      csvLogger.warn(`Attachment not found: ${filePath} for student ${row.student_name} (${row.student_id})`);
+      csvLogger.warn(`File not found: ${filePath} for student ${row.student_name} (${row.student_id})`);
     } catch (error) {
-      csvLogger.warn(`Error validating attachment path: ${filePath}`, error);
+      csvLogger.warn(`Error validating file path: ${filePath}`, error);
     }
   }
   
@@ -82,7 +82,7 @@ function validateAttachmentPaths(row: CsvPromptRow): CsvPromptRow {
   if (validatedPaths.length > 0) {
     return {
       ...row,
-      attachment: validatedPaths.join('|')
+      file_paths: validatedPaths.join('|')
     };
   }
   

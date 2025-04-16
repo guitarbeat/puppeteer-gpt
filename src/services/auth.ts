@@ -1,13 +1,16 @@
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
 import { Page } from 'puppeteer';
 import { waitForUserToContinue } from '../utils/userInput';
+import { authConfig } from '../config/auth';
+import { appConfig } from '../config/appConfig';
 
 export interface AuthConfig {
   cookiePath: string;
   loginUrl: string;
   successSelector: string;
   loginTimeout?: number;
+  screenshotDir?: string;
 }
 
 export class AuthService {
@@ -15,7 +18,7 @@ export class AuthService {
 
   constructor(config: AuthConfig) {
     this.config = {
-      loginTimeout: 60000, // Set a longer default timeout for login
+      loginTimeout: appConfig.timing.pageLoadTimeout, // Use the same timeout from appConfig
       ...config
     };
   }
@@ -61,7 +64,7 @@ export class AuthService {
   private async isLoggedIn(page: Page): Promise<boolean> {
     try {
       await page.waitForSelector(this.config.successSelector, { 
-        timeout: 5000 
+        timeout: 5000 // Keep short timeout for this check
       });
       return true;
     } catch {
@@ -99,7 +102,7 @@ export class AuthService {
    * @returns true if authentication was successful
    */
   public async authenticate(page: Page): Promise<boolean> {
-    const { loginUrl, successSelector, loginTimeout } = this.config;
+    const { loginUrl, successSelector, loginTimeout, screenshotDir } = this.config;
 
     // Load existing cookies
     const hasCookies = await this.loadCookies(page);
@@ -118,9 +121,14 @@ export class AuthService {
       console.log('=== LOGIN REQUIRED ===');
       console.log('Please login manually in the browser window');
       
+      // Ensure screenshot directory exists
+      if (screenshotDir && !fs.existsSync(screenshotDir)) {
+        fs.mkdirSync(screenshotDir, { recursive: true });
+      }
+      
       // Take a screenshot to help debug
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-      const screenshotPath = `screenshots/login-page-${timestamp}.png`;
+      const screenshotPath = path.join(screenshotDir || 'screenshots', `login-page-${timestamp}.png`);
       await page.screenshot({ path: screenshotPath });
       console.log(`Login page screenshot saved to ${screenshotPath}`);
       
@@ -169,7 +177,7 @@ export class AuthService {
     // Not logged in but not on login page either - could be another error
     console.log('Not on login page but not logged in either. Taking screenshot...');
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const screenshotPath = `screenshots/auth-error-${timestamp}.png`;
+    const screenshotPath = path.join(screenshotDir || 'screenshots', `auth-error-${timestamp}.png`);
     await page.screenshot({ path: screenshotPath });
     console.log(`Authentication issue screenshot saved to ${screenshotPath}`);
     
