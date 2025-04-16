@@ -1,218 +1,188 @@
-import readline from "readline";
-import { launchBrowser } from "./src/core/puppeteer";
-import { AuthService } from "./src/services/auth";
-import { authConfig } from "./src/config/auth";
-import { sendMessageWithAttachments } from './src/utils/sendMessageWithAttachments';
-import { readCsvPrompts, writeCsvPrompts, CsvPromptRow } from './src/utils/processCsvPrompts';
-import fs from 'fs';
-import path from 'path';
-
-// Ensure screenshots directory exists
-if (!fs.existsSync('screenshots')) {
-  fs.mkdirSync('screenshots', { recursive: true });
-  console.log('Created screenshots directory');
-}
-
-const readlineInterface = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+import { BrowserService } from './src/services/browser';
+import { AuthService } from './src/services/auth';
+import { CsvProcessor } from './src/services/csvProcessor';
+import { ScreenshotManager } from './src/utils/screenshot';
+import { authConfig } from './src/config/auth';
+import { appConfig, getCsvPath } from './src/config/appConfig';
+import { CliUtils } from './src/utils/cli';
+import { logger, LogLevel } from './src/utils/logger';
 
 /**
- * Process a CSV file containing prompts and attachments
- * @param csvPath Path to the CSV file
- * @param page Puppeteer page
+ * Parse command line arguments
+ * @returns Options parsed from command line
  */
-async function processCsvWorkflow(csvPath: string, page: any) {
-  console.log(`Processing CSV file: ${csvPath}`);
-  const rows = await readCsvPrompts(csvPath);
-  console.log(`Found ${rows.length} rows to process`);
-
-  for (let i = 0; i < rows.length; i++) {
-    const row = rows[i];
-    if (!row.prompt) {
-      console.log(`Row ${i+1}: Skipping - no prompt`);
-      continue;
+function parseCommandLineArgs() {
+  const args = process.argv.slice(2);
+  
+  // Default options
+  const options = {
+    csvPath: '',
+    retryFailedRows: true, // Default to true - retry failed rows
+    showHelp: false,
+    verbose: false,
+    quiet: false
+  };
+  
+  // Parse args
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
+    
+    if (arg === '--no-retry' || arg === '-n') {
+      options.retryFailedRows = false;
+    } else if (arg === '--help' || arg === '-h') {
+      options.showHelp = true;
+    } else if (arg === '--verbose' || arg === '-v') {
+      options.verbose = true;
+    } else if (arg === '--quiet' || arg === '-q') {
+      options.quiet = true;
+    } else if (!arg.startsWith('-') && !options.csvPath) {
+      // First non-flag arg is treated as the CSV path
+      options.csvPath = arg;
     }
-    
-    const attachments = row.attachment ? row.attachment.split('|').map(path => path.trim()).filter(Boolean) : [];
-    
-    try {
-      console.log(`Row ${i+1}: Processing "${row.prompt.substring(0, 40)}${row.prompt.length > 40 ? '...' : ''}"`);
-      console.log(`Row ${i+1}: Using ${attachments.length} attachment(s): ${attachments.join(', ') || 'none'}`);
-      
-      const response = await sendMessageWithAttachments(page, row.prompt, attachments);
-      row.response = response;
-      
-      // Save after each successful response in case of errors later
-      writeCsvPrompts(csvPath, rows);
-      
-      console.log(`Row ${i+1}: Success! Response: "${response.substring(0, 60)}${response.length > 60 ? '...' : ''}"`);
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : String(err);
-      row.response = `ERROR: ${errorMessage}`;
-      console.error(`Row ${i+1}: Failed - ${errorMessage}`);
-      
-      // Save the error in the CSV
-      writeCsvPrompts(csvPath, rows);
-    }
-    
-    // Add a small delay between requests to avoid rate limiting
-    await new Promise(resolve => setTimeout(resolve, 2000));
   }
-
-  console.log(`CSV processing complete. Results saved to ${csvPath}`);
+  
+  // If no CSV path specified, use default
+  if (!options.csvPath) {
+    options.csvPath = appConfig.defaultCsvPath;
+  }
+  
+  return options;
 }
 
 /**
- *
- * @param question The question to ask
- * @param timeout  The time in milliseconds to wait for an answer. If no answer is given, it will reject the promise
- * @returns User's input
+ * Configure the logger based on command line options
  */
-const input = (question: string, timeout?: number) => {
-  let timer: NodeJS.Timeout;
-
-  return new Promise<string>((resolve, reject) => {
-    readlineInterface.question(question, (answer) => {
-      clearTimeout(timer);
-      readlineInterface.close();
-      resolve(answer);
-    });
-
-    if (timeout) {
-      timer = setTimeout(() => {
-        reject(new Error("Question timeout"));
-        readlineInterface.close();
-      }, timeout);
-    }
-  });
-};
+function configureLogger(verbose: boolean, quiet: boolean): void {
+  if (verbose) {
+    logger.setLevel(LogLevel.DEBUG);
+  } else if (quiet) {
+    logger.setLevel(LogLevel.ERROR);
+  } else {
+    logger.setLevel(LogLevel.INFO);
+  }
+}
 
 /**
- * Process a CSV file with ChatGPT
- * @param csvPath Path to the CSV file with prompts and attachments
- * @returns Nothing
+ * Display help message
  */
-const processChatGPTWithCSV = async (csvPath?: string) => {
-  if (!csvPath) {
-    csvPath = "prompts.csv"; // Default path
-  }
-  
-  if (!fs.existsSync(csvPath)) {
-    console.error(`Error: CSV file not found at ${csvPath}`);
-    return;
-  }
-  
-  console.log(`Opening ChatGPT to process CSV: ${csvPath}`);
+function displayHelp() {
+  console.log(`
+ChatGPT CSV Processor
 
-  const width = 480;
-  const height = 853;
+Usage: node index.js [csvPath] [options]
 
-  const { page, browser } = await launchBrowser({
-    width,
-    height,
-    headless: false,
-    incognito: true,
-  });
+Arguments:
+  csvPath             Path to the CSV file to process (default: ${appConfig.defaultCsvPath})
 
-  page.setViewport({ width, height });
+Options:
+  -n, --no-retry      Don't retry rows that previously failed with errors
+  -v, --verbose       Show more detailed logs
+  -q, --quiet         Show only errors
+  -h, --help          Display this help message
 
+Examples:
+  node index.js                      # Process default prompts.csv file
+  node index.js my-prompts.csv       # Process specified CSV file
+  node index.js --no-retry           # Process default file without retrying error rows
+  node index.js my-file.csv -n       # Process specified file without retrying error rows
+  `);
+}
+
+/**
+ * Main application entry point
+ */
+async function main() {
   try {
-    // Initialize auth service
+    // Parse command line arguments
+    const options = parseCommandLineArgs();
+    
+    // Configure logger based on options
+    configureLogger(options.verbose, options.quiet);
+    
+    // Show help if requested
+    if (options.showHelp) {
+      displayHelp();
+      return;
+    }
+    
+    // Initialize screenshot directory
+    ScreenshotManager.ensureScreenshotDirectory();
+    
+    // Create service instances
+    const browserService = new BrowserService();
+    const csvProcessor = new CsvProcessor(options.retryFailedRows);
     const authService = new AuthService(authConfig);
     
-    // Authenticate
-    const isAuthenticated = await authService.authenticate(page);
-    if (!isAuthenticated) {
-      throw new Error('Authentication failed');
+    // Log startup info
+    logger.info('Starting ChatGPT CSV Processor');
+    logger.info(`CSV Path: ${options.csvPath}`);
+    logger.info(`Retry Failed Rows: ${options.retryFailedRows ? 'Yes' : 'No'}`);
+    
+    // Validate that the CSV file exists
+    if (!csvProcessor.validateCsvFile(options.csvPath)) {
+      return;
     }
+    
+    logger.info(`Opening ChatGPT to process CSV: ${options.csvPath}`);
 
-    // Load cookies before navigating
-    const cookiesPath = path.join(__dirname, 'cookies', 'chatgpt.com.cookies.json');
-    const cookiesString = fs.readFileSync(cookiesPath, 'utf8');
-    const cookies = JSON.parse(cookiesString);
-    await page.setCookie(...cookies);
-
-    console.log("Navigating to ChatGPT project...");
-    await page.goto("https://chat.openai.com/g/g-p-67f02dae3f508191856fe6de977dadb4-bme-349-hw4/project", { 
-      waitUntil: "networkidle0",
-      timeout: 60000
-    });
-
-    // Add a small delay to ensure the page is fully loaded
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
-    // Wait for the project page to load
-    console.log("Waiting for project page to load...");
+    // Initialize browser
+    const page = await browserService.initialize(
+      appConfig.browser.width, 
+      appConfig.browser.height
+    );
+    
     try {
-      // Check for subscription error - If this is found, we'll continue anyway
-      const errorMsgSelector = "div.text-red-500, div[role='alert']";
-      const errorElement = await page.$(errorMsgSelector);
-      if (errorElement) {
-        const errorText = await errorElement.evaluate(el => el.textContent);
-        console.log("Warning: Detected error message:", errorText);
-        console.log("Continuing despite subscription warning...");
+      // Authenticate
+      const isAuthenticated = await authService.authenticate(page);
+      if (!isAuthenticated) {
+        throw new Error('Authentication failed');
       }
       
-      // Wait for the chat interface elements
-      console.log("Looking for chat interface elements...");
-      const selectors = [
-        "#prompt-textarea",
-        "[data-testid='send-button']",
-        "button[aria-label='Upload files and more']"
-      ];
+      // Load cookies for the session
+      await browserService.loadCookies(page);
       
-      // Wait for any of these selectors to appear
-      const element = await Promise.any(
-        selectors.map(selector => 
-          page.waitForSelector(selector, { timeout: 30000 })
-            .then(el => ({ selector, element: el }))
-            .catch(() => null)
-        )
-      ).catch(() => null);
+      // Navigate to ChatGPT project
+      await browserService.navigateToChatGPT(page, appConfig.chatGptProjectUrl);
       
-      if (!element) {
-        throw new Error("Could not find chat interface elements");
+      // Wait for chat interface
+      const interfaceReady = await browserService.waitForChatInterface(page);
+      if (!interfaceReady) {
+        throw new Error('Failed to initialize chat interface');
       }
       
-      console.log(`Found element: ${element.selector}`);
+      logger.success('ChatGPT project chat is ready!');
+      
+      // Process the CSV file
+      await csvProcessor.processRows(options.csvPath, page);
+      
+      // Clean up
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await browserService.close();
+      logger.success('Browser closed. CSV processing complete.');
       
     } catch (error) {
-      console.error("Detailed error:", error);
-      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      // Handle any errors that occur during processing
+      logger.error('Error during CSV processing', error);
       
-      // Make sure the screenshots directory exists
-      if (!fs.existsSync('screenshots')) {
-        fs.mkdirSync('screenshots', { recursive: true });
+      if (page) {
+        await ScreenshotManager.takeErrorScreenshot(
+          page, 
+          'processing-failure', 
+          error instanceof Error ? error.message : String(error)
+        );
       }
       
-      const screenshotPath = `screenshots/error-${timestamp}.png`;
-      console.error(`Error: Could not initialize project chat. Saving screenshot to ${screenshotPath}`);
-      await page.screenshot({ path: screenshotPath, fullPage: true });
-      await browser.close();
-      return Promise.reject(new Error(`Failed to initialize project chat. Screenshot saved to ${screenshotPath}`));
+      await browserService.close();
+      throw error;
+    } finally {
+      CliUtils.closeReadline();
     }
-
-    console.log("ChatGPT project chat is ready!");
-
-    // Process the CSV file
-    await processCsvWorkflow(csvPath, page);
-
-    await new Promise(
-      (resolve) => setTimeout(resolve, Math.random() * 100 + 200)
-    );
-
-    await browser.close();
-    console.log("Browser closed. CSV processing complete.");
-
   } catch (error) {
-    await browser.close();
-    return Promise.reject(error);
+    logger.error('Application error', error);
+    process.exit(1);
   }
-};
+}
 
-// Check if a CSV path was provided as a command-line argument
-const csvPath = process.argv[2];
-processChatGPTWithCSV(csvPath);
+// Run the application
+main();
 

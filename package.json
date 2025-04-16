@@ -21,6 +21,7 @@
     "typescript": "^5.4.3"
   },
   "dependencies": {
+    "chalk": "^5.4.1",
     "firefox-profile": "^4.7.0",
     "papaparse": "^5.5.2",
     "puppeteer": "^22.15.0",
