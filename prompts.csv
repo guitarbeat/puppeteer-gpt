@@ -241,7 +241,7 @@ Name: contreraslynette
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",
+</GRADE_DATA>","<GRADE_DATA> Student ID: 4481645 Name: contreraslynette 2a_score: 7.5 2a_comment: The schematic includes the essential components and correct LED colors but lacks clarity in connections and pin labels; resistor values are not clearly indicated. 2b_score: 8.0 2b_comment: Code follows the correct sequence and timing for a single traffic light; it's clear and well-commented, though it uses basic delay() instead of more efficient timing methods. 2c_score: 7.5 2c_comment: Functioning is assumed correct based on the description and alignment with code, though without the video, exact timing cannot be verified. total_score: 23.0 flags: No video submitted for verification </GRADE_DATA>"
 martinezmia,4481868,,No,"Student: martinezmia (ID: 4481868)
 Assignment: HW4
 
@@ -267,7 +267,22 @@ Name: martinezmia
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",
+</GRADE_DATA>","<GRADE_DATA>
+Student ID: 4481868
+Name: martinezmia
+
+2a_score: 7.5
+2a_comment: Schematic includes key components (LEDs, resistors, Arduino) and connections. Some minor details (like exact resistor values or pin numbers) could be clearer or more standardized.
+
+2b_score: 8.0
+2b_comment: Code is correct, clearly structured, and commented. Timing matches the required light durations and demonstrates understanding of Arduino programming.
+
+2c_score: 8.0
+2c_comment: Implementation appears functional with proper LED sequencing. Without video confirmation, assumed to match schematic and code well based on documentation.
+
+total_score: 23.5
+flags: None
+</GRADE_DATA>"
 awosikaolumodemi,4482086,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/awosikaolumodemi_4482086_83604480_BME349_HW4.pdf,No,"Student: awosikaolumodemi (ID: 4482086)
 Assignment: HW4
 
@@ -334,7 +349,18 @@ Name: ardszarina
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",
+</GRADE_DATA>","<GRADE_DATA>
+Student ID: 4482727  
+Name: ardszarina  
+2a_score: 7.5  
+2a_comment: Schematic includes essential components and pin assignments, but resistor values are not specified. Layout appears reasonable.  
+2b_score: 8.2  
+2b_comment: Code correctly implements the traffic light cycle with appropriate timing and good use of comments. Clean and functional.  
+2c_score: 8.0  
+2c_comment: Implementation appears to match the schematic and code, though exact timing validation via video isn't possible from the file. Assumed functional based on provided documentation.  
+total_score: 23.7  
+flags: None  
+</GRADE_DATA>"
 mishrataru,4482902,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83605001_IMG_2693.jpg|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83604702_plotnumber1.png|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83604412_HW1R^2Value.pdf|/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/mishrataru_4482902_83604401_Schematics.pdf,No,"Student: mishrataru (ID: 4482902)
 Assignment: HW4
 
@@ -362,7 +388,7 @@ Name: mishrataru
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",
+</GRADE_DATA>","<GRADE_DATA> Student ID: 4482902 Name: mishrataru 2a_score: 7.5 2a_comment: Schematic includes key components (Arduino, LEDs, resistors) and shows general layout, but some pin numbers and resistor values are missing or unclear. 2b_score: 8.0 2b_comment: Code correctly implements the light sequence with appropriate timing and readable structure; delay function is used effectively. 2c_score: 7.8 2c_comment: Implementation appears to match the schematic and code; lights follow expected sequence and timing in the provided image evidence. total_score: 23.3 flags: None </GRADE_DATA>"
 aldenalec,4485322,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/aldenalec_4485322_83600399_BME 349 HW4.docx,No,"Student: aldenalec (ID: 4485322)
 Assignment: HW4
 

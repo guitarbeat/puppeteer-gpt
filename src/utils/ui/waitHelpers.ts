@@ -101,11 +101,25 @@ export async function waitForAssistantResponse(
   // Set step context for screenshots
   ScreenshotManager.setStepContext('waiting_for_response');
   
+  // Store initial URL for navigation detection
+  const initialUrl = page.url();
   uploadLogger.info(`Waiting for ChatGPT to respond... (timeout: ${timeout/1000}s)`);
   
   try {
     // Take a single screenshot at the start of waiting
     await ScreenshotManager.important(page, 'response-waiting-start');
+    
+    // Before waiting, check if we're still on the expected page
+    const currentUrl = page.url();
+    if (currentUrl !== initialUrl) {
+      uploadLogger.warn(`URL changed before response wait: ${initialUrl} -> ${currentUrl}`);
+      
+      // Check if we've navigated to a new chat
+      if (currentUrl.includes('/new') || currentUrl.includes('/c/new')) {
+        uploadLogger.error('Navigation to new chat detected before waiting for response');
+        return 'ERROR: Navigation to new chat detected before receiving response';
+      }
+    }
     
     // First wait for the send button to become disabled (processing)
     await page.waitForFunction(
@@ -136,6 +150,16 @@ export async function waitForAssistantResponse(
       // Function to check if the response is complete based on multiple signals
       const isResponseComplete = async (): Promise<boolean> => {
         try {
+          // First check if we're still on the same URL/session
+          // This would detect if we somehow navigated to a new chat
+          const currentUrl = page.url();
+          // If URL contains "/new" or "/c/new", we've navigated to a new chat
+          if (currentUrl.includes('/new') || currentUrl.includes('/c/new')) {
+            uploadLogger.warn('Detected navigation to a new chat session');
+            // We'll consider this complete to prevent further waiting
+            return true;
+          }
+          
           // 1. Check if send button is enabled again (primary signal)
           const sendButtonEnabled = await page.evaluate((selector) => {
             const btn = document.querySelector(selector);
@@ -153,7 +177,9 @@ export async function waitForAssistantResponse(
           const hasRegenerateButton = await page.evaluate(() => {
             return Boolean(
               document.querySelector('button[aria-label="Regenerate"]') || 
-              document.querySelector('button:has-text("Regenerate")')
+              Array.from(document.querySelectorAll('button')).some(btn => 
+                btn.textContent && btn.textContent.includes('Regenerate')
+              )
             );
           });
           
@@ -179,6 +205,7 @@ export async function waitForAssistantResponse(
           
           return false;
         } catch (err) {
+          uploadLogger.warn('Error in response check, assuming not complete:', err);
           return false;
         }
       };
@@ -187,6 +214,35 @@ export async function waitForAssistantResponse(
       responseCheckInterval = setInterval(async () => {
         try {
           checkCount++;
+          
+          // First check if the current URL is still what we expect
+          const currentUrl = page.url();
+          if (currentUrl !== initialUrl) {
+            uploadLogger.warn(`Page URL changed during response check: ${initialUrl} -> ${currentUrl}`);
+            
+            // If we've completely navigated away to a new chat
+            if (currentUrl.includes('/new') || currentUrl.includes('/c/new')) {
+              uploadLogger.error('Detected navigation to a new chat during response check');
+              
+              // Try to get whatever partial response we had
+              let partialResponse = '';
+              try {
+                // Check if we're still on ChatGPT domain
+                if (currentUrl.includes('chat.openai.com') || currentUrl.includes('chatgpt.com')) {
+                  // Take a screenshot to see what happened
+                  await ScreenshotManager.error(page, 'navigation-to-new-chat');
+                  
+                  // Get any partial response from before the navigation
+                  partialResponse = await getLatestResponse();
+                }
+              } catch (err) {
+                uploadLogger.error('Error getting partial response after navigation:', err);
+              }
+              
+              resolve(partialResponse || 'ERROR: Navigation to new chat detected during response');
+              return;
+            }
+          }
           
           // Check if response already complete based on UI signals
           const responseComplete = await isResponseComplete();
@@ -283,10 +339,41 @@ export async function waitForAssistantResponse(
       
       // Helper function to get the latest response text
       async function getLatestResponse(): Promise<string> {
-        return page.$$eval(messageSelector, (elements: Element[]) => {
-          const latest = elements[elements.length - 1];
-          return latest ? latest.textContent || '' : '';
-        });
+        try {
+          // First try using the selector to get all messages
+          const assistantMessages = await page.$$eval(messageSelector, (elements: Element[]) => {
+            if (!elements || elements.length === 0) return '';
+            
+            // Get the latest message
+            const latest = elements[elements.length - 1];
+            return latest ? latest.textContent || '' : '';
+          });
+          
+          if (assistantMessages && assistantMessages.trim() !== '') {
+            return assistantMessages;
+          }
+          
+          // If that fails, try a more general approach to find any assistant messages
+          uploadLogger.debug('Using backup method to find assistant messages');
+          return page.evaluate(() => {
+            // Look for messages with specific author role
+            const assistantElements = document.querySelectorAll('[data-message-author-role="assistant"]');
+            if (assistantElements && assistantElements.length > 0) {
+              return assistantElements[assistantElements.length - 1].textContent || '';
+            }
+            
+            // Look for messages with specific styling or classes common to assistant messages
+            const possibleAssistantMessages = document.querySelectorAll('.markdown, .ai-message, .assistant-message');
+            if (possibleAssistantMessages && possibleAssistantMessages.length > 0) {
+              return possibleAssistantMessages[possibleAssistantMessages.length - 1].textContent || '';
+            }
+            
+            return '';
+          });
+        } catch (error) {
+          uploadLogger.warn('Error getting response text:', error);
+          return '';
+        }
       }
     });
     
@@ -299,6 +386,21 @@ export async function waitForAssistantResponse(
       }, timeout);
     });
     
+    // Set up a navigation listener to detect page changes
+    let hasNavigated = false;
+    page.once('framenavigated', async (frame) => {
+      // Only care about main frame navigations
+      if (frame === page.mainFrame()) {
+        const newUrl = page.url();
+        // If it's a navigation to a new chat, or any significant URL change
+        if (newUrl !== initialUrl) {
+          hasNavigated = true;
+          uploadLogger.warn(`Page navigation detected during response wait: ${initialUrl} -> ${newUrl}`);
+          // Don't resolve/reject here - let the check interval handle it
+        }
+      }
+    });
+    
     // Race the response detection against timeout
     try {
       const response = await Promise.race([responsePromise, timeoutPromise]);
@@ -306,6 +408,11 @@ export async function waitForAssistantResponse(
       // Clean up intervals
       clearInterval(responseCheckInterval);
       clearInterval(progressCheckInterval);
+      
+      // Check if we've navigated unintentionally
+      if (hasNavigated) {
+        uploadLogger.warn('Response completed after page navigation - please verify the response is complete');
+      }
       
       // Take one final screenshot with the full response (marked as important)
       await ScreenshotManager.important(page, 'response-received-final');

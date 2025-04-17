@@ -1,12 +1,12 @@
 import * as path from 'path';
-import { Logger } from './logger';
+import type { Logger } from './logger';
 
 /**
  * A utility to provide enhanced error context for better debugging
  */
 export class ErrorContext {
   private readonly sourceFile: string;
-  private readonly logger: Logger;
+  private logger: any | null = null;
 
   /**
    * Creates a new ErrorContext instance for a specific file
@@ -14,9 +14,35 @@ export class ErrorContext {
    * @param filename The __filename of the current file
    * @param logger Optional logger instance to use
    */
-  constructor(filename: string, logger?: Logger) {
+  constructor(filename: string, logger?: any) {
     this.sourceFile = path.basename(filename);
-    this.logger = logger || new Logger({ prefix: `[${this.sourceFile}]` });
+    
+    if (logger) {
+      this.logger = logger;
+    }
+  }
+
+  /**
+   * Lazy-loads the Logger class to avoid circular dependencies
+   */
+  private getLogger() {
+    if (!this.logger) {
+      try {
+        // Dynamically import Logger to avoid circular dependency
+        const { Logger } = require('./logger');
+        this.logger = new Logger({ prefix: `[${this.sourceFile}]` });
+      } catch (err) {
+        console.error(`Failed to load Logger class: ${err}`);
+        // Fallback to console if Logger can't be loaded
+        this.logger = {
+          error: console.error,
+          warn: console.warn,
+          info: console.info,
+          debug: console.debug
+        };
+      }
+    }
+    return this.logger;
   }
 
   /**
@@ -70,7 +96,7 @@ export class ErrorContext {
     };
     
     // Log using structured format with context
-    this.logger.error(`${message} (in ${this.sourceFile})`, context);
+    this.getLogger().error(`${message} (in ${this.sourceFile})`, context);
     
     // Python-style error format for console
     console.error(`\nFile: ${this.sourceFile}`);

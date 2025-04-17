@@ -1,10 +1,19 @@
 import { Page } from 'puppeteer';
 import * as fs from 'fs';
 import * as path from 'path';
-import { ErrorContext } from './errorContext';
+// Import ErrorContext but create it on demand to avoid circular dependency
+import type { ErrorContext } from './errorContext';
 
-// Create error context for this file
-const errorContext = new ErrorContext(__filename);
+// Create error context for this file - but lazily to avoid circular dependency
+let errorContextInstance: any = null;
+
+function getErrorContext(): any {
+  if (!errorContextInstance) {
+    const { ErrorContext } = require('./errorContext');
+    errorContextInstance = new ErrorContext(__filename);
+  }
+  return errorContextInstance;
+}
 
 /**
  * Utility for managing screenshots
@@ -132,7 +141,7 @@ export class ScreenshotManager {
   /**
    * Take a screenshot and save it (internal implementation)
    */
-  private static async takeScreenshot(
+  static async takeScreenshot(
     page: Page, 
     prefix: string, 
     fullPage = false,
@@ -176,7 +185,7 @@ export class ScreenshotManager {
   /**
    * Take an error screenshot with logging (internal implementation)
    */
-  private static async takeErrorScreenshot(
+  static async takeErrorScreenshot(
     page: Page, 
     errorType: string, 
     details?: string,
@@ -184,7 +193,7 @@ export class ScreenshotManager {
   ): Promise<string | null> {
     // Always log errors, even if we don't take screenshots
     if (logToConsole && details) {
-      errorContext.logError(`Error [${errorType}]`, new Error(details), {
+      getErrorContext().logError(`Error [${errorType}]`, new Error(details), {
         errorType,
         action: 'screenshot',
         url: await page.url()

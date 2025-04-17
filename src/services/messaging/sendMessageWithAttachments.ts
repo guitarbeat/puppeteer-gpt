@@ -327,7 +327,21 @@ async function sendMessage(page: Page): Promise<void> {
       throw new Error('Send button is disabled');
     }
     
-    uploadLogger.info('Sending message to ChatGPT...');
+    // Capture initial URL before sending
+    const initialUrl = page.url();
+    uploadLogger.info(`Sending message to ChatGPT... (current URL: ${initialUrl})`);
+    
+    // Set up a navigation listener
+    let hasNavigated = false;
+    page.once('framenavigated', async (frame) => {
+      if (frame === page.mainFrame()) {
+        const newUrl = page.url();
+        if (newUrl !== initialUrl) {
+          hasNavigated = true;
+          uploadLogger.warn(`Page navigation detected during send: ${initialUrl} -> ${newUrl}`);
+        }
+      }
+    });
     
     // Try multiple approaches to ensure message is sent
     let success = false;
@@ -362,6 +376,32 @@ async function sendMessage(page: Page): Promise<void> {
     
     if (!success) {
       uploadLogger.warn('Message may not have been sent - please check and click send manually if needed');
+    } else {
+      // Check if the button is now disabled, which indicates the message is sending
+      try {
+        await page.waitForFunction(
+          (sel) => {
+            const btn = document.querySelector(sel);
+            return btn && btn.hasAttribute('disabled');
+          },
+          { timeout: 5000 },
+          sendButtonSelector
+        );
+        uploadLogger.info('Send button is now disabled, message is being processed');
+      } catch (waitError) {
+        uploadLogger.warn('Send button did not become disabled after clicking. Message may not be sending:', waitError);
+      }
+    }
+    
+    // Check if we've navigated to a new URL
+    if (hasNavigated) {
+      const currentUrl = page.url();
+      uploadLogger.warn(`Page navigation detected after sending message: ${initialUrl} -> ${currentUrl}`);
+      // If we've navigated to a new chat, this is unexpected
+      if (currentUrl.includes('/new') || currentUrl.includes('/c/new')) {
+        uploadLogger.error('Navigation to new chat detected after sending message - this is unexpected');
+        throw new Error('Unexpected navigation to new chat after sending message');
+      }
     }
     
     // Wait a moment to ensure click is processed
@@ -491,8 +531,8 @@ async function handleAttachments(page: Page, attachments: string[], useMultiUplo
  * @param text Text to type
  */
 async function simulateHumanTyping(page: Page, text: string): Promise<void> {
-  // Base typing speed in milliseconds (average human typing)
-  const baseDelay = 30;
+  // Base typing speed in milliseconds (faster typing)
+  const baseDelay = 5; // reduced from 30
   
   // Split text into paragraphs (for handling newlines)
   const paragraphs = text.split('\n');
@@ -500,7 +540,7 @@ async function simulateHumanTyping(page: Page, text: string): Promise<void> {
   for (let p = 0; p < paragraphs.length; p++) {
     const paragraph = paragraphs[p];
     
-    // Type each character with a random delay
+    // Type each character with a minimal delay
     for (let i = 0; i < paragraph.length; i++) {
       const char = paragraph[i];
       
@@ -510,28 +550,28 @@ async function simulateHumanTyping(page: Page, text: string): Promise<void> {
       // Calculate delay based on character type
       let delay = baseDelay;
       
-      // Add extra delay after punctuation
+      // Add small delay after punctuation
       if ('.!?,:;'.includes(char)) {
-        delay = baseDelay * (2 + Math.random() * 2); // 2-4x longer pause after punctuation
+        delay = baseDelay * (1.2 + Math.random() * 0.8); // 1.2-2x longer pause after punctuation
       } else {
-        // Random variation in typing speed
-        delay = baseDelay * (0.7 + Math.random() * 0.6); // 0.7-1.3x normal speed
+        // Minimal random variation in typing speed
+        delay = baseDelay * (0.5 + Math.random() * 0.5); // 0.5-1x normal speed
       }
       
-      // Occasionally add a longer pause to simulate human thinking
-      if (Math.random() < 0.05) {
-        delay = baseDelay * (4 + Math.random() * 6); // 4-10x longer pause, but rarely
+      // Occasionally add a slightly longer pause
+      if (Math.random() < 0.01) { // reduced probability from 0.05
+        delay = baseDelay * (2 + Math.random() * 2); // 2-4x longer pause, but rarely
       }
       
       // Wait before typing the next character
       await new Promise(resolve => setTimeout(resolve, delay));
     }
     
-    // If not the last paragraph, add a newline and a longer pause
+    // If not the last paragraph, add a newline and a slightly longer pause
     if (p < paragraphs.length - 1) {
       await page.keyboard.press('Enter');
-      // Longer pause after completing a paragraph
-      await new Promise(resolve => setTimeout(resolve, baseDelay * 5));
+      // Shorter pause after completing a paragraph
+      await new Promise(resolve => setTimeout(resolve, baseDelay * 2)); // reduced from 5
     }
   }
 } 
