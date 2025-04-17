@@ -1,12 +1,10 @@
-import { Page } from 'puppeteer';
+import puppeteer, { Page, Browser, PuppeteerLaunchOptions } from 'puppeteer';
 import { launchBrowser } from '../core/puppeteer';
 import { AuthService } from './auth';
-import { browserLogger } from '../utils/logger';
-import { ScreenshotManager } from '../utils/screenshot';
+import { ScreenshotManager } from '../utils/logging/screenshot';
 import * as fs from 'fs';
 import * as path from 'path';
-import { appConfig } from '../config/appConfig';
-import { authConfig } from '../config/auth';
+import { appConfig, authConfig } from '../config/appConfig';
 
 /**
  * Get responsive dimensions based on screen size
@@ -69,7 +67,7 @@ function getResponsiveDimensions(): { width: number, height: number } {
       height: appConfig.browser.height
     };
   } catch (error) {
-    browserLogger.warn('Could not detect screen size, using default dimensions', error);
+    console.warn('Could not detect screen size, using default dimensions', error);
     return {
       width: appConfig.browser.width,
       height: appConfig.browser.height
@@ -93,7 +91,7 @@ export class BrowserService {
       ? { width, height }
       : { width: appConfig.browser.width, height: appConfig.browser.height };
     
-    browserLogger.info(`Initializing browser (${dimensions.width}x${dimensions.height})`);
+    console.info(`Initializing browser (${dimensions.width}x${dimensions.height})`);
     const { page, browser } = await launchBrowser({
       width: dimensions.width,
       height: dimensions.height,
@@ -105,7 +103,7 @@ export class BrowserService {
     this.page = page;
     this.browser = browser;
     
-    browserLogger.debug('Browser initialized successfully');
+    console.debug('Browser initialized successfully');
     return page;
   }
 
@@ -116,12 +114,12 @@ export class BrowserService {
    */
   async resizeBrowser(width: number, height: number): Promise<void> {
     if (!this.page) {
-      browserLogger.warn('Cannot resize browser: No page initialized');
+      console.warn('Cannot resize browser: No page initialized');
       return;
     }
 
     try {
-      browserLogger.info(`Resizing browser to ${width}x${height}`);
+      console.info(`Resizing browser to ${width}x${height}`);
       
       // Set the viewport size
       await this.page.setViewport({ width, height });
@@ -138,9 +136,9 @@ export class BrowserService {
         mobile: isMobile
       });
       
-      browserLogger.success(`Browser resized to ${width}x${height}${isMobile ? ' (mobile)' : ''}`);
+      console.info(`Browser resized to ${width}x${height}${isMobile ? ' (mobile)' : ''}`);
     } catch (error) {
-      browserLogger.error('Failed to resize browser', error);
+      console.error('Failed to resize browser', error);
     }
   }
 
@@ -151,17 +149,17 @@ export class BrowserService {
     try {
       const cookiesPath = path.join(process.cwd(), authConfig.cookiePath);
       if (!fs.existsSync(cookiesPath)) {
-        browserLogger.warn('No cookies file found, skipping cookie loading');
+        console.warn('No cookies file found, skipping cookie loading');
         return;
       }
       
-      browserLogger.debug(`Loading cookies from ${cookiesPath}`);
+      console.debug(`Loading cookies from ${cookiesPath}`);
       const cookiesString = fs.readFileSync(cookiesPath, 'utf8');
       const cookies = JSON.parse(cookiesString);
       await page.setCookie(...cookies);
-      browserLogger.success('Cookies loaded successfully');
+      console.info('Cookies loaded successfully');
     } catch (error) {
-      browserLogger.error('Error loading cookies', error);
+      console.error('Error loading cookies', error);
       // Continue without cookies - authentication will handle this
     }
   }
@@ -176,12 +174,12 @@ export class BrowserService {
       const errorElement = await page.$(errorMsgSelector);
       if (errorElement) {
         const errorText = await errorElement.evaluate(el => el.textContent);
-        browserLogger.warn(`Detected warning message: ${errorText}`);
-        browserLogger.info('Continuing despite subscription warning...');
+        console.warn(`Detected warning message: ${errorText}`);
+        console.info('Continuing despite subscription warning...');
       }
       
       // Wait for the chat interface elements
-      browserLogger.info('Looking for chat interface elements...');
+      console.info('Looking for chat interface elements...');
       const selectors = [
         "#prompt-textarea",
         "[data-testid='send-button']",
@@ -201,11 +199,11 @@ export class BrowserService {
         throw new Error("Could not find chat interface elements");
       }
       
-      browserLogger.success(`Chat interface detected: ${element.selector}`);
+      console.info(`Chat interface detected: ${element.selector}`);
       return true;
     } catch (error) {
       await this.saveErrorScreenshot("chat-interface-error", "Failed to detect chat interface");
-      browserLogger.error('Failed to detect chat interface', error);
+      console.error('Failed to detect chat interface', error);
       throw new Error(`Failed to detect chat interface: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
@@ -214,16 +212,16 @@ export class BrowserService {
    * Navigate to the ChatGPT project URL
    */
   async navigateToChatGPT(page: Page, projectUrl: string): Promise<void> {
-    browserLogger.info(`Navigating to URL: ${projectUrl}`);
+    console.info(`Navigating to URL: ${projectUrl}`);
     await page.goto(projectUrl, { 
       waitUntil: "networkidle0",
       timeout: appConfig.timing.pageLoadTimeout
     });
 
     // Add a small delay to ensure the page is fully loaded
-    browserLogger.debug('Waiting for page to stabilize...');
+    console.debug('Waiting for page to stabilize...');
     await new Promise(resolve => setTimeout(resolve, appConfig.timing.pageStabilizationDelay));
-    browserLogger.debug('Navigation complete');
+    console.debug('Navigation complete');
   }
 
   /**
@@ -239,7 +237,7 @@ export class BrowserService {
       return await ScreenshotManager.error(this.page, errorType, details);
     } catch (err) {
       // Don't throw an error when trying to capture an error
-      browserLogger.error('Error taking error screenshot:', err);
+      console.error('Error taking error screenshot:', err);
       return null;
     }
   }
@@ -249,9 +247,9 @@ export class BrowserService {
    */
   async close(): Promise<void> {
     if (this.browser) {
-      browserLogger.debug('Closing browser...');
+      console.debug('Closing browser...');
       await this.browser.close();
-      browserLogger.info('Browser closed');
+      console.info('Browser closed');
     }
   }
 } 

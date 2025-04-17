@@ -1,1 +1,0 @@
-private gradeDataPattern = /<GRADE_DATA>[\s\S]*?<Student ID>.*?<\/Student ID>[\s\S]*?<Name>.*?<\/Name>[\s\S]*?<.*?_score>.*?<\/.*?_score>[\s\S]*?<.*?_comment>.*?<\/.*?_comment>[\s\S]*?<total_score>.*?<\/total_score>[\s\S]*?<\/GRADE_DATA>/i;

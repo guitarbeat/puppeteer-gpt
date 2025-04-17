@@ -1,7 +1,6 @@
 import { Page } from 'puppeteer';
 import * as path from 'path';
-import { uploadLogger } from '../../utils/logger';
-import { ScreenshotManager } from '../../utils/screenshot';
+import { ScreenshotManager } from '../../utils/logging/screenshot';
 import { UploadOptions, DEFAULT_UPLOAD_OPTIONS } from '../../utils/types';
 import { filterExistingFiles, processFilePath, resolveFilePaths, getFileInfo } from '../../utils/fileHelpers';
 import { openUploadMenu, getFileInput, uploadFiles, waitForUploadToComplete } from './uploadHelpers';
@@ -29,7 +28,7 @@ export async function uploadMultipleAttachments(
     throw new Error('No valid files to upload');
   }
 
-  uploadLogger.info(`Starting upload of ${existingFiles.length} files at once`);
+  console.info(`Starting upload of ${existingFiles.length} files at once`);
   
   try {
     // Open the upload menu
@@ -51,10 +50,10 @@ export async function uploadMultipleAttachments(
     // Take a verification screenshot
     await ScreenshotManager.takeScreenshot(page, 'upload-complete-multiple', false, false);
     
-    uploadLogger.success(`All ${existingFiles.length} files uploaded successfully`);
+    console.info(`All ${existingFiles.length} files uploaded successfully`);
     return true;
   } catch (error) {
-    uploadLogger.error('Failed during file upload', error);
+    console.error('Failed during file upload', error);
     await ScreenshotManager.takeErrorScreenshot(page, 'upload-error-multiple');
     throw new Error(`File upload failed: ${error instanceof Error ? error.message : String(error)}`);
   }
@@ -82,7 +81,7 @@ export async function uploadAttachment(
     throw new Error(`File not found: ${processedPath}`);
   }
   
-  uploadLogger.info(`Starting upload for: ${processedPath} (${fileInfo.size} bytes)`);
+  console.info(`Starting upload for: ${processedPath} (${fileInfo.size} bytes)`);
   
   try {
     // Take a screenshot of the current state
@@ -104,9 +103,9 @@ export async function uploadAttachment(
     // Take a verification screenshot
     await ScreenshotManager.takeScreenshot(page, 'upload-complete', false, false);
     
-    uploadLogger.success('File upload complete');
+    console.info('File upload complete');
   } catch (error) {
-    uploadLogger.error('Failed during file upload', error);
+    console.error('Failed during file upload', error);
     await ScreenshotManager.takeErrorScreenshot(page, 'upload-error');
     throw new Error(`File upload failed: ${error instanceof Error ? error.message : String(error)}`);
   }

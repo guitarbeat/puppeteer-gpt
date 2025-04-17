@@ -2,29 +2,19 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { Page } from 'puppeteer';
 import { waitForUserToContinue } from '../utils/userInput';
-import { authConfig } from '../config/auth';
-import { appConfig } from '../config/appConfig';
-import { ErrorContext } from '../utils/errorContext';
+import { appConfig, authConfig, AuthConfig } from '../config/appConfig';
+import { ErrorContext } from '../utils/logging/errorContext';
 
 // Create error context for this file
 const errorContext = new ErrorContext(__filename);
 
-export interface AuthConfig {
-  cookiePath: string;
-  loginUrl: string;
-  successSelector: string;
-  loginTimeout?: number;
-  screenshotDir?: string;
-}
+export { AuthConfig } from '../config/appConfig';
 
 export class AuthService {
   private config: AuthConfig;
 
-  constructor(config: AuthConfig) {
-    this.config = {
-      loginTimeout: appConfig.timing.pageLoadTimeout, // Use the same timeout from appConfig
-      ...config
-    };
+  constructor(config: AuthConfig = authConfig) {
+    this.config = config;
   }
 
   /**

@@ -1,6 +1,5 @@
 import { Page } from 'puppeteer';
-import { uploadLogger } from '../../utils/logger';
-import { ScreenshotManager } from '../../utils/screenshot';
+import { ScreenshotManager } from '../../utils/logging/screenshot';
 import { SELECTORS } from '../../utils/types';
 import { clickButton } from '../../utils/ui/uiHelpers';
 import { waitForLoadingToComplete, waitForFileIndicators } from '../../utils/ui/waitHelpers';
@@ -38,7 +37,7 @@ export async function openUploadMenu(page: Page, timeout: number = 20000): Promi
     
     return true;
   } catch (error) {
-    uploadLogger.error('Failed to click "Upload files and more" button', error);
+    console.error('Failed to click "Upload files and more" button', error);
     await ScreenshotManager.takeErrorScreenshot(page, 'upload-button-failure');
     throw new Error(`Upload button not found: ${error instanceof Error ? error.message : String(error)}`);
   }
@@ -49,14 +48,14 @@ export async function openUploadMenu(page: Page, timeout: number = 20000): Promi
  */
 export async function getFileInput(page: Page, timeout: number = 10000): Promise<any> {
   // Look for "Upload from computer" option
-  uploadLogger.debug('Looking for "Upload from computer" option');
+  console.debug('Looking for "Upload from computer" option');
   
   // First, try direct file input access
   try {
     const fileInputSelector = SELECTORS.FILE_INPUT;
     const fileInput = await page.$(fileInputSelector);
     if (fileInput) {
-      uploadLogger.debug('File input found directly without needing to click upload option');
+      console.debug('File input found directly without needing to click upload option');
       return fileInput;
     }
   } catch (e) {
@@ -68,7 +67,7 @@ export async function getFileInput(page: Page, timeout: number = 10000): Promise
     await clickUploadFromComputerOption(page);
     
     // Wait for the file input to appear
-    uploadLogger.debug('Looking for file input');
+    console.debug('Looking for file input');
     const fileInputSelector = SELECTORS.FILE_INPUT;
     await page.waitForSelector(fileInputSelector, { timeout });
     
@@ -79,7 +78,7 @@ export async function getFileInput(page: Page, timeout: number = 10000): Promise
     
     return inputUploadHandle;
   } catch (error) {
-    uploadLogger.error('Failed to get file input', error);
+    console.error('Failed to get file input', error);
     await ScreenshotManager.takeErrorScreenshot(page, 'file-input-error');
     throw new Error(`File input not found: ${error instanceof Error ? error.message : String(error)}`);
   }
@@ -100,12 +99,12 @@ export async function clickUploadFromComputerOption(page: Page): Promise<boolean
       if (text.includes('Upload') && text.includes('computer')) {
         await item.click();
         clicked = true;
-        uploadLogger.debug('Clicked "Upload from computer" via menu item selector');
+        console.debug('Clicked "Upload from computer" via menu item selector');
         break;
       }
     }
   } catch (e) {
-    uploadLogger.debug('Failed to find menu item by role selector');
+    console.debug('Failed to find menu item by role selector');
   }
   
   // Method 2: Try finding by visible text content
@@ -152,15 +151,15 @@ export async function clickUploadFromComputerOption(page: Page): Promise<boolean
       
       if (found) {
         clicked = true;
-        uploadLogger.debug('Clicked "Upload from computer" via text content evaluation');
+        console.debug('Clicked "Upload from computer" via text content evaluation');
       }
     } catch (e) {
-      uploadLogger.debug('Failed to click by text content evaluation');
+      console.debug('Failed to click by text content evaluation');
     }
   }
   
   if (!clicked) {
-    uploadLogger.warn('Could not find or click "Upload from computer" option using standard methods');
+    console.warn('Could not find or click "Upload from computer" option using standard methods');
   }
   
   await new Promise(resolve => setTimeout(resolve, 1000));
@@ -173,16 +172,16 @@ export async function clickUploadFromComputerOption(page: Page): Promise<boolean
 export async function uploadFiles(page: Page, fileInput: any, filePaths: string[]): Promise<void> {
   try {
     // Log the files being uploaded
-    uploadLogger.info(`Uploading ${filePaths.length} files at once:`);
+    console.info(`Uploading ${filePaths.length} files at once:`);
     filePaths.forEach((filePath, index) => {
-      uploadLogger.debug(`  ${index+1}. ${filePath}`);
+      console.debug(`  ${index+1}. ${filePath}`);
     });
     
     // Upload all files at once
     await fileInput.uploadFile(...filePaths);
-    uploadLogger.info('All files submitted to input');
+    console.info('All files submitted to input');
   } catch (error) {
-    uploadLogger.error('Failed to upload files', error);
+    console.error('Failed to upload files', error);
     throw new Error(`File upload failed: ${error instanceof Error ? error.message : String(error)}`);
   }
 }
@@ -211,7 +210,7 @@ export async function waitForUploadToComplete(
   
   // Final wait to ensure all processing is complete
   const finalWaitTime = Math.min(3000 * waitTimeMultiplier, 8000);
-  uploadLogger.debug(`Waiting additional ${finalWaitTime/1000}s to ensure all uploads are processed`);
+  console.debug(`Waiting additional ${finalWaitTime/1000}s to ensure all uploads are processed`);
   await new Promise(res => setTimeout(res, finalWaitTime));
   
   return uploadConfirmed;

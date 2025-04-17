@@ -1,11 +1,10 @@
 import { Page } from 'puppeteer';
-import { uploadLogger } from '../logger';
-import { ScreenshotManager } from '../screenshot';
+import { ScreenshotManager } from '../logging/screenshot';
 import { SELECTORS } from '../types';
-import { ErrorContext } from '../errorContext';
+import { ErrorContext } from '../logging/errorContext';
 
 // Create error context for this file
-const errorContext = new ErrorContext(__filename, uploadLogger);
+const errorContext = new ErrorContext(__filename);
 
 /**
  * Enters text into a textarea
@@ -15,7 +14,7 @@ export async function enterText(page: Page, selector: string, text: string): Pro
     // Log the text length and sample for debugging
     const textPreview = text.length > 30 ? `${text.substring(0, 30)}...` : text;
     const lineCount = text.split('\n').length;
-    uploadLogger.debug(`Entering text: ${textPreview} (${text.length} chars, ${lineCount} lines)`);
+    console.debug(`Entering text: ${textPreview} (${text.length} chars, ${lineCount} lines)`);
     
     // Wait for the element to be available
     await page.waitForSelector(selector, { timeout: 15000 });
@@ -89,10 +88,10 @@ export async function enterText(page: Page, selector: string, text: string): Pro
     // Verify if this approach worked
     const valueAfterFirstApproach = await page.$eval(selector, (el: any) => el.value || '');
     if (valueAfterFirstApproach && valueAfterFirstApproach.trim() !== '') {
-      uploadLogger.debug('Text entry succeeded using direct DOM manipulation');
+      console.debug('Text entry succeeded using direct DOM manipulation');
       success = true;
     } else {
-      uploadLogger.warn('Direct DOM manipulation failed, trying click and type approach');
+      console.warn('Direct DOM manipulation failed, trying click and type approach');
       success = false;
     }
     
@@ -141,11 +140,11 @@ export async function enterText(page: Page, selector: string, text: string): Pro
     if (!inputValue || inputValue.trim() === '') {
       // Take screenshot to see the state
       await ScreenshotManager.debug(page, "text-entry-failure");
-      uploadLogger.warn('Text entry verification failed - textarea value is empty or whitespace');
+      console.warn('Text entry verification failed - textarea value is empty or whitespace');
     } else if (inputValue.length < text.length * 0.9) { // Allow for some truncation/difference
-      uploadLogger.warn(`Text entry truncated: ${inputValue.length} chars vs expected ${text.length}`);
+      console.warn(`Text entry truncated: ${inputValue.length} chars vs expected ${text.length}`);
     } else {
-      uploadLogger.debug(`Text entry successful: ${inputValue.length} chars entered`);
+      console.debug(`Text entry successful: ${inputValue.length} chars entered`);
     }
   } catch (error) {
     errorContext.logError(`Could not enter text in selector "${selector}"`, error, {
@@ -164,7 +163,7 @@ export async function verifyTextEntry(page: Page, selector: string): Promise<boo
   try {
     const inputValue = await page.$eval(selector, (el: any) => el.value);
     if (!inputValue || inputValue.trim() === '') {
-      uploadLogger.warn('Warning: Element value appears empty, but text may still be visually entered');
+      console.warn('Warning: Element value appears empty, but text may still be visually entered');
       
       // Additional debug to check what's actually showing in the DOM
       const visualTextContent = await page.$eval(selector, (el: any) => {
@@ -177,14 +176,14 @@ export async function verifyTextEntry(page: Page, selector: string): Promise<boo
           isVisible: el.offsetParent !== null
         };
       });
-      uploadLogger.debug(`Visual text check: ${JSON.stringify(visualTextContent)}`);
+      console.debug(`Visual text check: ${JSON.stringify(visualTextContent)}`);
       
       // Take screenshot to see what's actually rendering
       await ScreenshotManager.debug(page, "text-verification-debug");
       
       return false;
     }
-    uploadLogger.debug(`Text verified in textarea: ${inputValue.substring(0, 50)}${inputValue.length > 50 ? '...' : ''}`);
+    console.debug(`Text verified in textarea: ${inputValue.substring(0, 50)}${inputValue.length > 50 ? '...' : ''}`);
     return true;
   } catch (error) {
     errorContext.logError(`Could not verify text entry for selector "${selector}"`, error, {
@@ -208,7 +207,7 @@ export async function clickButton(page: Page, selector: string, retries: number 
       // Regular click
       await page.click(selector);
       success = true;
-      uploadLogger.debug(`Clicked button ${selector} on attempt ${attempt + 1}`);
+      console.debug(`Clicked button ${selector} on attempt ${attempt + 1}`);
     } catch (clickError) {
       // Try JavaScript click as fallback
       try {
@@ -222,10 +221,10 @@ export async function clickButton(page: Page, selector: string, retries: number 
         }, selector);
         
         success = true;
-        uploadLogger.debug(`Used JavaScript to click button ${selector} on attempt ${attempt + 1}`);
+        console.debug(`Used JavaScript to click button ${selector} on attempt ${attempt + 1}`);
       } catch (jsError) {
         if (attempt === retries - 1) {
-          uploadLogger.warn(`Failed to click button ${selector} after ${retries} attempts`);
+          console.warn(`Failed to click button ${selector} after ${retries} attempts`);
         }
       }
     }
@@ -354,7 +353,7 @@ export async function waitForButtonState(
     );
     return true;
   } catch (e) {
-    uploadLogger.warn(`Button did not reach ${targetState} state within timeout`);
+    console.warn(`Button did not reach ${targetState} state within timeout`);
     return false;
   }
 } 

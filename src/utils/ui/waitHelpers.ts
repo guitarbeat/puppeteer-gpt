@@ -1,7 +1,6 @@
 import { Page } from 'puppeteer';
-import { uploadLogger } from '../logger';
 import { LOADING_INDICATORS, FILE_INDICATORS } from '../types';
-import { ScreenshotManager } from '../screenshot';
+import { ScreenshotManager } from '../logging/screenshot';
 
 /**
  * Wait for loading indicators to disappear
@@ -22,7 +21,7 @@ export async function waitForLoadingToComplete(
       return true;
     }
     
-    uploadLogger.debug('Found loading indicators, waiting for them to disappear...');
+    console.log('Found loading indicators, waiting for them to disappear...');
     
     // Wait for loading indicators to disappear
     await page.waitForFunction(
@@ -48,10 +47,10 @@ export async function waitForLoadingToComplete(
       selectors
     );
     
-    uploadLogger.debug('All loading indicators have disappeared');
+    console.log('All loading indicators have disappeared');
     return true;
   } catch (e) {
-    uploadLogger.debug('Loading indicators did not disappear within the timeout, continuing anyway');
+    console.log('Loading indicators did not disappear within the timeout, continuing anyway');
     return false;
   }
 }
@@ -81,10 +80,10 @@ export async function waitForFileIndicators(
       return possibleElements.some(collection => collection.length > 0);
     }, { timeout }, FILE_INDICATORS, expectedCount);
     
-    uploadLogger.debug('File indicators found - upload appears complete');
+    console.log('File indicators found - upload appears complete');
     return true;
   } catch (e) {
-    uploadLogger.debug('Could not confirm file upload through UI indicators');
+    console.log('Could not confirm file upload through UI indicators');
     return false;
   }
 }
@@ -103,7 +102,12 @@ export async function waitForAssistantResponse(
   
   // Store initial URL for navigation detection
   const initialUrl = page.url();
-  uploadLogger.info(`Waiting for ChatGPT to respond... (timeout: ${timeout/1000}s)`);
+  console.log(`Waiting for ChatGPT to respond... (timeout: ${timeout/1000}s)`);
+  
+  // DEBUG: Log more details about the initial state
+  console.log(`DEBUG - waitForAssistantResponse start URL: ${initialUrl}`);
+  console.log(`DEBUG - Looking for message selector: ${messageSelector}`);
+  console.log(`DEBUG - Waiting for button selector: ${sendButtonSelector}`);
   
   try {
     // Take a single screenshot at the start of waiting
@@ -112,11 +116,11 @@ export async function waitForAssistantResponse(
     // Before waiting, check if we're still on the expected page
     const currentUrl = page.url();
     if (currentUrl !== initialUrl) {
-      uploadLogger.warn(`URL changed before response wait: ${initialUrl} -> ${currentUrl}`);
+      console.log(`DEBUG - WARNING! URL changed before response wait: ${initialUrl} -> ${currentUrl}`);
       
       // Check if we've navigated to a new chat
       if (currentUrl.includes('/new') || currentUrl.includes('/c/new')) {
-        uploadLogger.error('Navigation to new chat detected before waiting for response');
+        console.log(`DEBUG - CRITICAL! Navigation to new chat detected before waiting for response`);
         return 'ERROR: Navigation to new chat detected before receiving response';
       }
     }
@@ -130,6 +134,20 @@ export async function waitForAssistantResponse(
       { timeout: 60000 },  // Increased timeout from 30000 to 60000
       sendButtonSelector
     );
+    
+    // DEBUG: Check if we're still on the project page after button is disabled
+    const currentUrlAfterButtonDisabled = page.url();
+    console.log(`DEBUG - URL after send button disabled: ${currentUrlAfterButtonDisabled}`);
+    
+    // Check if we've been redirected to a different page
+    if (currentUrlAfterButtonDisabled !== initialUrl) {
+      console.log(`DEBUG - ALERT! URL changed after sending message: ${initialUrl} -> ${currentUrlAfterButtonDisabled}`);
+      
+      // Check if we're still on a chat page at all
+      if (!currentUrlAfterButtonDisabled.includes('/g/')) {
+        console.log(`DEBUG - CRITICAL! No longer on GPT page after sending message`);
+      }
+    }
     
     // Don't take a screenshot here - this happens immediately after sending
     
@@ -156,7 +174,7 @@ export async function waitForAssistantResponse(
           const currentUrl = page.url();
           // If URL contains "/new" or "/c/new", we've navigated to a new chat
           if (currentUrl.includes('/new') || currentUrl.includes('/c/new')) {
-            uploadLogger.warn('Detected navigation to a new chat session');
+            console.log(`DEBUG - WARNING! Detected navigation to a new chat session`);
             // We'll consider this complete to prevent further waiting
             return true;
           }
@@ -168,7 +186,7 @@ export async function waitForAssistantResponse(
           }, sendButtonSelector);
           
           if (sendButtonEnabled) {
-            uploadLogger.info('Send button is enabled again, response is complete');
+            console.log(`DEBUG - INFO! Send button is enabled again, response is complete`);
             // Take a screenshot when complete (marked as important)
             await ScreenshotManager.important(page, 'response-complete-button-enabled');
             return true;
@@ -185,7 +203,7 @@ export async function waitForAssistantResponse(
           });
           
           if (hasRegenerateButton) {
-            uploadLogger.info('Regenerate button detected, response is complete');
+            console.log(`DEBUG - INFO! Regenerate button detected, response is complete`);
             // No need for a separate screenshot here
             return true;
           }
@@ -199,14 +217,14 @@ export async function waitForAssistantResponse(
           });
           
           if (hasContinueButton) {
-            uploadLogger.info('Continue button detected, response is partially complete');
+            console.log(`DEBUG - INFO! Continue button detected, response is partially complete`);
             // No need for a screenshot here either
             maxStableTime = 5000; // 5 seconds
           }
           
           return false;
         } catch (err) {
-          uploadLogger.warn('Error in response check, assuming not complete:', err);
+          console.log(`DEBUG - WARNING! Error in response check, assuming not complete:`, err);
           return false;
         }
       };
@@ -219,11 +237,11 @@ export async function waitForAssistantResponse(
           // First check if the current URL is still what we expect
           const currentUrl = page.url();
           if (currentUrl !== initialUrl) {
-            uploadLogger.warn(`Page URL changed during response check: ${initialUrl} -> ${currentUrl}`);
+            console.log(`DEBUG - WARNING! Page URL changed during response check: ${initialUrl} -> ${currentUrl}`);
             
             // If we've completely navigated away to a new chat
             if (currentUrl.includes('/new') || currentUrl.includes('/c/new')) {
-              uploadLogger.error('Detected navigation to a new chat during response check');
+              console.log(`DEBUG - CRITICAL! Detected navigation to a new chat during response check`);
               
               // Try to get whatever partial response we had
               let partialResponse = '';
@@ -237,7 +255,7 @@ export async function waitForAssistantResponse(
                   partialResponse = await getLatestResponse();
                 }
               } catch (err) {
-                uploadLogger.error('Error getting partial response after navigation:', err);
+                console.log(`DEBUG - ERROR! Error getting partial response after navigation:`, err);
               }
               
               resolve(partialResponse || 'ERROR: Navigation to new chat detected during response');
@@ -277,7 +295,7 @@ export async function waitForAssistantResponse(
             
             // Log progress only for significant changes (25%+ increase) or every 4th check
             if (currentLength > lastLength * 1.25 || checkCount % 4 === 0) {
-              uploadLogger.info(`Response in progress: ~${currentLength} chars`);
+              console.log(`DEBUG - INFO! Response in progress: ~${currentLength} chars`);
               lastProgressUpdate = Date.now();
             }
             
@@ -288,7 +306,7 @@ export async function waitForAssistantResponse(
               
               // If text hasn't changed for specified time, consider it complete
               if (stableTime >= maxStableTime) {
-                uploadLogger.info(`Response stable for ${stableTime/1000}s and is ${currentLength} chars`);
+                console.log(`DEBUG - INFO! Response stable for ${stableTime/1000}s and is ${currentLength} chars`);
                 // Take a final screenshot when response is stable (marked as important)
                 await ScreenshotManager.important(page, 'response-complete-stable');
                 resolve(responseText);
@@ -317,7 +335,7 @@ export async function waitForAssistantResponse(
           try {
             const responseText = await getLatestResponse();
             if (responseText && responseText.length > lastLength) {
-              uploadLogger.info(`Progress detected: ~${responseText.length} chars`);
+              console.log(`DEBUG - INFO! Progress detected: ~${responseText.length} chars`);
               lastLength = responseText.length;
               lastProgressUpdate = currentTime;
             }
@@ -330,7 +348,7 @@ export async function waitForAssistantResponse(
         // assume we're stuck and return what we have
         const noProgressTime = currentTime - lastProgressUpdate;
         if (totalElapsed > timeout/2 && noProgressTime > 60000 && lastLength > 0) {
-          uploadLogger.warn(`No progress for ${noProgressTime/1000}s, returning current response`);
+          console.log(`DEBUG - WARNING! No progress for ${noProgressTime/1000}s, returning current response`);
           // Take screenshot when timing out (marked as important since it's an error condition)
           await ScreenshotManager.important(page, 'response-timeout-no-progress');
           const finalResponse = await getLatestResponse();
@@ -355,7 +373,7 @@ export async function waitForAssistantResponse(
           }
           
           // If that fails, try a more general approach to find any assistant messages
-          uploadLogger.debug('Using backup method to find assistant messages');
+          console.log(`DEBUG - INFO! Using backup method to find assistant messages`);
           return page.evaluate(() => {
             // Look for messages with specific author role
             const assistantElements = document.querySelectorAll('[data-message-author-role="assistant"]');
@@ -372,7 +390,7 @@ export async function waitForAssistantResponse(
             return '';
           });
         } catch (error) {
-          uploadLogger.warn('Error getting response text:', error);
+          console.log(`DEBUG - WARNING! Error getting response text:`, error);
           return '';
         }
       }
@@ -396,7 +414,7 @@ export async function waitForAssistantResponse(
         // If it's a navigation to a new chat, or any significant URL change
         if (newUrl !== initialUrl) {
           hasNavigated = true;
-          uploadLogger.warn(`Page navigation detected during response wait: ${initialUrl} -> ${newUrl}`);
+          console.log(`DEBUG - WARNING! Page navigation detected during response wait: ${initialUrl} -> ${newUrl}`);
           // Don't resolve/reject here - let the check interval handle it
         }
       }
@@ -412,7 +430,7 @@ export async function waitForAssistantResponse(
       
       // Check if we've navigated unintentionally
       if (hasNavigated) {
-        uploadLogger.warn('Response completed after page navigation - please verify the response is complete');
+        console.log(`DEBUG - WARNING! Response completed after page navigation - please verify the response is complete`);
       }
       
       // Take one final screenshot with the full response (marked as important)
@@ -428,7 +446,7 @@ export async function waitForAssistantResponse(
       throw error;
     }
   } catch (error) {
-    uploadLogger.error('Error waiting for assistant response:', error);
+    console.log(`DEBUG - ERROR! Error waiting for assistant response:`, error);
     
     // Take error screenshot
     await ScreenshotManager.error(page, 'response-waiting-error', String(error));
@@ -441,7 +459,7 @@ export async function waitForAssistantResponse(
       });
       
       if (partialResponse) {
-        uploadLogger.info(`Returning partial response (${partialResponse.length} chars) due to timeout`);
+        console.log(`DEBUG - INFO! Returning partial response (${partialResponse.length} chars) due to timeout`);
         return partialResponse;
       }
     } catch (e) {

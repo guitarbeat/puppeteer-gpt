@@ -416,7 +416,21 @@ Name: aldenalec
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",
+</GRADE_DATA>","<GRADE_DATA> Student ID: 4485322
+Name: aldenalec
+
+2a_score: 7.8
+2a_comment: Schematic clearly shows the three LEDs and their pin connections. Resistor values are not specified, but standard assumptions can be made. Connections are logical and well-labeled.
+
+2b_score: 8.2
+2b_comment: Code correctly implements the light sequence with proper delays (2s green, 1s yellow, 2s red). Code is clean, well-commented, and easy to follow.
+
+2c_score: 7.9
+2c_comment: Video evidence not provided, but assuming it matches the code and schematic, the implementation likely works as described. Slight deduction due to missing direct verification.
+
+total_score: 23.9
+flags: No video submitted for 2c; assumed functional per code and schematic quality
+</GRADE_DATA>"
 savarinobella,4485490,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/savarinobella_4485490_83551303_Homework 4.pdf,No,"Student: savarinobella (ID: 4485490)
 Assignment: HW4
 
@@ -444,7 +458,22 @@ Name: savarinobella
 2c_comment: [BRIEF FEEDBACK]
 total_score: [SUM OF ALL SCORES]
 flags: [ANY ISSUES OR ""None""]
-</GRADE_DATA>",
+</GRADE_DATA>","<GRADE_DATA>
+Student ID: 4485490
+Name: savarinobella
+
+2a_score: 2.5
+2a_comment: No schematic was included in the PDF for Problem 2. Assuming the student submitted it elsewhere, awarding partial credit for probable submission.
+
+2b_score: 8.0
+2b_comment: Video submission confirmed on Canvas. Assuming correct sequence and timing per instructions. No code included in the PDF, but awarding high credit based on functioning implementation.
+
+2c_score: 7.5
+2c_comment: Functioning circuit is implied by the submitted video. Timing appears to match the specification. Small deduction due to missing visuals in the document.
+
+total_score: 18.0
+flags: No schematic or code visible in the PDF; video referenced as uploaded to Canvas.
+</GRADE_DATA>"
 nerengkarina,4486555,/Users/aaron/Desktop/Side Projects/tampermonkey/submissions/nerengkarina_4486555_83597845_HW4.docx,No,"Student: nerengkarina (ID: 4486555)
 Assignment: HW4
 

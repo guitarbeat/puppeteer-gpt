@@ -1,11 +1,19 @@
 import { BrowserService } from './src/services/browser';
 import { AuthService } from './src/services/auth';
-import { CsvProcessor } from './src/services/csvProcessor';
-import { ScreenshotManager } from './src/utils/screenshot';
-import { authConfig } from './src/config/auth';
-import { appConfig, getCsvPath } from './src/config/appConfig';
+import { CsvService } from './src/services/csvService';
+import { ScreenshotManager } from './src/utils/logging/screenshot';
+import { appConfig, authConfig, getCsvPath } from './src/config/appConfig';
 import { CliUtils } from './src/utils/cli';
-import { logger, LogLevel } from './src/utils/logger';
+
+// Define LogLevel enum to be compatible with the removed logger
+enum LogLevel {
+  DEBUG = 0,
+  INFO = 1,
+  SUCCESS = 2,
+  WARN = 3,
+  ERROR = 4,
+  NONE = 5
+}
 
 /**
  * Parse command line arguments
@@ -53,30 +61,26 @@ function parseCommandLineArgs() {
   
   // If no CSV path specified, use default
   if (!options.csvPath) {
-    options.csvPath = appConfig.defaultCsvPath;
+    options.csvPath = appConfig.paths.defaultCsvPath;
   }
   
   return options;
 }
 
 /**
- * Configure the logger based on command line options
+ * Configure the logger based on command line options - now simply sets the log level for reference
  */
 function configureLogger(options: {
   verbose: boolean;
   quiet: boolean;
   rowLogsExclusive: boolean;
 }): void {
-  if (options.verbose) {
-    logger.setLevel(LogLevel.DEBUG);
-  } else if (options.quiet) {
-    logger.setLevel(LogLevel.ERROR);
-  } else {
-    logger.setLevel(LogLevel.INFO);
-  }
+  // Just storing the level information for reference since we're using console directly
+  const logLevel = options.verbose ? LogLevel.DEBUG : 
+                  options.quiet ? LogLevel.ERROR : 
+                  LogLevel.INFO;
   
-  // Configure row log exclusivity (whether row logs only go to row-specific files)
-  logger.setRowLogExclusive(options.rowLogsExclusive);
+  console.info(`Log level set to: ${LogLevel[logLevel]}`);
 }
 
 /**
@@ -89,7 +93,7 @@ ChatGPT CSV Processor
 Usage: node index.js [csvPath] [options]
 
 Arguments:
-  csvPath             Path to the CSV file to process (default: ${appConfig.defaultCsvPath})
+  csvPath             Path to the CSV file to process (default: ${appConfig.paths.defaultCsvPath})
 
 Options:
   -n, --no-retry      Don't retry rows that previously failed with errors
@@ -137,34 +141,29 @@ async function main() {
       rowLogsExclusive: options.rowLogsExclusive
     });
     
-    // Initialize log file in the same directory - this will also start console capture
-    logger.initLogFile();
-    
-    // Add a small delay to ensure logging is initialized
-    await new Promise(resolve => setTimeout(resolve, 100));
+    // No need to initialize log file anymore
     
     // Log startup info
-    logger.info('Starting ChatGPT CSV Processor');
-    logger.info(`CSV Path: ${options.csvPath}`);
-    logger.info(`Retry Failed Rows: ${options.retryFailedRows ? 'Yes' : 'No'}`);
-    logger.info(`Process in Reverse: ${options.processInReverse ? 'Yes' : 'No'}`);
-    logger.info(`Row Logs Exclusive: ${options.rowLogsExclusive ? 'Yes' : 'No'}`);
-    logger.info(`Screenshots: ${options.screenshotsDisabled ? 'Errors only' : 'Enabled'}`);
+    console.info('Starting ChatGPT CSV Processor');
+    console.info(`CSV Path: ${options.csvPath}`);
+    console.info(`Retry Failed Rows: ${options.retryFailedRows ? 'Yes' : 'No'}`);
+    console.info(`Process in Reverse: ${options.processInReverse ? 'Yes' : 'No'}`);
+    console.info(`Row Logs Exclusive: ${options.rowLogsExclusive ? 'Yes' : 'No'}`);
+    console.info(`Screenshots: ${options.screenshotsDisabled ? 'Errors only' : 'Enabled'}`);
     
     console.log('This console.log message should appear in the log file too');
     
     // Create service instances
     const browserService = new BrowserService();
-    const csvProcessor = new CsvProcessor(options.retryFailedRows, options.processInReverse);
+    const csvProcessor = new CsvService(options.retryFailedRows, options.processInReverse);
     const authService = new AuthService(authConfig);
     
     // Validate that the CSV file exists
     if (!csvProcessor.validateCsvFile(options.csvPath)) {
-      logger.closeLogFile();
       return;
     }
     
-    logger.info(`Opening ChatGPT to process CSV: ${options.csvPath}`);
+    console.info(`Opening ChatGPT to process CSV: ${options.csvPath}`);
 
     // Initialize browser with responsive sizing
     const page = await browserService.initialize();
@@ -180,7 +179,11 @@ async function main() {
       await browserService.loadCookies(page);
       
       // Navigate to ChatGPT project
-      await browserService.navigateToChatGPT(page, appConfig.chatGptProjectUrl);
+      console.log(`Navigating to ChatGPT project URL: ${appConfig.urls.chatGptProjectUrl}`);
+      await page.goto(appConfig.urls.chatGptProjectUrl, { 
+        waitUntil: 'networkidle2',
+        timeout: appConfig.timing.pageLoadTimeout
+      });
       
       // Wait for chat interface
       const interfaceReady = await browserService.waitForChatInterface(page);
@@ -188,7 +191,7 @@ async function main() {
         throw new Error('Failed to initialize chat interface');
       }
       
-      logger.success('ChatGPT project chat is ready!');
+      console.info('ChatGPT project chat is ready!');
       
       // Process the CSV file
       await csvProcessor.processRows(options.csvPath, page);
@@ -200,14 +203,11 @@ async function main() {
       await new Promise(resolve => setTimeout(resolve, 500));
       await browserService.close();
       
-      // Close the log file
-      logger.closeLogFile();
-      
-      logger.success('Browser closed. CSV processing complete.');
+      console.info('Browser closed. CSV processing complete.');
       
     } catch (error) {
       // Handle any errors that occur during processing
-      logger.error('Error during CSV processing', error);
+      console.error('Error during CSV processing', error);
       if (page) {
         await ScreenshotManager.error(
           page,
@@ -218,15 +218,12 @@ async function main() {
       
       await browserService.close();
       
-      // Close the log file even if there was an error
-      logger.closeLogFile();
-      
       throw error;
     } finally {
       CliUtils.closeReadline();
     }
   } catch (error) {
-    logger.error('Application error', error);
+    console.error('Application error', error);
     process.exit(1);
   }
 }
