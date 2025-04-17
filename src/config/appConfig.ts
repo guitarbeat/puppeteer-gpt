@@ -60,12 +60,12 @@ export const appConfig: AppConfig = {
   },
   
   timing: {
-    pageLoadTimeout: 60000, // 60 seconds
-    betweenRowDelay: 5000,  // 5 seconds
+    pageLoadTimeout: 90000,  // Increased from 60000 to 90000 (90 seconds)
+    betweenRowDelay: 5000,   // 5 seconds
     maxRetries: 3,
     pageStabilizationDelay: 2000, // 2 seconds
     initialRetryDelay: 5000, // 5 seconds initial retry delay
-    maxRetryDelay: 30000    // 30 seconds max retry delay
+    maxRetryDelay: 30000     // 30 seconds max retry delay
   },
   
   errorHandling: {

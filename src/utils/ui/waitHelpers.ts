@@ -96,7 +96,7 @@ export async function waitForAssistantResponse(
   page: Page, 
   messageSelector: string,
   sendButtonSelector: string,
-  timeout: number = 120000
+  timeout: number = 180000  // Increased from 120000 to 180000 (3 minutes)
 ): Promise<string> {
   // Set step context for screenshots
   ScreenshotManager.setStepContext('waiting_for_response');
@@ -127,7 +127,7 @@ export async function waitForAssistantResponse(
         const btn = document.querySelector(btnSelector);
         return !btn || btn.getAttribute('disabled') === 'disabled';
       },
-      { timeout: 30000 },
+      { timeout: 60000 },  // Increased timeout from 30000 to 60000
       sendButtonSelector
     );
     
@@ -139,6 +139,7 @@ export async function waitForAssistantResponse(
     let lastProgressUpdate = Date.now();
     let responseStartTime = Date.now();
     let lastScreenshotTime = Date.now();
+    let firstResponseDetected = false;
     
     // This promise will resolve when a response is detected
     const responsePromise = new Promise<string>((resolve, reject) => {

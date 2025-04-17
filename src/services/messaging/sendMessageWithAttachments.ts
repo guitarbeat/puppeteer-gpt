@@ -171,14 +171,50 @@ export async function sendMessageWithAttachments(
     await sendMessage(page);
     
     // Wait for and get the AI's response
-    const response = await waitForAssistantResponse(
-      page, 
-      SELECTORS.ASSISTANT_MESSAGE, 
-      SELECTORS.SEND_BUTTON,
-      mergedOptions.responseTimeout
-    );
-    
-    uploadLogger.success('Response received!');
+    uploadLogger.info(`Waiting for ChatGPT response (timeout: ${(mergedOptions.responseTimeout ?? 180000)/1000}s)...`);
+    let response;
+    try {
+      response = await waitForAssistantResponse(
+        page, 
+        SELECTORS.ASSISTANT_MESSAGE, 
+        SELECTORS.SEND_BUTTON,
+        mergedOptions.responseTimeout
+      );
+      
+      // Log additional details about the response
+      uploadLogger.info(`Received response with ${response.length} characters`);
+      
+      // Check if response might be incomplete (less than 100 chars)
+      if (response.length < 100) {
+        uploadLogger.warn(`Potentially incomplete response (only ${response.length} chars). The response might have been cut off.`);
+        await ScreenshotManager.important(page, 'potentially-incomplete-response');
+      }
+      
+      uploadLogger.success('Response received!');
+    } catch (responseError) {
+      // Handle timeout errors specifically
+      uploadLogger.error('Error getting response:', responseError);
+      
+      // Take a screenshot of the error state
+      await ScreenshotManager.error(page, 'response-error');
+      
+      // Try to get whatever partial response we can
+      try {
+        const partialResponse = await page.$$eval(SELECTORS.ASSISTANT_MESSAGE, (elements) => {
+          const latest = elements[elements.length - 1];
+          return latest ? latest.textContent || '' : '';
+        });
+        
+        if (partialResponse && partialResponse.length > 0) {
+          uploadLogger.warn(`Returning partial response (${partialResponse.length} chars) after error`);
+          response = partialResponse;
+        } else {
+          throw responseError;
+        }
+      } catch (fallbackError) {
+        throw responseError;
+      }
+    }
     
     return response;
   } catch (error) {

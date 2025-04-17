@@ -32,7 +32,7 @@ export interface MessageOptions {
  */
 export const DEFAULT_MESSAGE_OPTIONS: MessageOptions = {
   useMultiUpload: true,
-  responseTimeout: 120000,
+  responseTimeout: 180000,
   screenshotPrefix: 'message'
 };
 

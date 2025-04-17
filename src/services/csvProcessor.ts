@@ -260,6 +260,9 @@ export class CsvProcessor {
   private logResponsePreview(response: string, rowLogger: Logger, rowNum: number): void {
     const responsePreview = truncateString(response, 60);
     csvLogger.logMultiple(rowLogger, 'success', rowNum, 'Success!', responsePreview);
+    
+    // Log the full response to the row-specific log file
+    rowLogger.info(`Full ChatGPT Response (${response.length} chars):\n---\n${response}\n---`);
   }
   
   /**
